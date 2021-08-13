@@ -4,6 +4,7 @@
   "description": "The topic in 2021 is SPACE",
   "main": "index.js",
   "scripts": {
+    "commit-msg": "commitlint -e",
     "coverage": "nyc npm run test",
     "lint": "npm run lint:js",
     "lint:js": "eslint ./src",
@@ -24,6 +25,8 @@
   "author": "André Jaenisch",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
+    "@commitlint/cli": "13.1.0",
+    "@commitlint/config-conventional": "13.1.0",
     "chai": "4.3.4",
     "eslint": "7.32.0",
     "eslint-config-standard": "16.0.2",

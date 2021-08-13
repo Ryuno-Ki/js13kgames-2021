@@ -43,6 +43,7 @@
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-mocha": "9.0.0",
     "eslint-plugin-promise": "4.2.1",
+    "html5-boilerplate": "8.0.0",
     "husky": "7.0.1",
     "mocha": "9.0.3",
     "nyc": "15.1.0",

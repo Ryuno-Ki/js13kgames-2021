@@ -4,13 +4,22 @@
   "description": "The topic in 2021 is SPACE",
   "main": "index.js",
   "scripts": {
+    "prepare": "husky install",
+    "pre-commit": "npm run test",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "ryunoki@jaenis.ch:ryuno-ki/js13kgames-2021.git"
   },
+  "engines": {
+    "node": "16.0.0",
+    "npm": "7.10.0"
+  },
   "keywords": [],
   "author": "André Jaenisch",
-  "license": "GPL-3.0-or-later"
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "husky": "7.0.1"
+  }
 }

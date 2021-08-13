@@ -149,6 +149,7 @@ dist
 .pnp.*
 
 # Custom
+docs
 tmp
 !dist/.gitkeep
 !dist/js/.gitkeep

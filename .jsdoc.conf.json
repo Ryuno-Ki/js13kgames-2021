@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    "plugins/markdown",
+    "jsdoc-mermaid"
+  ],
+  "templates": {
+    "systemName": "js13kgames - SPACE",
+    "theme": "cosmo",
+    "navType": "vertical",
+    "inverseNav": true,
+    "syntaxTheme": "dark",
+    "search": false
+  }
+}

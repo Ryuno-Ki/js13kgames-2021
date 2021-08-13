@@ -8,9 +8,13 @@
     "coverage": "nyc npm run test",
     "lint": "npm run lint:js",
     "lint:js": "eslint ./src",
+    "posttest": "npm run tsd",
     "prepare": "husky install",
-    "pre-commit": "npm run lint && npm run test",
-    "test": "mocha"
+    "pre-commit": "npm run types && npm run lint && npm run test",
+    "test": "mocha",
+    "tsc": "tsc",
+    "tsd": "tsd",
+    "types": "tsc --noEmit false --emitDeclarationOnly true"
   },
   "repository": {
     "type": "git",
@@ -37,6 +41,8 @@
     "mocha": "9.0.3",
     "nyc": "15.1.0",
     "standard": "16.0.3",
-    "tap": "15.0.9"
+    "tap": "15.0.9",
+    "tsd": "0.17.0",
+    "typescript": "4.3.5"
   }
 }

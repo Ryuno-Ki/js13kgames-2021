@@ -1,0 +1,20 @@
+{
+  "all": true,
+  "check-coverage": true,
+  "per-file": true,
+  "include": [
+    "src/**"
+  ],
+  "exclude": [
+    ".mocharc.cjs",
+    "test/*.js",
+    "test/**/*.spec.js"
+  ],
+  "reporter": [
+    "lcov",
+    "html",
+    "text"
+  ],
+  "report-dir": "./coverage",
+  "temp-directory": "./tmp"
+}

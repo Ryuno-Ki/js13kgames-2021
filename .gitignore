@@ -151,3 +151,5 @@ dist
 # Custom
 tmp
 !dist/.gitkeep
+!dist/js/.gitkeep
+!dist/css/.gitkeep

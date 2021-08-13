@@ -17,9 +17,9 @@ You should have received a copy of the GNU General Public License
 along with An Offline Life.  If not, see <https://www.gnu.org/licenses/>.`
 
 export default {
-  input: './src/app.js',
+  input: './src/js/app.js',
   output: {
-    file: './tmp/app.js',
+    file: './dist/js/app.js',
     format: 'iife',
   },
   plugins: [

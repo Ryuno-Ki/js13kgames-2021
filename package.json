@@ -1,0 +1,16 @@
+{
+  "name": "js13kgames-2021",
+  "version": "0.1.0",
+  "description": "The topic in 2021 is SPACE",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ryunoki@jaenis.ch:ryuno-ki/js13kgames-2021.git"
+  },
+  "keywords": [],
+  "author": "André Jaenisch",
+  "license": "GPL-3.0-or-later"
+}

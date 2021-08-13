@@ -1,1 +1,0 @@
-export function app(): void;

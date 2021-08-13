@@ -148,3 +148,5 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# Custom
+tmp

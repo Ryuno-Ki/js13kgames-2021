@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "coverage": "nyc npm run test",
+    "lint": "npm run lint:js",
+    "lint:js": "eslint ./src",
     "prepare": "husky install",
-    "pre-commit": "npm run test",
+    "pre-commit": "npm run lint && npm run test",
     "test": "mocha"
   },
   "repository": {
@@ -23,9 +25,15 @@
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "chai": "4.3.4",
+    "eslint": "7.32.0",
+    "eslint-config-standard": "16.0.2",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-mocha": "9.0.0",
+    "eslint-plugin-promise": "4.2.1",
     "husky": "7.0.1",
     "mocha": "9.0.3",
     "nyc": "15.1.0",
+    "standard": "16.0.3",
     "tap": "15.0.9"
   }
 }

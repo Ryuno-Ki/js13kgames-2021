@@ -6,3 +6,4 @@ journal and update it daily as I go along.
 ## Entries
 
 - [13th August 2021](./2021-08-13.md)
+- [14th August 2021](./2021-08-14.md)

@@ -1,5 +1,5 @@
 import { gravity } from './constants.js'
-import { Vec2 } from './vector.js'
+import { normalize, subtract, Vec2 } from './vector.js'
 
 /** @typedef {import('./vector.js').Vector2D} Vector2D
 
@@ -67,5 +67,19 @@ export function RigidShape ({
     ]
   }
 
+  computeNormals(shape)
   return shape
+}
+
+/**
+ * Compute face normals
+ *
+ * @param {Shape} shape
+ */
+export function computeNormals (shape) {
+  shape.N.forEach(function (normal, index) {
+    shape.N[index] = normalize(
+      subtract(shape.X[(index + 1) % 4], shape.X[(index + 2) % 4])
+    )
+  })
 }

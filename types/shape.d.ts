@@ -40,6 +40,12 @@ export function RigidShape({ center, mass, friction, restitution, bounds, width,
     height: number;
 }): Shape;
 /**
+ * Compute face normals
+ *
+ * @param {Shape} shape
+ */
+export function computeNormals(shape: Shape): void;
+/**
  * /**
  */
 export type Vector2D = import('./vector.js').Vector2D;

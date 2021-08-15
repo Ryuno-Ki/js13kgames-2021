@@ -4,6 +4,12 @@ import { Vec2 } from './vector.js'
 
 /** @typedef {import('./shape').Shape} Shape */
 
+// Global on purpose
+/** @type {Shape} */
+let astronaut
+/** @type {CanvasRenderingContext2D | null} */
+let context
+
 /**
  * Entry point into the game.
  *
@@ -16,15 +22,15 @@ export function app () {
     return
   }
 
-  const context = /** @type {HTMLCanvasElement} */(game).getContext('2d')
+  context = /** @type {HTMLCanvasElement} */(game).getContext('2d')
 
   if (!context) {
     console.error('Could not start game!')
     return
   }
 
-  const astronaut = makeAstronaut()
-  drawShape(context, astronaut)
+  astronaut = makeAstronaut()
+  tick()
 }
 
 /**
@@ -52,4 +58,16 @@ function makeAstronaut () {
   })
 
   return shape
+}
+
+/* TODO: Add some paint-FPS to UI */
+// See https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame#notes
+function tick () {
+  // Impossible state
+  if (!context) {
+    return
+  }
+
+  drawShape(context, astronaut)
+  window.requestAnimationFrame(tick)
 }

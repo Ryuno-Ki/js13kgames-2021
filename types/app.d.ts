@@ -1,4 +1,3 @@
-/** @typedef {import('./shape').Shape} Shape */
 /**
  * Entry point into the game.
  *

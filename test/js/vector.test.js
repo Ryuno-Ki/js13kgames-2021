@@ -7,6 +7,7 @@ import {
   dot,
   length,
   normalize,
+  rotate,
   scale,
   subtract,
   Vec2,
@@ -138,6 +139,22 @@ describe('Vector library', function () {
       // Assert
       expect(normalized.x).to.be.approximately(0.6, 0.001)
       expect(normalized.y).to.be.approximately(0.8, 0.001)
+    })
+  })
+
+  describe('rotate', function () {
+    it('should rotate a shape around its centre on given angle', function () {
+      // Arrange
+      const v = Vec2(1, 0)
+      const c = Vec2(0, 0)
+      const angle = Math.PI
+
+      // Act
+      const rotated = rotate(v, c, angle)
+
+      // Assert
+      expect(rotated.x).to.be.approximately(-1, 0.001)
+      expect(rotated.y).to.be.approximately(0, 0.001)
     })
   })
 })

@@ -73,6 +73,14 @@ export function distance(v: Vector2D, w: Vector2D): number;
  * @returns {Vector2D}
  */
 export function normalize(v: Vector2D): Vector2D;
+/**
+ * Rotate a vector around a given centre for a given angle in radians.
+ *
+ * @param {Vector2D} v
+ * @param {Vector2D} centre
+ * @param {number} angle
+ */
+export function rotate(v: Vector2D, centre: Vector2D, angle: number): Vector2D;
 export type Vector2D = {
     x: number;
     y: number;

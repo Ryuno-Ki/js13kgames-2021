@@ -100,3 +100,21 @@ export function distance (v, w) {
 export function normalize (v) {
   return scale(v, 1 / (length(v) || 1))
 }
+
+/**
+ * Rotate a vector around a given centre for a given angle in radians.
+ *
+ * @param {Vector2D} v
+ * @param {Vector2D} centre
+ * @param {number} angle
+ */
+export function rotate (v, centre, angle) {
+  const { cos, sin } = Math
+  const x = v.x - centre.x
+  const y = v.y - centre.y
+
+  return Vec2(
+    x * cos(angle) - y * sin(angle) + centre.x,
+    x * sin(angle) + y * cos(angle) + centre.y
+  )
+}

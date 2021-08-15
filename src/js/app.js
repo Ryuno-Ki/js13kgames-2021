@@ -1,3 +1,4 @@
+import { testBoundaries, testCollision } from './collisions.js'
 import { drawShape } from './draw.js'
 import { makeAstronaut, makeBottomBoundary } from './world.js'
 
@@ -52,5 +53,16 @@ function tick () {
   context.clearRect(0, 0, canvas.width, canvas.height)
   drawShape(context, bottomBoundary)
   drawShape(context, astronaut)
+
+  if (testBoundaries(bottomBoundary, astronaut)) {
+    if (testCollision(bottomBoundary, astronaut)) {
+      throw new Error('Game Over!')
+    }
+  }
+
+  if (astronaut.C.y - astronaut.H > canvas.height) {
+    throw new Error('Should have been caught earlier!')
+  }
+
   window.requestAnimationFrame(tick)
 }

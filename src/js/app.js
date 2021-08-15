@@ -7,7 +7,9 @@ import { Vec2 } from './vector.js'
 // Global on purpose
 /** @type {Shape} */
 let astronaut
-/** @type {CanvasRenderingContext2D | null} */
+/** @type {HTMLCanvasElement} */
+let canvas
+/** @type {CanvasRenderingContext2D} */
 let context
 
 /**
@@ -22,13 +24,15 @@ export function app () {
     return
   }
 
-  context = /** @type {HTMLCanvasElement} */(game).getContext('2d')
+  canvas = /** @type {HTMLCanvasElement} */(game)
+  const ctx = canvas.getContext('2d')
 
-  if (!context) {
+  if (!ctx) {
     console.error('Could not start game!')
     return
   }
 
+  context = ctx
   astronaut = makeAstronaut()
   tick()
 }
@@ -63,11 +67,7 @@ function makeAstronaut () {
 /* TODO: Add some paint-FPS to UI */
 // See https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame#notes
 function tick () {
-  // Impossible state
-  if (!context) {
-    return
-  }
-
+  context.clearRect(0, 0, canvas.width, canvas.height)
   drawShape(context, astronaut)
   window.requestAnimationFrame(tick)
 }

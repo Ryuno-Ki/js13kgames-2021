@@ -16,6 +16,7 @@ export function drawShape (context, shape) {
   prepareCanvas(context, shape)
   draw(context, shape)
   context.restore()
+
   updatePosition(shape)
   updateRotation(shape)
 }

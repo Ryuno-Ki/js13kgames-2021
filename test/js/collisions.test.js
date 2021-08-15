@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import { testBoundaries } from '../../src/js/collisions.js'
+import { testBoundaries, testCollision } from '../../src/js/collisions.js'
 import { RigidShape } from '../../src/js/shape.js'
 import { Vec2 } from '../../src/js/vector.js'
 
@@ -16,6 +16,20 @@ describe('Collisions', function () {
 
       // Assert
       expect(haveIntersectingBoundaries).to.equal(true)
+    })
+  })
+
+  describe('testCollision', function () {
+    it('should test in depth for collisions', function () {
+      // Arrange
+      const shape1 = makeShape()
+      const shape2 = makeShape()
+
+      // Act
+      const haveCollided = testCollision(shape1, shape2)
+
+      // Assert
+      expect(haveCollided).to.equal(true)
     })
   })
 })

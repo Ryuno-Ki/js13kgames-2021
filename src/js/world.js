@@ -13,7 +13,7 @@ export function makeAstronaut () {
   const friction = 20
   const restitution = 0
   const mass = 400
-  const bounds = 1
+  const bounds = 20
   const width = 20
   const height = 20
 
@@ -45,7 +45,7 @@ export function makeBottomBoundary ({ x, y, height, width }) {
   const friction = 20
   const restitution = 0
   const mass = 0
-  const bounds = 1
+  const bounds = 25
 
   const shape = RigidShape({
     center,

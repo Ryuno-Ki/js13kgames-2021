@@ -1,12 +1,13 @@
 import { drawShape } from './draw.js'
-import { RigidShape } from './shape.js'
-import { Vec2 } from './vector.js'
+import { makeAstronaut, makeBottomBoundary } from './world.js'
 
 /** @typedef {import('./shape').Shape} Shape */
 
 // Global on purpose
 /** @type {Shape} */
 let astronaut
+/** @type {Shape} */
+let bottomBoundary
 /** @type {HTMLCanvasElement} */
 let canvas
 /** @type {CanvasRenderingContext2D} */
@@ -34,40 +35,22 @@ export function app () {
 
   context = ctx
   astronaut = makeAstronaut()
-  tick()
-}
 
-/**
- * Creates player avatar.
- *
- * @returns {Shape}
- */
-function makeAstronaut () {
-  const center = Vec2(200, 200)
-  const friction = 20
-  const restitution = 0
-  const mass = 400
-  const bounds = 1
-  const width = 20
-  const height = 20
-
-  const shape = RigidShape({
-    center,
-    mass,
-    friction,
-    restitution,
-    bounds,
-    width,
-    height
+  const boundaryHeight = 2
+  bottomBoundary = makeBottomBoundary({
+    x: 0,
+    y: canvas.height - boundaryHeight,
+    height: boundaryHeight,
+    width: canvas.width
   })
-
-  return shape
+  tick()
 }
 
 /* TODO: Add some paint-FPS to UI */
 // See https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame#notes
 function tick () {
   context.clearRect(0, 0, canvas.width, canvas.height)
+  drawShape(context, bottomBoundary)
   drawShape(context, astronaut)
   window.requestAnimationFrame(tick)
 }

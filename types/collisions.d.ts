@@ -22,6 +22,7 @@ export function testCollision(shape1: Shape, shape2: Shape): boolean;
  * @param {Array<Vector2D>} vertices
  * @returns {boolean}
  * @see {@link https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection#Given_two_points_on_each_line_segment}
+ * @see {@link https://en.wikipedia.org/wiki/Cramer%27s_rule}
  */
 export function testIntersection([v1, v2, v3, v4]: Array<Vector2D>): boolean;
 export type Shape = import('./shape').Shape;

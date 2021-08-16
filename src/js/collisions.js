@@ -49,18 +49,12 @@ export function testCollision (shape1, shape2) {
  * @param {Array<Vector2D>} vertices
  * @returns {boolean}
  * @see {@link https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection#Given_two_points_on_each_line_segment}
+ * @see {@link https://en.wikipedia.org/wiki/Cramer%27s_rule}
  */
 export function testIntersection ([v1, v2, v3, v4]) {
-  const tdivisor = determinant(subtract(v1, v2), subtract(v3, v4))
+  const divisor = determinant(subtract(v1, v2), subtract(v3, v4))
 
-  if (tdivisor === 0) {
-    // Parallel lines never intersect
-    return false
-  }
-
-  const udivisor = determinant(subtract(v1, v2), subtract(v3, v4))
-
-  if (udivisor === 0) {
+  if (divisor === 0) {
     // Parallel lines never intersect
     return false
   }
@@ -68,8 +62,8 @@ export function testIntersection ([v1, v2, v3, v4]) {
   const tdivident = determinant(subtract(v1, v3), subtract(v3, v4))
   const udivident = determinant(subtract(v2, v1), subtract(v1, v3))
   // + 0 turns -0 into +0
-  const t = tdivident / tdivisor + 0
-  const u = udivident / udivisor + 0
+  const t = tdivident / divisor + 0
+  const u = udivident / divisor + 0
 
   return (t >= 0 && t <= 1) && (u >= 0 && u <= 1)
 }

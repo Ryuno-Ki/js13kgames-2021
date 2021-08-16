@@ -7,7 +7,6 @@
  * @property {number} R
  * @property {number} M
  * @property {Vector2D} V
- * @property {Vector2D} A
  * @property {number} G
  * @property {number} v
  * @property {number} a
@@ -55,7 +54,6 @@ export type Shape = {
     R: number;
     M: number;
     V: Vector2D;
-    A: Vector2D;
     G: number;
     v: number;
     a: number;

@@ -1,4 +1,3 @@
-import { gravity } from './constants.js'
 import { normalize, subtract, Vec2 } from './vector.js'
 
 /** @typedef {import('./vector.js').Vector2D} Vector2D
@@ -10,7 +9,6 @@ import { normalize, subtract, Vec2 } from './vector.js'
  * @property {number} R
  * @property {number} M
  * @property {Vector2D} V
- * @property {Vector2D} A
  * @property {number} G
  * @property {number} v
  * @property {number} a
@@ -51,7 +49,6 @@ export function RigidShape ({
     R: restitution,
     M: mass ? 1 / mass : immobile,
     V: Vec2(0, 0), // velocity, i.e. speed
-    A: mass ? gravity : Vec2(0, 0), // acceleration
     G: 0, // angle
     v: 0, // angle velocity
     a: 0, // angle acceleration

@@ -1,6 +1,6 @@
-import { FPS } from './constants.js'
+import { FPS, gravity } from './constants.js'
 import { computeNormals } from './shape.js'
-import { add, rotate, scale } from './vector.js'
+import { add, rotate, scale, Vec2 } from './vector.js'
 
 /** @typedef {import('./shape').Shape} Shape */
 /** @typedef {import('./vector').Vector2D} Vector2D */
@@ -10,14 +10,15 @@ import { add, rotate, scale } from './vector.js'
  *
  * @param {CanvasRenderingContext2D} context
  * @param {Shape} shape
+ * @param {Vector2D} [g=gravity]
  */
-export function drawShape (context, shape) {
+export function drawShape (context, shape, g = gravity) {
   context.save()
   prepareCanvas(context, shape)
   draw(context, shape)
   context.restore()
 
-  updatePosition(shape)
+  updatePosition(shape, g)
   updateRotation(shape)
 }
 
@@ -49,9 +50,12 @@ function draw (context, shape) {
  * Update the position of the shape.
  *
  * @param {Shape} shape
+ * @param {Vector2D} g
  */
-function updatePosition (shape) {
-  shape.V = add(shape.V, scale(shape.A, 1 / FPS))
+function updatePosition (shape, g) {
+  // Apply gravity to all shapes with mass
+  const acceleration = shape.M > 0 ? g : Vec2(0, 0)
+  shape.V = add(shape.V, scale(acceleration, 1 / FPS))
   moveShape(shape, scale(shape.V, 1 / FPS))
 }
 

@@ -1,5 +1,6 @@
 import { testCollision } from './collisions.js'
 import { drawShape } from './draw.js'
+import { Vec2 } from './vector.js'
 import { makeAstronaut, makeBoundary } from './world.js'
 
 /** @typedef {import('./shape').Shape} Shape */
@@ -13,6 +14,8 @@ const boundaries = []
 let canvas
 /** @type {CanvasRenderingContext2D} */
 let context
+/** @type {number} */
+let gravity
 
 /**
  * Entry point into the game.
@@ -26,6 +29,14 @@ export function app () {
     return
   }
 
+  const input = document.getElementById('gravity')
+  if (!input) {
+    console.error('Could not start game!')
+    return
+  }
+
+  input.addEventListener('change', updateGravity)
+
   canvas = /** @type {HTMLCanvasElement} */(game)
   const ctx = canvas.getContext('2d')
 
@@ -35,6 +46,31 @@ export function app () {
   }
 
   context = ctx
+  gravity = parseFloat(/** @type {HTMLInputElement} */(input).value)
+  createObjectsInWorld()
+  tick()
+}
+
+/* TODO: Add some paint-FPS to UI */
+// See https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame#notes
+function tick () {
+  context.clearRect(0, 0, canvas.width, canvas.height)
+  boundaries.forEach(function (boundary) {
+    drawShape(context, boundary)
+  })
+
+  drawShape(context, astronaut, Vec2(0, gravity))
+
+  boundaries.forEach(function (boundary) {
+    if (testCollision(boundary, astronaut)) {
+      throw new Error('Game Over!')
+    }
+  })
+
+  window.requestAnimationFrame(tick)
+}
+
+function createObjectsInWorld () {
   astronaut = makeAstronaut()
 
   const boundaryHeight = 2
@@ -55,25 +91,18 @@ export function app () {
       width: canvas.width
     })
   )
-
-  tick()
 }
 
-/* TODO: Add some paint-FPS to UI */
-// See https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame#notes
-function tick () {
-  context.clearRect(0, 0, canvas.width, canvas.height)
-  boundaries.forEach(function (boundary) {
-    drawShape(context, boundary)
-  })
+/**
+ * Updates the applied gravity.
+ *
+ * @param {Event} event
+ */
+function updateGravity (event) {
+  if (!event.target) {
+    return
+  }
 
-  drawShape(context, astronaut)
-
-  boundaries.forEach(function (boundary) {
-    if (testCollision(boundary, astronaut)) {
-      throw new Error('Game Over!')
-    }
-  })
-
-  window.requestAnimationFrame(tick)
+  const input = /** @type {HTMLInputElement} */(event.target)
+  gravity = parseFloat(input.value)
 }

@@ -261,3 +261,6 @@ textarea {
   }
 }
 
+label span {
+  display: block;
+}

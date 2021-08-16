@@ -31,7 +31,7 @@ export function makeAstronaut () {
 }
 
 /**
- * Creates a boundary at the bottom of the screen.
+ * Creates a boundary of the screen.
  *
  * @param {object} config
  * @param {number} config.x
@@ -40,7 +40,7 @@ export function makeAstronaut () {
  * @param {number} config.width
  * @returns {Shape}
  */
-export function makeBottomBoundary ({ x, y, height, width }) {
+export function makeBoundary ({ x, y, height, width }) {
   const center = Vec2(x + width / 2, y + height / 2)
   const friction = 20
   const restitution = 0

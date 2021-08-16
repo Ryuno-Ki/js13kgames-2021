@@ -6,7 +6,7 @@
  */
 export function makeAstronaut(): Shape;
 /**
- * Creates a boundary at the bottom of the screen.
+ * Creates a boundary of the screen.
  *
  * @param {object} config
  * @param {number} config.x
@@ -15,7 +15,7 @@ export function makeAstronaut(): Shape;
  * @param {number} config.width
  * @returns {Shape}
  */
-export function makeBottomBoundary({ x, y, height, width }: {
+export function makeBoundary({ x, y, height, width }: {
     x: number;
     y: number;
     height: number;

@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
 import { Vec2 } from '../../src/js/vector.js'
-import { makeAstronaut, makeBottomBoundary } from '../../src/js/world.js'
+import { makeAstronaut, makeBoundary } from '../../src/js/world.js'
 
 describe('World', function () {
   describe('makeAstronaut', function () {
@@ -17,7 +17,7 @@ describe('World', function () {
     })
   })
 
-  describe('makeBottomBoundary', function () {
+  describe('makeBoundary', function () {
     it('should make an immobil shape', function () {
       // Arrange
       const x = 0
@@ -26,7 +26,7 @@ describe('World', function () {
       const width = 200
 
       // Act
-      const boundary = makeBottomBoundary({ x, y, height, width })
+      const boundary = makeBoundary({ x, y, height, width })
 
       // Assert
       expect(boundary.X[0]).to.deep.equal(Vec2(x, y))

@@ -75,12 +75,12 @@ function tick () {
 function createObjectsInWorld () {
   astronaut = makeAstronaut()
 
-  const boundaryHeight = 2
+  const boundarySize = 2
   boundaries.push(
     makeBoundary({
       x: 0,
-      y: canvas.height - boundaryHeight,
-      height: boundaryHeight,
+      y: canvas.height - boundarySize,
+      height: boundarySize,
       width: canvas.width
     })
   )
@@ -88,9 +88,27 @@ function createObjectsInWorld () {
   boundaries.push(
     makeBoundary({
       x: 0,
-      y: 0 + boundaryHeight,
-      height: boundaryHeight,
+      y: 0 + boundarySize,
+      height: boundarySize,
       width: canvas.width
+    })
+  )
+
+  boundaries.push(
+    makeBoundary({
+      x: 0 + boundarySize,
+      y: 0,
+      height: canvas.height,
+      width: boundarySize
+    })
+  )
+
+  boundaries.push(
+    makeBoundary({
+      x: canvas.width - boundarySize,
+      y: 0,
+      height: canvas.height,
+      width: boundarySize
     })
   )
 }

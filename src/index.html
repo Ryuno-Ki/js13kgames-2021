@@ -12,36 +12,45 @@
   <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
-  <section data-scene="title">
-    <h1>Combat Scorched Earth from Outer Space</h1>
-  </section>
-  <section data-scene="game">
-    <canvas id="game" width="300" height="450"></canvas>
-    <div>
-      <label>
-	<span>Manipulate the gravity!</span>
-        <input
-	  id="gravity"
-	  type="range"
-	  min="-100"
-	  max="100"
-	  value="0"
-	  step="any"
-	  />
-      </label>
-    </div>
-  </section>
-  <section data-scene="credits">
-    <p>
-      Video name generated using
-      <a href="https://videogamena.me/">The Video Game Name Generator</a>.
-    </p>
-    <p>
-      Physics engine adapted from
-      <a href="https://github.com/xem/mini2Dphysics">mini2Dphysics</a>.
-    </p>
-  </section>
+  <main>
+    <section id="scene-title" tabindex="0">
+      <h1>Combat Scorched Earth from Outer Space</h1>
+      <div><a href="#scene-game">New game</a></div>
+      <div><a href="#scene-credits">Credits</a></div>
+    </section>
+
+    <section id="scene-game" tabindex="0">
+      <canvas id="game" width="300" height="450"></canvas>
+      <div>
+        <label>
+          <span>Manipulate the gravity!</span>
+          <input
+            id="gravity"
+            type="range"
+            min="-100"
+            max="100"
+            value="0"
+            step="any"
+            />
+        </label>
+      </div>
+    </section>
+
+    <section id="scene-credits" tabindex="0">
+      <p>
+        Video name generated using
+        <a href="https://videogamena.me/">The Video Game Name Generator</a>.
+      </p>
+      <p>
+        Physics engine adapted from
+        <a href="https://github.com/xem/mini2Dphysics">mini2Dphysics</a>.
+      </p>
+      <p>
+        <a href="#scene-title">Back to start</a>
+      </p>
+    </section>
+  </main>
   <script src="js/app.js"></script>
-  <script>window.game.app()</script>
+  <script>location.hash='#scene-title';window.game.app()</script>
 </body>
 </html>

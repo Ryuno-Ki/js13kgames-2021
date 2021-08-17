@@ -17,6 +17,7 @@
     <section id="scene-title" tabindex="0">
       <h1>Combat Scorched Earth from Outer Space</h1>
       <a href="#scene-game">New game</a>
+      <a href="#scene-settings">Settings</a>
       <a href="#scene-credits">Credits</a>
     </section>
 
@@ -43,13 +44,31 @@
           max="100"
           value="0"
           step="any"
-	  orient="vertical"
+          orient="vertical"
           />
       </label>
       <div id="controls">
         <button type="button" onclick="location.reload()">Restart</button>
         <a href="#scene-title">Back to start</a>
       </div>
+    </section>
+
+    <section id="scene-gameover" tabindex="0">
+      <p>Game Over</p>
+      <p>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fjaenis.ch%2Fhobbies%2Fcoding%2Fdemos%2Fjs13kgames%2F2021%2Ftext=I%20played%20%C2%BBCombat%20Scorched%20Earth%20from%20Outer%20Space%C2%AB&hashtags=js13k,js13kgames&via=AndreJaenisch">Share your feedback</a>
+      </p>
+      <p>
+        <button type="button" onclick="location.reload()">Try again?</button>
+        <a href="#scene-title">Back to start</a>
+      </p>
+    </section>
+
+    <section id="scene-settings" tabindex="0">
+      <p>Here you will be able to turn off the volume and load emojis.</p>
+      <p>
+        <a href="#scene-title">Back to start</a>
+      </p>
     </section>
 
     <section id="scene-credits" tabindex="0">

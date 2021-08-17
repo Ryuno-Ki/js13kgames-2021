@@ -289,6 +289,7 @@ section:first-of-type {
   text-align: center;
 }
 
+#scene-game:not(:target),
 section:not(:target) {
   display: none;
 }
@@ -297,10 +298,13 @@ a {
   color: orange;
 }
 
+button[type="button"],
 a[href^="#"] {
   /* FIXME: Normalize.css interfers? */
   background-color: orange !important;
+  border: none;
   color: midnightblue;
+  cursor: pointer;
   display: inline-block;
   margin-block: 1em;
   padding: 0.5em 1em;
@@ -310,6 +314,7 @@ a[href^="#"] {
 
 canvas {
   background-color: grey;
+  cursor: not-allowed;
 }
 
 label,
@@ -348,5 +353,7 @@ input[type="range"] {
 }
 
 #controls {
+  display: flex;
   grid-area: controls;
+  justify-content: space-between;
 }

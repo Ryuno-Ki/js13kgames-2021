@@ -63,13 +63,18 @@ function tick () {
 
   drawShape(context, astronaut, gravity)
 
-  boundaries.forEach(function (boundary) {
-    if (testCollision(boundary, astronaut)) {
-      throw new Error('Game Over!')
-    }
-  })
+  try {
+    boundaries.forEach(function (boundary) {
+      if (testCollision(boundary, astronaut)) {
+        throw new Error('Game Over!')
+      }
+    })
 
-  window.requestAnimationFrame(tick)
+    window.requestAnimationFrame(tick)
+  } catch (_) {
+    console.log('Catched')
+    location.hash = '#scene-gameover'
+  }
 }
 
 function createObjectsInWorld () {

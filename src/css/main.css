@@ -262,18 +262,50 @@ textarea {
 }
 
 /* DO NOT DELETE BELOW */
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   background-color: midnightblue;
   color: gold;
 }
 
+main {
+  /* FIXME: Normalize.css interfers? */
+  display: grid !important;
+  min-height: 90vh;
+  min-width: 90vw;
+  place-items: center;
+}
+
+section {
+  max-width: 45ch;
+}
+
 section:first-of-type {
   display: block;
+  text-align: center;
 }
 
 section:not(:target) {
   display: none;
+}
+
+a {
+  color: orange;
+}
+
+a[href^="#"] {
+  /* FIXME: Normalize.css interfers? */
+  background-color: orange !important;
+  color: midnightblue;
+  display: inline-block;
+  margin-block: 1em;
+  padding: 0.5em 1em;
+  text-align: center;
+  text-decoration: none;
 }
 
 canvas {

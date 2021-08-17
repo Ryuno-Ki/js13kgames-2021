@@ -1,5 +1,4 @@
 import buble from '@rollup/plugin-buble'
-import copy from 'rollup-plugin-copy'
 import license from 'rollup-plugin-license'
 import { terser } from 'rollup-plugin-terser'
 
@@ -19,20 +18,11 @@ along with <insert name here>.  If not, see <https://www.gnu.org/licenses/>.`
 export default {
   input: './src/js/app.js',
   output: {
-    file: './dist/js/app.js',
+    file: './dist/app.js',
     format: 'iife',
     name: 'game'
   },
   plugins: [
-    copy({
-      flatten: true,
-      verbose: true,
-      targets: [{
-        src: './src/index.html',
-        dest: './dist/'
-      }]
-    }),
-
     buble(),
     terser({
       output: {

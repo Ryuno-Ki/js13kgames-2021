@@ -261,6 +261,17 @@ textarea {
   }
 }
 
+/* DO NOT DELETE BELOW */
+html,
+body {
+  background-color: midnightblue;
+  color: gold;
+}
+
+canvas {
+  background-color: grey;
+}
+
 label span {
   display: block;
 }

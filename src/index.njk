@@ -22,20 +22,31 @@
 
     <section id="scene-game" tabindex="0">
       <canvas id="game" width="300" height="450"></canvas>
-      <div>
-        <label>
-          <span>Manipulate the gravity!</span>
-          <input
-            id="gravity"
-            type="range"
-            min="-100"
-            max="100"
-            value="0"
-            step="any"
-            />
-        </label>
-      </div>
-      <div>
+      <label id=="xgravity-label">
+        <span>Manipulate the gravity!</span>
+        <input
+          id="xgravity"
+          type="range"
+          min="-100"
+          max="100"
+          value="0"
+          step="any"
+          />
+      </label>
+
+      <label id="ygravity-label">
+        <span class="sr-only">Manipulate the gravity!</span>
+        <input
+          id="ygravity"
+          type="range"
+          min="-100"
+          max="100"
+          value="0"
+          step="any"
+	  orient="vertical"
+          />
+      </label>
+      <div id="controls">
         <a href="#scene-title">Back to start</a>
       </div>
     </section>

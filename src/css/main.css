@@ -312,6 +312,41 @@ canvas {
   background-color: grey;
 }
 
+label,
 label span {
   display: block;
+}
+
+input[type="range"] {
+  min-width: 100%;
+}
+
+#scene-game {
+  display: grid;
+  grid-template-areas:
+    'canvas   ygravity'
+    'xgravity .       '
+    'controls controls';
+}
+
+#game {
+  grid-area: canvas;
+}
+
+#xgravity-label {
+  grid-area: xgravity;
+}
+
+#ygravity-label {
+  display: flex;
+  grid-area: ygravity;
+}
+
+#ygravity {
+  -webkit-appearance: slider-vertical;
+  transform: rotate(180deg);
+}
+
+#controls {
+  grid-area: controls;
 }

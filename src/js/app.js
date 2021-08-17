@@ -1,9 +1,10 @@
 import { testCollision } from './collisions.js'
 import { drawShape } from './draw.js'
-import { Vec2 } from './vector.js'
+import { add, Vec2 } from './vector.js'
 import { makeAstronaut, makeBoundary } from './world.js'
 
 /** @typedef {import('./shape').Shape} Shape */
+/** @typedef {import('./vector').Vector2D} Vector2D */
 
 // Global on purpose
 /** @type {Shape} */
@@ -14,8 +15,8 @@ const boundaries = []
 let canvas
 /** @type {CanvasRenderingContext2D} */
 let context
-/** @type {number} */
-let gravity
+/** @type {Vector2D} */
+let gravity = Vec2(0, 0)
 
 /**
  * Entry point into the game.
@@ -29,13 +30,15 @@ export function app () {
     return
   }
 
-  const input = document.getElementById('gravity')
-  if (!input) {
+  const xinput = document.getElementById('xgravity')
+  const yinput = document.getElementById('ygravity')
+  if (!xinput || !yinput) {
     console.error('Could not start game!')
     return
   }
 
-  input.addEventListener('change', updateGravity)
+  xinput.addEventListener('input', updateGravity)
+  yinput.addEventListener('input', updateGravity)
 
   canvas = /** @type {HTMLCanvasElement} */(game)
   const ctx = canvas.getContext('2d')
@@ -46,7 +49,6 @@ export function app () {
   }
 
   context = ctx
-  gravity = parseFloat(/** @type {HTMLInputElement} */(input).value)
   createObjectsInWorld()
   tick()
 }
@@ -59,7 +61,7 @@ function tick () {
     drawShape(context, boundary)
   })
 
-  drawShape(context, astronaut, Vec2(0, gravity))
+  drawShape(context, astronaut, gravity)
 
   boundaries.forEach(function (boundary) {
     if (testCollision(boundary, astronaut)) {
@@ -104,5 +106,14 @@ function updateGravity (event) {
   }
 
   const input = /** @type {HTMLInputElement} */(event.target)
-  gravity = parseFloat(input.value)
+  const value = parseFloat(input.value)
+
+  if (input.id === 'xgravity') {
+    gravity = add(gravity, Vec2(value, 0))
+  } else if (input.id === 'ygravity') {
+    gravity = add(gravity, Vec2(0, value))
+  } else {
+    console.error(input)
+    throw new Error('What input is this?!')
+  }
 }

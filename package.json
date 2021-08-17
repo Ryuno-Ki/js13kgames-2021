@@ -73,6 +73,8 @@
     "rollup-plugin-license": "2.5.0",
     "rollup-plugin-terser": "7.0.2",
     "rollup-plugin-visualizer": "5.5.2",
+    "sinon": "11.1.2",
+    "sinon-chai": "3.7.0",
     "standard": "16.0.3",
     "tap": "15.0.9",
     "tsd": "0.17.0",

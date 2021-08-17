@@ -1,8 +1,13 @@
-import { expect } from 'chai'
+import chai from 'chai'
+import sinon from 'sinon'
+import sinonChai from 'sinon-chai'
 
 import { drawShape } from '../../src/js/draw.js'
 import { RigidShape } from '../../src/js/shape.js'
 import { Vec2 } from '../../src/js/vector.js'
+
+chai.use(sinonChai)
+const { expect } = chai
 
 describe('drawShape', function () {
   it('should draw a shape onto a canvas', function () {
@@ -30,7 +35,7 @@ describe('drawShape', function () {
     drawShape(context, shape)
 
     // Assert
-    // TODO: Assert pixel on canvas
+    expect(context.strokeRect).to.have.been.calledOnce;
   })
 })
 
@@ -39,7 +44,7 @@ function makeContext () {
     restore: function () {},
     rotate: function () {},
     save: function () {},
-    strokeRect: function () {},
+    strokeRect: sinon.spy(),
     translate: function () {},
   }
 }

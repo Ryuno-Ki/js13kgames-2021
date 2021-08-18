@@ -10,3 +10,4 @@ journal and update it daily as I go along.
 - [15th August 2021](./2021-08-15.md)
 - [16th August 2021](./2021-08-16.md)
 - [17th August 2021](./2021-08-17.md)
+- [18th August 2021](./2021-08-18.md)

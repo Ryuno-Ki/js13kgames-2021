@@ -1,6 +1,8 @@
 import { testCollision } from './collisions.js'
+import { FPS, gravity } from './constants.js'
 import { drawShape } from './draw.js'
-import { add, Vec2 } from './vector.js'
+import { computeNormals } from './shape.js'
+import { add, rotate, scale, Vec2 } from './vector.js'
 import { makeAstronaut, makeBoundary } from './world.js'
 
 /** @typedef {import('./shape').Shape} Shape */
@@ -16,7 +18,7 @@ let canvas
 /** @type {CanvasRenderingContext2D} */
 let context
 /** @type {Vector2D} */
-let gravity = Vec2(0, 0)
+let gForce = Vec2(0, 0)
 
 /**
  * Entry point into the game.
@@ -58,10 +60,10 @@ export function app () {
 function tick () {
   context.clearRect(0, 0, canvas.width, canvas.height)
   boundaries.forEach(function (boundary) {
-    drawShape(context, boundary)
+    update(context, boundary)
   })
 
-  drawShape(context, astronaut, gravity)
+  update(context, astronaut, gForce)
 
   try {
     boundaries.forEach(function (boundary) {
@@ -132,11 +134,76 @@ function updateGravity (event) {
   const value = parseFloat(input.value)
 
   if (input.id === 'xgravity') {
-    gravity = add(gravity, Vec2(value, 0))
+    gForce = add(gForce, Vec2(value, 0))
   } else if (input.id === 'ygravity') {
-    gravity = add(gravity, Vec2(0, value))
+    gForce = add(gForce, Vec2(0, value))
   } else {
     console.error(input)
     throw new Error('What input is this?!')
   }
+}
+
+/**
+ * Updates the canvas as well as the state of the game.
+ *
+ * @param {CanvasRenderingContext2D} context
+ * @param {Shape} shape
+ * @param {Vector2D} [g]
+ */
+function update (context, shape, g) {
+  drawShape(context, shape)
+  updatePosition(shape, g)
+  updateRotation(shape)
+}
+
+/**
+ * Update the position of the shape.
+ *
+ * @param {Shape} shape
+ * @param {Vector2D} [g=gravity]
+ */
+function updatePosition (shape, g = gravity) {
+  // Apply gravity to all shapes with mass
+  const acceleration = shape.M > 0 ? g : Vec2(0, 0)
+  shape.V = add(shape.V, scale(acceleration, 1 / FPS))
+  moveShape(shape, scale(shape.V, 1 / FPS))
+}
+
+/**
+ * Move a shape along a vector.
+ *
+ * @param {Shape} shape
+ * @param {Vector2D} v
+ */
+function moveShape (shape, v) {
+  shape.C = add(shape.C, v)
+
+  shape.X.forEach(function (vertex, index) {
+    shape.X[index] = add(vertex, v)
+  })
+}
+
+/**
+ * Update the rotation of the shape.
+ *
+ * @param {Shape} shape
+ */
+function updateRotation (shape) {
+  shape.v = shape.v + shape.a * 1 / FPS
+  rotateShape(shape, shape.v * 1 / FPS)
+}
+
+/**
+ * Rotate a shape around its centre.
+ *
+ * @param {Shape} shape
+ * @param {number} angle
+ */
+function rotateShape (shape, angle) {
+  shape.G = shape.G + angle
+
+  shape.X.forEach(function (vertex, index) {
+    shape.X[index] = rotate(vertex, shape.C, angle)
+    computeNormals(shape)
+  })
 }

@@ -329,9 +329,14 @@ input[type="range"] {
 #scene-game {
   display: grid;
   grid-template-areas:
-    'canvas   ygravity'
-    'xgravity .       '
-    'controls controls';
+    'card . canvas   ygravity'
+    'card . xgravity .       '
+    'card . controls controls';
+  max-width: 100%;
+}
+
+#card {
+  grid-area: card;
 }
 
 #game {

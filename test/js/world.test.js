@@ -1,7 +1,11 @@
 import { expect } from 'chai'
 
 import { Vec2 } from '../../src/js/vector.js'
-import { makeAstronaut, makeBoundary } from '../../src/js/world.js'
+import {
+  makeAstronaut,
+  makeIceCream,
+  makeBoundary
+} from '../../src/js/world.js'
 
 describe('World', function () {
   describe('makeAstronaut', function () {
@@ -31,6 +35,20 @@ describe('World', function () {
       // Assert
       expect(boundary.X[0]).to.deep.equal(Vec2(x, y))
       expect(boundary.X[2]).to.deep.equal(Vec2(x + width, y + height))
+    })
+  })
+
+  describe('makeIceCream', function () {
+    it('should make an power-up shape', function () {
+      // Arrange
+      const x = 50
+      const y = 100
+
+      // Act
+      const iceCream = makeIceCream({ x, y })
+
+      // Assert
+      expect(iceCream).to.be.an('object')
     })
   })
 })

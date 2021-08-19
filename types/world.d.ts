@@ -21,4 +21,16 @@ export function makeBoundary({ x, y, height, width }: {
     height: number;
     width: number;
 }): Shape;
+/**
+ * Creates power-up.
+ *
+ * @param {object} config
+ * @param {number} config.x
+ * @param {number} config.y
+ * @returns {Shape}
+ */
+export function makeIceCream({ x, y }: {
+    x: number;
+    y: number;
+}): Shape;
 export type Shape = import('./shape').Shape;

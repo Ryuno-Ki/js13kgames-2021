@@ -59,3 +59,33 @@ export function makeBoundary ({ x, y, height, width }) {
 
   return shape
 }
+
+/**
+ * Creates power-up.
+ *
+ * @param {object} config
+ * @param {number} config.x
+ * @param {number} config.y
+ * @returns {Shape}
+ */
+export function makeIceCream ({ x, y }) {
+  const width = 20
+  const height = 20
+  const center = Vec2(x + width / 2, y + height / 2)
+  const friction = 20
+  const restitution = 0
+  const mass = 400
+  const bounds = 20
+
+  const shape = RigidShape({
+    center,
+    mass,
+    friction,
+    restitution,
+    bounds,
+    width,
+    height
+  })
+
+  return shape
+}

@@ -75,7 +75,8 @@ function tick () {
     window.requestAnimationFrame(tick)
   } catch (_) {
     console.log('Catched')
-    location.hash = '#scene-gameover'
+    // FIXME: clean up using https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame
+    navigateTo('gameover')
   }
 }
 
@@ -206,4 +207,20 @@ function rotateShape (shape, angle) {
     shape.X[index] = rotate(vertex, shape.C, angle)
     computeNormals(shape)
   })
+}
+
+/**
+ * Navigate to another scene.
+ *
+ * @param {string} target
+ */
+function navigateTo (target) {
+  const state = {}
+  const title = ''
+  const url = new URL(window.location.href)
+  url.hash = `#scene-${target}`
+
+  history.pushState(state, title, url.href)
+  // Required to update CSS
+  window.location.hash = `#scene-${target}`
 }

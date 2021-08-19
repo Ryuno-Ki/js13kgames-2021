@@ -3,7 +3,7 @@ import { FPS, gravity } from './constants.js'
 import { drawShape } from './draw.js'
 import { computeNormals } from './shape.js'
 import { add, rotate, scale, Vec2 } from './vector.js'
-import { makeAstronaut, makeBoundary } from './world.js'
+import { makeAstronaut, makeBoundary, makeIceCream } from './world.js'
 
 /** @typedef {import('./shape').Shape} Shape */
 /** @typedef {import('./vector').Vector2D} Vector2D */
@@ -19,6 +19,10 @@ let canvas
 let context
 /** @type {Vector2D} */
 let gForce = Vec2(0, 0)
+/** @type {Shape} */
+let iceCream
+/** @type {Vector2D} */
+let iceCreamG = Vec2(-20, 0)
 
 /**
  * Entry point into the game.
@@ -59,11 +63,28 @@ export function app () {
 // See https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame#notes
 function tick () {
   context.clearRect(0, 0, canvas.width, canvas.height)
+
   boundaries.forEach(function (boundary) {
     update(context, boundary)
   })
 
   update(context, astronaut, gForce)
+  update(context, iceCream, iceCreamG)
+
+  try {
+    boundaries.forEach(function (boundary) {
+      if (testCollision(boundary, iceCream)) {
+        throw new Error('Outa world')
+      }
+    })
+  } catch (_) {
+    // TODO: Refactor into function
+    iceCream = makeIceCream({
+      x: canvas.width - 50,
+      y: Math.random() * canvas.height
+    })
+    iceCreamG = scale(iceCreamG, 1.1)
+  }
 
   try {
     boundaries.forEach(function (boundary) {
@@ -82,6 +103,10 @@ function tick () {
 
 function createObjectsInWorld () {
   astronaut = makeAstronaut()
+  iceCream = makeIceCream({
+    x: canvas.width - 50,
+    y: Math.random() * canvas.height
+  })
 
   const boundarySize = 2
   boundaries.push(

@@ -1,4 +1,5 @@
 import { testCollision } from './collisions.js'
+import { dom } from './dom.js'
 import { drawShape } from './draw.js'
 import { updatePosition } from './position.js'
 import { updateRotation } from './rotation.js'
@@ -13,8 +14,6 @@ import { makeAstronaut, makeBoundary, makeIceCream } from './world.js'
 let astronaut
 /** @type {Array<Shape>} */
 const boundaries = []
-/** @type {HTMLCanvasElement} */
-let canvas
 /** @type {CanvasRenderingContext2D} */
 let context
 /** @type {Vector2D} */
@@ -30,24 +29,9 @@ let iceCreamG = Vec2(-20, 0)
  * @returns {void}
  */
 export function app () {
-  const game = document.getElementById('game')
-  if (!game) {
-    console.error('Could not start game!')
-    return
-  }
-
-  const xinput = document.getElementById('xgravity')
-  const yinput = document.getElementById('ygravity')
-  if (!xinput || !yinput) {
-    console.error('Could not start game!')
-    return
-  }
-
-  xinput.addEventListener('input', updateGravity)
-  yinput.addEventListener('input', updateGravity)
-
-  canvas = /** @type {HTMLCanvasElement} */(game)
-  const ctx = canvas.getContext('2d')
+  dom.xinput.addEventListener('input', updateGravity)
+  dom.yinput.addEventListener('input', updateGravity)
+  const ctx = dom.canvas.getContext('2d')
 
   if (!ctx) {
     console.error('Could not start game!')
@@ -62,7 +46,7 @@ export function app () {
 /* TODO: Add some paint-FPS to UI */
 // See https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame#notes
 function tick () {
-  context.clearRect(0, 0, canvas.width, canvas.height)
+  context.clearRect(0, 0, dom.canvas.width, dom.canvas.height)
 
   boundaries.forEach(function (boundary) {
     update(context, boundary)
@@ -80,8 +64,8 @@ function tick () {
   } catch (_) {
     // TODO: Refactor into function
     iceCream = makeIceCream({
-      x: canvas.width - 50,
-      y: Math.random() * canvas.height
+      x: dom.canvas.width - 50,
+      y: Math.random() * dom.canvas.height
     })
     iceCreamG = scale(iceCreamG, 1.1)
   }
@@ -104,17 +88,17 @@ function tick () {
 function createObjectsInWorld () {
   astronaut = makeAstronaut()
   iceCream = makeIceCream({
-    x: canvas.width - 50,
-    y: Math.random() * canvas.height
+    x: dom.canvas.width - 50,
+    y: Math.random() * dom.canvas.height
   })
 
   const boundarySize = 2
   boundaries.push(
     makeBoundary({
       x: 0,
-      y: canvas.height - boundarySize,
+      y: dom.canvas.height - boundarySize,
       height: boundarySize,
-      width: canvas.width
+      width: dom.canvas.width
     })
   )
 
@@ -123,7 +107,7 @@ function createObjectsInWorld () {
       x: 0,
       y: 0 + boundarySize,
       height: boundarySize,
-      width: canvas.width
+      width: dom.canvas.width
     })
   )
 
@@ -131,16 +115,16 @@ function createObjectsInWorld () {
     makeBoundary({
       x: 0 + boundarySize,
       y: 0,
-      height: canvas.height,
+      height: dom.canvas.height,
       width: boundarySize
     })
   )
 
   boundaries.push(
     makeBoundary({
-      x: canvas.width - boundarySize,
+      x: dom.canvas.width - boundarySize,
       y: 0,
-      height: canvas.height,
+      height: dom.canvas.height,
       width: boundarySize
     })
   )

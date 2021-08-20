@@ -5,6 +5,7 @@ import { normalize, subtract, Vec2 } from './vector.js'
 /**
  * @typedef {object} Shape
  * @property {Vector2D} C
+ * @property {string} c
  * @property {number} F
  * @property {number} R
  * @property {number} M
@@ -24,6 +25,7 @@ import { normalize, subtract, Vec2 } from './vector.js'
  *
  * @param {object} config
  * @param {Vector2D} config.center
+ * @param {string}   [config.color]
  * @param {number}   config.mass
  * @param {number}   config.friction
  * @param {number}   config.restitution
@@ -34,6 +36,7 @@ import { normalize, subtract, Vec2 } from './vector.js'
  */
 export function RigidShape ({
   center,
+  color,
   mass,
   friction,
   restitution, // bouncing
@@ -52,6 +55,7 @@ export function RigidShape ({
     G: 0, // angle
     v: 0, // angle velocity
     a: 0, // angle acceleration
+    c: color || `hsl(${~~(Math.random() * 360)}, 80%, 80%)`,
     B: bounds,
     W: width,
     H: height,

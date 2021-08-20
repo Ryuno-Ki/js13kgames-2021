@@ -41,6 +41,7 @@ describe('drawShape', function () {
 
 function makeContext () {
   return {
+    fillRect: function () {},
     restore: function () {},
     rotate: function () {},
     save: function () {},

@@ -3,6 +3,7 @@
 /**
  * @typedef {object} Shape
  * @property {Vector2D} C
+ * @property {string} c
  * @property {number} F
  * @property {number} R
  * @property {number} M
@@ -21,6 +22,7 @@
  *
  * @param {object} config
  * @param {Vector2D} config.center
+ * @param {string}   [config.color]
  * @param {number}   config.mass
  * @param {number}   config.friction
  * @param {number}   config.restitution
@@ -29,8 +31,9 @@
  * @param {number}   config.height
  * @returns {Shape}
  */
-export function RigidShape({ center, mass, friction, restitution, bounds, width, height }: {
+export function RigidShape({ center, color, mass, friction, restitution, bounds, width, height }: {
     center: Vector2D;
+    color?: string | undefined;
     mass: number;
     friction: number;
     restitution: number;
@@ -50,6 +53,7 @@ export function computeNormals(shape: Shape): void;
 export type Vector2D = import('./vector.js').Vector2D;
 export type Shape = {
     C: Vector2D;
+    c: string;
     F: number;
     R: number;
     M: number;

@@ -33,6 +33,8 @@ function prepareCanvas (context, shape) {
  * @param {Shape} shape
  */
 function draw (context, shape) {
-  const { W, H } = shape
+  const { c, H, W } = shape
   context.strokeRect(-W / 2, -H / 2, W, H)
+  context.fillStyle = c
+  context.fillRect(-W / 2, -H / 2, W * 0.8, H * 0.8)
 }

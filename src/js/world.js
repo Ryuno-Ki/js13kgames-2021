@@ -10,6 +10,7 @@ import { Vec2 } from './vector.js'
  */
 export function makeAstronaut () {
   const center = Vec2(200, 200)
+  const color = 'white'
   const friction = 20
   const restitution = 0
   const mass = 400
@@ -19,6 +20,7 @@ export function makeAstronaut () {
 
   const shape = RigidShape({
     center,
+    color,
     mass,
     friction,
     restitution,
@@ -42,6 +44,7 @@ export function makeAstronaut () {
  */
 export function makeBoundary ({ x, y, height, width }) {
   const center = Vec2(x + width / 2, y + height / 2)
+  const color = 'black'
   const friction = 20
   const restitution = 0
   const mass = 0
@@ -49,6 +52,7 @@ export function makeBoundary ({ x, y, height, width }) {
 
   const shape = RigidShape({
     center,
+    color,
     mass,
     friction,
     restitution,

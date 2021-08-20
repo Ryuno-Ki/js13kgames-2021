@@ -1,6 +1,7 @@
 import { testCollision } from './collisions.js'
-import { FPS, gravity } from './constants.js'
+import { FPS } from './constants.js'
 import { drawShape } from './draw.js'
+import { updatePosition } from './position.js'
 import { computeNormals } from './shape.js'
 import { add, rotate, scale, Vec2 } from './vector.js'
 import { makeAstronaut, makeBoundary, makeIceCream } from './world.js'
@@ -18,7 +19,7 @@ let canvas
 /** @type {CanvasRenderingContext2D} */
 let context
 /** @type {Vector2D} */
-let gForce = Vec2(0, 0)
+let gravity = Vec2(0, 0)
 /** @type {Shape} */
 let iceCream
 /** @type {Vector2D} */
@@ -68,7 +69,7 @@ function tick () {
     update(context, boundary)
   })
 
-  update(context, astronaut, gForce)
+  update(context, astronaut, gravity)
   update(context, iceCream, iceCreamG)
 
   try {
@@ -160,9 +161,9 @@ function updateGravity (event) {
   const value = parseFloat(input.value)
 
   if (input.id === 'xgravity') {
-    gForce = add(gForce, Vec2(value, 0))
+    gravity = add(gravity, Vec2(value, 0))
   } else if (input.id === 'ygravity') {
-    gForce = add(gForce, Vec2(0, value))
+    gravity = add(gravity, Vec2(0, value))
   } else {
     console.error(input)
     throw new Error('What input is this?!')
@@ -180,33 +181,6 @@ function update (context, shape, g) {
   drawShape(context, shape)
   updatePosition(shape, g)
   updateRotation(shape)
-}
-
-/**
- * Update the position of the shape.
- *
- * @param {Shape} shape
- * @param {Vector2D} [g=gravity]
- */
-function updatePosition (shape, g = gravity) {
-  // Apply gravity to all shapes with mass
-  const acceleration = shape.M > 0 ? g : Vec2(0, 0)
-  shape.V = add(shape.V, scale(acceleration, 1 / FPS))
-  moveShape(shape, scale(shape.V, 1 / FPS))
-}
-
-/**
- * Move a shape along a vector.
- *
- * @param {Shape} shape
- * @param {Vector2D} v
- */
-function moveShape (shape, v) {
-  shape.C = add(shape.C, v)
-
-  shape.X.forEach(function (vertex, index) {
-    shape.X[index] = add(vertex, v)
-  })
 }
 
 /**

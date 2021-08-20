@@ -1,9 +1,8 @@
 import { testCollision } from './collisions.js'
-import { FPS } from './constants.js'
 import { drawShape } from './draw.js'
 import { updatePosition } from './position.js'
-import { computeNormals } from './shape.js'
-import { add, rotate, scale, Vec2 } from './vector.js'
+import { updateRotation } from './rotation.js'
+import { add, scale, Vec2 } from './vector.js'
 import { makeAstronaut, makeBoundary, makeIceCream } from './world.js'
 
 /** @typedef {import('./shape').Shape} Shape */
@@ -181,31 +180,6 @@ function update (context, shape, g) {
   drawShape(context, shape)
   updatePosition(shape, g)
   updateRotation(shape)
-}
-
-/**
- * Update the rotation of the shape.
- *
- * @param {Shape} shape
- */
-function updateRotation (shape) {
-  shape.v = shape.v + shape.a * 1 / FPS
-  rotateShape(shape, shape.v * 1 / FPS)
-}
-
-/**
- * Rotate a shape around its centre.
- *
- * @param {Shape} shape
- * @param {number} angle
- */
-function rotateShape (shape, angle) {
-  shape.G = shape.G + angle
-
-  shape.X.forEach(function (vertex, index) {
-    shape.X[index] = rotate(vertex, shape.C, angle)
-    computeNormals(shape)
-  })
 }
 
 /**

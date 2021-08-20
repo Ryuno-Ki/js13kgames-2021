@@ -19,7 +19,9 @@ describe('Position', function () {
       // Assert
       expect(shape.C).not.to.equal(c)
       expect(shape.V).not.to.equal(v)
-      shape.X.forEach((vertex, i) => expect(vertex).not.to.equal(x[i]))
+      shape.X.forEach(function (vertex, i) {
+        expect(vertex).not.to.equal(x[i])
+      })
     })
   })
 })

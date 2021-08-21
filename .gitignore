@@ -150,6 +150,8 @@ dist
 
 # Custom
 docs
+/dist.zip
+*.sqlite
 tmp
 !dist/.gitkeep
 !dist/js/.gitkeep

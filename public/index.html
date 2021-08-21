@@ -1,27 +1,40 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<title>Rock, Paper, Scissors</title>
-<meta charset="UTF-8">
+  <meta charset="utf-8" />
+  <title>Lido Space | js13kgames-2021 - SPACE</title>
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta property="og:title" content="" />
+  <meta property="og:type" content="" />
+  <meta property="og:url" content="" />
+  <meta property="og:image" content="" />
+  <link rel="apple-touch-icon" href="icon.png" />
+  <link rel="stylesheet" href="./main.css" />
 </head>
 <body>
-
-<div style="text-align:center">
-    <h1 id="message"></h1>
-    <div>
-        <button>Rock</button>
-        <button>Paper</button>
-        <button>Scissors</button>
-    </div>
-    <div id="score"></div>
+  <main>
+    <h1>Lido Space</h1>
+    <p>Press a key like <kbd>Space</kbd> to update the view.</p>
+    <svg
+      viewBox="0 0 320 200"
+      xmlns="http://www.w3.org/2000/svg"
+      height="200"
+      width="320"
+      >
+      <polyline id="host" />
+    </svg>
+    <!--
     <p>
-        <a href="/stat">Statistics</a>
+      <a href="/stat">Statistics</a>
     </p>
-</div>
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="/shared.js"></script>
-<script src="/client.js"></script>
-
+    -->
+  </main>
+  <script src="/socket.io/socket.io.js"></script>
+  <!--
+  <script src="./shared.js"></script>
+  -->
+  <script src="./client.js"></script>
+  <script>window.lido.app()</script>
 </body>
 </html>

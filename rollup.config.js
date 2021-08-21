@@ -5,22 +5,23 @@ import { terser } from 'rollup-plugin-terser'
 
 const LICENSE_HEADER = `
 This file is part of JS13kGames - SPACE.
-<insert name here> is free software: you can redistribute it and/or modify
+Lido Space is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
-<insert name here> is distributed in the hope that it will be useful,
+Lido Space is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
-along with <insert name here>.  If not, see <https://www.gnu.org/licenses/>.`
+along with Lido Space.  If not, see <https://www.gnu.org/licenses/>.`
 
 export default {
   input: './src/js/app.js',
   output: {
-    file: './dist/js/app.js',
+    file: './public/client.js',
     format: 'iife',
+    name: 'lido'
   },
   plugins: [
     copy({
@@ -28,7 +29,7 @@ export default {
       verbose: true,
       targets: [{
         src: './src/index.html',
-        dest: './dist/'
+        dest: './public/'
       }]
     }),
 

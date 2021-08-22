@@ -12,6 +12,13 @@ export function onKeyUp () {
   if (!Number.isNaN(delta / 1000)) {
     state.points.push((state.startTime - state.upTime) / 1000)
     updateHost()
+    state.socket.emit(
+      'keyUp',
+      {
+        delta: (state.startTime - state.upTime) / 1000
+        // TODO: Add meta information about the key being released
+      }
+    )
   }
 
   state.isPressed = false

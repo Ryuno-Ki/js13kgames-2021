@@ -7,6 +7,9 @@
         "standard"
     ],
     "globals": {
+      "ROLE_HOST": "readonly",
+      "ROLE_OPPONENT": "readonly",
+      "ROLE_SPECTATOR": "readonly",
       "ROLE_UNKNOWN": "readonly",
       "storage": "readonly"
     },

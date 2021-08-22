@@ -14,6 +14,12 @@ export class User {
     opponents: Array<User>;
     role: any;
     /**
+     * Assigns the role in the current party.
+     *
+     * @param {string} role
+     */
+    setRole(role: string): void;
+    /**
      * Start new game
      *
      * @param {Game} game

@@ -2,16 +2,23 @@ import { Game } from './game.js'
 import { User } from './user.js'
 import { users } from './users.js'
 
+/** @typedef {*} Socket */
+
 /**
  * Socket.io wrapper
  *
- * @param {*} socket
+ * @param {Socket} socket
  */
 export function io (socket) {
   const user = new User(socket)
   users.push(user)
 
   socket.on('disconnect', () => onDisconnect(socket, user))
+  socket.on('keyUp', (/** @type {object} */details) => {
+    onKeyUp(socket, user, details)
+  })
+
+  findOpponents(user)
   console.log(`Connected: ${socket.id}`)
 }
 
@@ -22,8 +29,12 @@ export function io (socket) {
  */
 function findOpponents (user) {
   users.forEach(function (u) {
-    if (u !== user && u.opponents.length === 0) {
-      new Game(user, u).start()
+    if (u.socket.id !== user.socket.id && u.opponents.length === 0) {
+      // @ts-ignore
+      user.setRole(ROLE_HOST)
+      // @ts-ignore
+      u.setRole(ROLE_OPPONENT)
+      new Game(user, [u]).start()
     }
   })
 }
@@ -53,4 +64,38 @@ function onDisconnect (socket, user) {
       findOpponents(opponent)
     })
   }
+}
+
+/**
+ * Sync all players about keyup.
+ *
+ * @param {Socket} socket
+ * @param {User} user
+ * @param {object} details
+ */
+async function onKeyUp (socket, user, details) {
+  try {
+    await updateStorage()
+  } catch (exc) {
+    console.error(exc)
+  }
+
+  if (user && Array.isArray(user.opponents)) {
+    user.opponents.forEach((opponent) => {
+      console.log('Sync ', opponent.socket.id)
+      opponent.socket.emit('sync', details)
+    })
+  } else {
+    console.warn('This looks fishy', user)
+  }
+}
+
+/**
+ * Update this session in storage.
+ * */
+async function updateStorage () {
+  // @ts-ignore
+  const games = storage.get('games', 0)
+  // @ts-ignore
+  await storage.set('games', games + 1)
 }

@@ -21,8 +21,15 @@ export class Game {
     const self = this
 
     this.opponents.forEach((opponent) => {
-      user.start(self, opponent)
-      opponent.start(self, user)
+      const party = /** @type {Array<User>} */([])
+        .concat(this.opponents)
+        .concat(user)
+
+      user.start(self, party.filter((u) => u.socket.id !== user.socket.id))
+      opponent.start(
+        self,
+        party.filter((u) => u.socket.id !== opponent.socket.id)
+      )
     })
   }
 

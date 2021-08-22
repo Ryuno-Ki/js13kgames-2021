@@ -20,6 +20,15 @@ export class User {
   }
 
   /**
+   * Assigns the role in the current party.
+   *
+   * @param {string} role
+   */
+  setRole (role) {
+    this.role = role
+  }
+
+  /**
    * Start new game
    *
    * @param {Game} game
@@ -28,9 +37,10 @@ export class User {
   start (game, opponents) {
     this.game = game
     this.opponents = opponents
-    // @ts-ignore
-    this.role = ROLE_UNKNOWN
-    this.socket.emit('start')
+    this.socket.emit(
+      'start',
+      { role: this.role, opponents: this.opponents.length, spectators: 0 }
+    )
   }
 
   /**

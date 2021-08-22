@@ -15,8 +15,9 @@ export function onKeyUp () {
     state.socket.emit(
       'keyUp',
       {
-        delta: (state.startTime - state.upTime) / 1000
-        // TODO: Add meta information about the key being released
+        delta: (state.startTime - state.upTime) / 1000,
+        position: null,
+        role: state.role
       }
     )
   }

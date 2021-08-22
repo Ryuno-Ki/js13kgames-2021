@@ -13,6 +13,7 @@ import { state } from './state.js'
  * @param {number} details.spectators
  */
 export function onStart ({ role, opponents, spectators }) {
+  state.role = role
   setParty({ role, opponents, spectators })
 
   // @ts-ignore
@@ -112,31 +113,6 @@ function registerOpponentKeys () {
   const avatar = /** @type {*} */(state.edges.children[0])
 
   document.body.addEventListener(
-    'keydown',
-    (/** @type {KeyboardEvent} */e) => {
-      switch (e.code) {
-        case 'ArrowUp':
-          e.preventDefault()
-          console.log('UP')
-          break
-        case 'ArrowRight':
-          e.preventDefault()
-          console.log('RIGHT')
-          break
-        case 'ArrowDown':
-          e.preventDefault()
-          console.log('DOWN')
-          break
-        case 'ArrowLeft':
-          e.preventDefault()
-          console.log('LEFT')
-          break
-      }
-    },
-    false
-  )
-
-  document.body.addEventListener(
     'keyup',
     (/** @type {KeyboardEvent} */e) => {
       switch (e.code) {
@@ -156,6 +132,20 @@ function registerOpponentKeys () {
           e.preventDefault()
           moveAvatarLeft(avatar)
           break
+      }
+
+      const cx = avatar.getAttribute('cx')
+      const cy = avatar.getAttribute('cy')
+
+      if (cx && cy) {
+        state.socket.emit(
+          'keyUp',
+          {
+            delta: null,
+            position: { cx, cy },
+            role: state.role
+          }
+        )
       }
     },
     false

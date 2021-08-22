@@ -80,14 +80,9 @@ async function onKeyUp (socket, user, details) {
     console.error(exc)
   }
 
-  if (user && Array.isArray(user.opponents)) {
-    user.opponents.forEach((opponent) => {
-      console.log('Sync ', opponent.socket.id)
-      opponent.socket.emit('sync', details)
-    })
-  } else {
-    console.warn('This looks fishy', user)
-  }
+  user.opponents.forEach((opponent) => {
+    opponent.socket.emit('sync', details)
+  })
 }
 
 /**

@@ -1,3 +1,5 @@
+const { ROLE_UNKNOWN } = require('../public/shared')
+
 // This file is executed by mocha before the tests are run
 global.document = {
   body: {
@@ -28,3 +30,5 @@ global.window = {
     }
   }
 }
+
+global.ROLE_UNKNOWN = ROLE_UNKNOWN

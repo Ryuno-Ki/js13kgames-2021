@@ -14,6 +14,8 @@ export const state = {
   opponentsState: null,
   /** @type {Array<number>} */
   points: [],
+  // @ts-ignore
+  role: ROLE_UNKNOWN,
   /** @type {HTMLElement | null} */
   roleState: null,
   /** @type {* | null} */

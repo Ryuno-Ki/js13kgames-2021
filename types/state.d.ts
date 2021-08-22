@@ -2,8 +2,12 @@ export namespace state {
     const downTime: number;
     const host: SVGPolylineElement | null;
     const isPressed: boolean;
+    const opponentsState: HTMLElement | null;
     const points: Array<number>;
+    const roleState: HTMLElement | null;
     const socket: any | null;
+    const socketState: HTMLElement | null;
+    const spectatorsState: HTMLElement | null;
     const startTime: number;
     const upTime: number;
 }

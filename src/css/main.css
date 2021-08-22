@@ -104,9 +104,10 @@ svg {
   width: auto;
 }
 
+/* CUSTOM */
 html,
 body {
-  background: #222;
+  background: #4d4d4d;
   color: #eee;
   min-height: 90vh;
 }
@@ -131,7 +132,8 @@ svg {
   }
 }
 
-circle {
+circle,
+polygon {
   fill: #eee;
 }
 
@@ -139,4 +141,52 @@ circle {
   fill: none;
   stroke: #eee;
   transition: points 0.2s ease-in;
+}
+
+html,
+body {
+  transition: background 0.2s ease-out, color 0.2s ease-out;
+}
+
+circle,
+polygon {
+  transition: fill 0.2s ease-out;
+}
+
+#host {
+  transition: stroke 0.2s ease-out;
+}
+
+@media (prefers-color-scheme: light) {
+  html,
+  body {
+    background: #eee;
+    color: #222;
+  }
+
+  circle,
+  polygon {
+    fill: #222;
+  }
+
+  #host {
+    stroke: #222;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html,
+  body {
+    background: #222;
+    color: #eee;
+  }
+
+  circle,
+  polygon {
+    fill: #eee;
+  }
+
+  #host {
+    stroke: #eee;
+  }
 }

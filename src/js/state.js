@@ -2,6 +2,8 @@
  * Client side state.
  */
 export const state = {
+  /** @type {Array<SVGCircleElement>} */
+  avatars: [],
   downTime: 0,
   /** @type {SVGGElement | null} */
   edges: null,

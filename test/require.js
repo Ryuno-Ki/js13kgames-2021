@@ -4,8 +4,15 @@ global.document = {
     addEventListener: function () {}
   },
   createElement: function () {},
+  createElementNS: function () {
+    return {
+      setAttribute: function () {}
+    }
+  },
   getElementById: function (id) {
     return {
+      appendChild: function () {},
+      children: [],
       id,
       setAttribute: function () {}
     }

@@ -1,4 +1,5 @@
 export namespace state {
+    const avatars: Array<SVGCircleElement>;
     const downTime: number;
     const edges: SVGGElement | null;
     const host: SVGPolylineElement | null;

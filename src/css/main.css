@@ -131,6 +131,10 @@ svg {
   }
 }
 
+circle {
+  fill: #eee;
+}
+
 #host {
   fill: none;
   stroke: #eee;

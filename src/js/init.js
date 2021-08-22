@@ -56,6 +56,7 @@ function getEdgesState () {
     throw new Error('Cannot start game!')
   }
 
+  el.innerHTML = ''
   return /** @type {*} */(el)
 }
 

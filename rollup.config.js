@@ -16,7 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Lido Space.  If not, see <https://www.gnu.org/licenses/>.`
 
-export default {
+const client = {
   input: './src/js/app.js',
   output: {
     file: './public/client.js',
@@ -45,3 +45,24 @@ export default {
     })
   ]
 }
+
+const server = {
+  input: './src/js/server.js',
+  output: {
+    file: './public/server.js',
+    format: 'cjs'
+  },
+  plugins: [
+    terser({
+      output: {
+        comments: false
+      }
+    }),
+
+    license({
+      banner: LICENSE_HEADER
+    })
+  ]
+}
+
+export default [client, server]

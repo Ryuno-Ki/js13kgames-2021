@@ -1,18 +1,20 @@
 import assert from 'assert'
-import sinon from 'sinon'
 
+import shared from '../public/shared.js'
 import { onStart } from '../src/js/on-start.js'
 
+const { ROLE_HOST, ROLE_OPPONENT } = shared
+global.ROLE_HOST = ROLE_HOST
+global.ROLE_OPPONENT = ROLE_OPPONENT
+
 describe('onStart', () => {
-  let spy
-
-  beforeEach(() => spy = sinon.spy(console, 'log'))
-
-  afterEach(() => sinon.restore())
-
   it('should set a message', () => {
-    onStart()
+    const details = {
+      role: ROLE_HOST,
+      opponents: 0,
+      spectators: 0
+    }
 
-    assert(spy.calledOnce)
+    onStart(details)
   })
 })

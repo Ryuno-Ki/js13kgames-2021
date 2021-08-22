@@ -5,6 +5,7 @@ export namespace state {
     const host: SVGPolylineElement | null;
     const hostPoints: Array<number>;
     const isPressed: boolean;
+    const opponentPoints: Array<Array<number>>;
     const opponentsState: HTMLElement | null;
     const role: any;
     const roleState: HTMLElement | null;

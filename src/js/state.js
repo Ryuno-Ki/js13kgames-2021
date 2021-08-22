@@ -12,6 +12,8 @@ export const state = {
   /** @type {Array<number>} */
   hostPoints: [],
   isPressed: false,
+  /** @type {Array<Array<number>>} */
+  opponentPoints: [],
   /** @type {HTMLElement | null} */
   opponentsState: null,
   // @ts-ignore

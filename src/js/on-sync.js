@@ -29,6 +29,9 @@ export function onSync (details) {
       avatar = document.createElementNS(ns, 'circle')
       avatar.setAttribute('r', '1')
       state.edges.append(avatar)
+
+      const polygon = document.createElementNS(ns, 'polygon')
+      state.edges.appendChild(polygon)
     } else {
       avatar = state.edges.children[0]
     }
@@ -36,5 +39,22 @@ export function onSync (details) {
     const { cx, cy } = position
     avatar.setAttribute('cx', cx)
     avatar.setAttribute('cy', cy)
+    state.opponentPoints.push([parseInt(cx, 10), parseInt(cy, 10)])
+    updateOpponent()
   }
+}
+
+function updateOpponent () {
+  if (!state.edges) {
+    throw new Error('Boom')
+  }
+
+  const polygon = state.edges.children[1]
+
+  if (!polygon) {
+    throw new Error('Boom')
+  }
+
+  const value = state.opponentPoints.map((point) => point.join(',')).join(' ')
+  polygon.setAttribute('points', value)
 }

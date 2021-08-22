@@ -44,22 +44,29 @@ function createAvatar () {
     case 0:
       circle.setAttribute('cx', '160')
       circle.setAttribute('cy', '0')
+      state.opponentPoints.push([160, 0])
       break
     case 1:
       circle.setAttribute('cx', '100')
       circle.setAttribute('cy', '0')
+      state.opponentPoints.push([100, 0])
       break
     case 2:
       circle.setAttribute('cx', '100')
       circle.setAttribute('cy', '320')
+      state.opponentPoints.push([100, 320])
       break
     case 3:
       circle.setAttribute('cx', '160')
       circle.setAttribute('cy', '200')
+      state.opponentPoints.push([160, 200])
       break
   }
 
   state.edges.appendChild(circle)
+
+  const polygon = document.createElementNS(ns, 'polygon')
+  state.edges.appendChild(polygon)
 }
 
 /**
@@ -111,6 +118,7 @@ function registerOpponentKeys () {
   // TODO: Scale to more opponents
   /** @type {SVGCircleElement} */
   const avatar = /** @type {*} */(state.edges.children[0])
+  const polygon = state.edges.children[1]
 
   document.body.addEventListener(
     'keyup',
@@ -138,6 +146,12 @@ function registerOpponentKeys () {
       const cy = avatar.getAttribute('cy')
 
       if (cx && cy) {
+        state.opponentPoints.push([cx, cy])
+        const value = state.opponentPoints
+          .map((point) => point.join(','))
+          .join(' ')
+        polygon.setAttribute('points', value)
+
         state.socket.emit(
           'keyUp',
           {

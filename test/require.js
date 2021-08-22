@@ -16,6 +16,7 @@ global.window = {
   document: global.document,
   io: function () {
     return {
+      emit: function () {},
       on: function () {}
     }
   }

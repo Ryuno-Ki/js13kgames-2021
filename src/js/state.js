@@ -9,11 +9,11 @@ export const state = {
   edges: null,
   /** @type {SVGPolylineElement | null} */
   host: null,
+  /** @type {Array<number>} */
+  hostPoints: [],
   isPressed: false,
   /** @type {HTMLElement | null} */
   opponentsState: null,
-  /** @type {Array<number>} */
-  points: [],
   // @ts-ignore
   role: ROLE_UNKNOWN,
   /** @type {HTMLElement | null} */

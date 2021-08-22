@@ -6,7 +6,7 @@ import { updateHost } from './update-host.js'
  * Setup the client code.
  */
 export function init () {
-  state.points = []
+  state.hostPoints = []
   // @ts-ignore
   state.socket = window.io({ upgrade: false, transports: ['websocket'] })
   assignDomElements(state)

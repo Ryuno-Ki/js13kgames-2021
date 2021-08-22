@@ -3,9 +3,9 @@ export namespace state {
     const downTime: number;
     const edges: SVGGElement | null;
     const host: SVGPolylineElement | null;
+    const hostPoints: Array<number>;
     const isPressed: boolean;
     const opponentsState: HTMLElement | null;
-    const points: Array<number>;
     const role: any;
     const roleState: HTMLElement | null;
     const socket: any | null;

@@ -8,7 +8,7 @@ describe('init', () => {
     init()
 
     assert(state.host !== null)
-    assert(state.points.length === 0)
+    assert(state.hostPoints.length === 0)
     assert(state.socket !== null)
     assert(state.startTime > 0)
   })

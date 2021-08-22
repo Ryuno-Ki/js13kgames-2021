@@ -41,7 +41,7 @@ function onSync (details) {
 
   // @ts-ignore
   if (role === ROLE_HOST) {
-    state.points.push(delta)
+    state.hostPoints.push(delta)
     updateHost()
   }
 

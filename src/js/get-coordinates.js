@@ -14,7 +14,7 @@ export function getCoordinates () {
   const fullCircle = 13
   const maxCoords = 2 * 13
 
-  state.points.forEach(function (/** @type {number} */point) {
+  state.hostPoints.forEach(function (/** @type {number} */point) {
     const [cx, cy] = center
     const { x, y } = polarToCartesian({
       radius: distanceFromCenter * Math.random(),

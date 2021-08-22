@@ -22,7 +22,7 @@
         <span id="opponents">?</span> in front of
         <span id="spectators">?</span> spectators.
       </p>
-      <p>Press a key like <kbd>Space</kbd> to update the view.</p>
+      <p>Press arrow keys or <kbd>Space</kbd> to update the view.</p>
     </div>
     <svg
       viewBox="0 0 320 200"
@@ -31,6 +31,7 @@
       width="320"
       >
       <polyline id="host" />
+      <g id="edges"></g>
     </svg>
     <p>Current state: <span id="socketState">Loading</span></p>
     <!--

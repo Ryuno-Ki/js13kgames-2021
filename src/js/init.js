@@ -22,6 +22,7 @@ export function init () {
  */
 function assignDomElements (state) {
   state.host = getHostState()
+  state.edges = getEdgesState()
   state.socketState = getSocketState()
   state.roleState = getRoleState()
   state.opponentsState = getOpponentsState()
@@ -35,6 +36,21 @@ function assignDomElements (state) {
  */
 function getHostState () {
   const el = document.getElementById('host')
+
+  if (!el) {
+    throw new Error('Cannot start game!')
+  }
+
+  return /** @type {*} */(el)
+}
+
+/**
+ * Searches the DOM for the edges group element.
+ *
+ * @return {SVGGElement}
+ */
+function getEdgesState () {
+  const el = document.getElementById('edges')
 
   if (!el) {
     throw new Error('Cannot start game!')

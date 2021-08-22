@@ -1,5 +1,6 @@
 export namespace state {
     const downTime: number;
+    const edges: SVGGElement | null;
     const host: SVGPolylineElement | null;
     const isPressed: boolean;
     const opponentsState: HTMLElement | null;

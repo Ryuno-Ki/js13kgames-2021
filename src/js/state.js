@@ -3,6 +3,8 @@
  */
 export const state = {
   downTime: 0,
+  /** @type {SVGGElement | null} */
+  edges: null,
   /** @type {SVGPolylineElement | null} */
   host: null,
   isPressed: false,

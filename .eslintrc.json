@@ -6,6 +6,10 @@
     "extends": [
         "standard"
     ],
+    "globals": {
+      "ROLE_UNKNOWN": "readonly",
+      "storage": "readonly"
+    },
     "parserOptions": {
         "ecmaVersion": 12,
         "sourceType": "module"

@@ -148,6 +148,10 @@ body {
   transition: background 0.2s ease-out, color 0.2s ease-out;
 }
 
+section:not(:target) {
+  display: none;
+}
+
 circle,
 polygon {
   transition: fill 0.2s ease-out;

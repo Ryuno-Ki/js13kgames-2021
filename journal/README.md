@@ -15,3 +15,4 @@ journal and update it daily as I go along.
 - [20th August 2021](https://jaenis.ch/hobbies/coding/repos/ryuno-ki/js13kgames-2021/src/branch/combat-scorched-earth-from-outer-space/journal/2021-08-20.md)
 - [21st August 2021](./2021-08-21.md)
 - [22nd August 2021](./2021-08-22.md)
+- [23rd August 2021](./2021-08-23.md)

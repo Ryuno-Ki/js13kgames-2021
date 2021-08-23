@@ -14,8 +14,34 @@
 </head>
 <body>
   <main>
-    <div>
+    <section id="scene-title" tabindex="0">
       <h1>Lido Space</h1>
+      <p>What do you want to do?</p>
+      <div>
+        <a href="#scene-game">Play a game</a>
+	<a href="#scene-credits">See the credits</a>
+      </div>
+    </section>
+    <section id="scene-form" tabindex="0">
+      <div>
+        <label>
+	  <span>How shall others call you?</span>
+	  <input type="text" />
+	</label>
+      </div>
+      <div>
+        <label>
+	  <span>Do you want to start a new game, join one or just watch?</span>
+	  <select>
+	    <option>Make a choice</option>
+	    <option>Open a new session</option>
+	    <option>Join a game</option>
+	    <option>Watch a party</option>
+	  </select>
+	</label>
+      </div>
+    </section>
+    <section id="#scene-game" tabindex="0">
       <p>
         You're
         <span id="role">unknown</span> against
@@ -23,17 +49,28 @@
         <span id="spectators">?</span> spectators.
       </p>
       <p>Press arrow keys or <kbd>Space</kbd> to update the view.</p>
-    </div>
-    <svg
-      viewBox="0 0 320 200"
-      xmlns="http://www.w3.org/2000/svg"
-      height="200"
-      width="320"
-      >
-      <polyline id="host" />
-      <g id="edges"></g>
-    </svg>
-    <p>Current state: <span id="socketState">Loading</span></p>
+      <svg
+        viewBox="0 0 320 200"
+        xmlns="http://www.w3.org/2000/svg"
+        height="200"
+        width="320"
+        >
+        <polyline id="host" />
+        <g id="edges"></g>
+      </svg>
+      <p>Current state: <span id="socketState">Loading</span></p>
+      <p><a href="#scene-title">Back to start</a></p>
+    </section>
+    <section id="scene-settings" tabindex="0">
+      <h2>Settings</h2>
+      <p>This screen will show the parts to configure.</p>
+      <p><a href="#scene-title">Back to start</a></p>
+    </section>
+    <section id="scene-credits" tabindex="0">
+      <h2>Credits</h2>
+      <p>This screen will show the sources I used.</p>
+      <p><a href="#scene-title">Back to start</a></p>
+    </section>
     <!--
     <p>
       <a href="/stat">Statistics</a>
@@ -43,6 +80,6 @@
   <script src="/socket.io/socket.io.js"></script>
   <script src="./shared.js"></script>
   <script src="./client.js"></script>
-  <script>window.lido.app()</script>
+  <script>window.lido.app();location.hash = '#scene-title'</script>
 </body>
 </html>

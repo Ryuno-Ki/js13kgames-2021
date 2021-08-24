@@ -152,6 +152,33 @@ section:not(:target) {
   display: none;
 }
 
+a {
+  /* Orange Web */
+  color: #f49f0a;
+}
+
+button[type="button"],
+a[href^="#"] {
+  background-color: #f49f0a;
+  border: none;
+  color: #222222;
+  cursor: pointer;
+  display: inline-block;
+  margin-block: 1em;
+  padding: 0.5em 1em;
+  text-align: center;
+  text-decoration: none;
+}
+
+label {
+  display: block;
+}
+
+input[type="text"] {
+  display: block;
+  min-width: 100%;
+}
+
 circle,
 polygon {
   transition: fill 0.2s ease-out;

@@ -174,9 +174,19 @@ label {
   display: block;
 }
 
+meter,
 input[type="text"] {
   display: block;
   min-width: 100%;
+}
+
+meter {
+  background-color: #eee;
+}
+
+meter::-moz-meter-bar,
+meter::-webkit-meter-bar {
+  background-color: #f49f0a;
 }
 
 circle,

@@ -19,26 +19,26 @@
       <p>What do you want to do?</p>
       <div>
         <a href="#scene-game">Play a game</a>
-	<a href="#scene-credits">See the credits</a>
+        <a href="#scene-credits">See the credits</a>
       </div>
     </section>
     <section id="scene-form" tabindex="0">
       <div>
         <label>
-	  <span>How shall others call you?</span>
-	  <input type="text" />
-	</label>
+          <span>How shall others call you?</span>
+          <input type="text" />
+        </label>
       </div>
       <div>
         <label>
-	  <span>Do you want to start a new game, join one or just watch?</span>
-	  <select>
-	    <option>Make a choice</option>
-	    <option>Open a new session</option>
-	    <option>Join a game</option>
-	    <option>Watch a party</option>
-	  </select>
-	</label>
+          <span>Do you want to start a new game, join one or just watch?</span>
+          <select>
+            <option>Make a choice</option>
+            <option>Open a new session</option>
+            <option>Join a game</option>
+            <option>Watch a party</option>
+          </select>
+        </label>
       </div>
     </section>
     <section id="scene-game" tabindex="0">
@@ -49,6 +49,11 @@
         <span id="spectators">?</span> spectators.
       </p>
       <p>Press arrow keys or <kbd>Space</kbd> to update the view.</p>
+      <p>
+        <meter value="30" min="0" max="100">
+          Your progress will appear here
+        </meter>
+      </p>
       <svg
         viewBox="0 0 320 200"
         xmlns="http://www.w3.org/2000/svg"

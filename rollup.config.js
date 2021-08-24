@@ -30,6 +30,9 @@ const client = {
       targets: [{
         src: './src/index.html',
         dest: './public/'
+      }, {
+        src: './src/js/shared.js',
+	dest: './public'
       }]
     }),
 

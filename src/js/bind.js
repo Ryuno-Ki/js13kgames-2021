@@ -6,22 +6,22 @@ import { onLoose } from './on-loose.js'
 import { onStart } from './on-start.js'
 import { onSync } from './on-sync.js'
 import { onWin } from './on-win.js'
-import { state } from './state.js'
+import { dom } from './dom.js'
 
 /**
  * Bind to event listeners.
  */
 export function bind () {
-  if (state.socket === null) {
+  if (dom.socket === null) {
     throw new Error('Game not properly initialised!')
   }
 
-  state.socket.on('start', onStart)
-  state.socket.on('sync', onSync)
-  state.socket.on('win', onWin)
-  state.socket.on('lose', onLoose)
-  state.socket.on('end', onEnd)
-  state.socket.on('connect', onConnect)
-  state.socket.on('disconnect', onDisconnect)
-  state.socket.on('error', onError)
+  dom.socket.on('start', onStart)
+  dom.socket.on('sync', onSync)
+  dom.socket.on('win', onWin)
+  dom.socket.on('lose', onLoose)
+  dom.socket.on('end', onEnd)
+  dom.socket.on('connect', onConnect)
+  dom.socket.on('disconnect', onDisconnect)
+  dom.socket.on('error', onError)
 }

@@ -1,3 +1,4 @@
+import { dom } from './dom.js'
 import { state } from './state.js'
 import { updateHost } from './update-host.js'
 
@@ -21,19 +22,19 @@ export function onSync (details) {
   }
 
   // @ts-ignore
-  if (role === ROLE_OPPONENT && state.edges) {
+  if (role === ROLE_OPPONENT && dom.edges) {
     let avatar
 
-    if (state.edges.children.length === 0) {
+    if (dom.edges.children.length === 0) {
       const ns = 'http://www.w3.org/2000/svg'
       avatar = document.createElementNS(ns, 'circle')
       avatar.setAttribute('r', '1')
-      state.edges.append(avatar)
+      dom.edges.append(avatar)
 
       const polygon = document.createElementNS(ns, 'polygon')
-      state.edges.appendChild(polygon)
+      dom.edges.appendChild(polygon)
     } else {
-      avatar = state.edges.children[0]
+      avatar = dom.edges.children[0]
     }
 
     const { cx, cy } = position
@@ -45,11 +46,11 @@ export function onSync (details) {
 }
 
 function updateOpponent () {
-  if (!state.edges) {
+  if (!dom.edges) {
     throw new Error('Boom')
   }
 
-  const polygon = state.edges.children[1]
+  const polygon = dom.edges.children[1]
 
   if (!polygon) {
     throw new Error('Boom')

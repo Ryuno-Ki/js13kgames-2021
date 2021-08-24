@@ -1,3 +1,4 @@
+import { dom } from './dom.js'
 import { state } from './state.js'
 import { updateHost } from './update-host.js'
 
@@ -12,7 +13,7 @@ export function onKeyUp () {
   if (!Number.isNaN(delta / 1000)) {
     state.hostPoints.push((state.startTime - state.upTime) / 1000)
     updateHost()
-    state.socket.emit(
+    dom.socket.emit(
       'keyUp',
       {
         delta: (state.startTime - state.upTime) / 1000,

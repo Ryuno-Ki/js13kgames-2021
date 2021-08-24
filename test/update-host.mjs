@@ -1,13 +1,13 @@
 import assert from 'assert'
 import sinon from 'sinon'
 
-import { state } from '../src/js/state.js'
+import { dom } from '../src/js/dom.js'
 import { updateHost } from '../src/js/update-host.js'
 
 describe('updateHost', () => {
   let spy
 
-  beforeEach(() => spy = sinon.spy(state.host, 'setAttribute'))
+  beforeEach(() => spy = sinon.spy(dom.host, 'setAttribute'))
 
   afterEach(() => sinon.restore())
 

@@ -1,11 +1,11 @@
 import { getCoordinates } from './get-coordinates.js'
-import { state } from './state.js'
+import { dom } from './dom.js'
 
 /**
  * Updates the UI for the Host part.
  */
 export function updateHost () {
-  if (state.host === null) {
+  if (dom.host === null) {
     throw new Error('Game not properly initialised!')
   }
 
@@ -13,5 +13,5 @@ export function updateHost () {
     .map(function (point) { return point.join(',') })
     .join(' ')
 
-  state.host.setAttribute('points', value)
+  dom.host.setAttribute('points', value)
 }

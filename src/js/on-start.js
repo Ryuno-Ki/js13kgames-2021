@@ -1,3 +1,4 @@
+import { dom } from './dom.js'
 import { onKeyDown } from './on-key-down.js'
 import { onKeyUp } from './on-key-up.js'
 import { setMessage } from './set-message.js'
@@ -31,7 +32,7 @@ export function onStart ({ role, opponents, spectators }) {
 }
 
 function createAvatar () {
-  if (!state.edges) {
+  if (!dom.edges) {
     throw new Error('Boom')
   }
 
@@ -63,10 +64,10 @@ function createAvatar () {
       break
   }
 
-  state.edges.appendChild(circle)
+  dom.edges.appendChild(circle)
 
   const polygon = document.createElementNS(ns, 'polygon')
-  state.edges.appendChild(polygon)
+  dom.edges.appendChild(polygon)
 }
 
 /**
@@ -111,14 +112,14 @@ function registerHostKeys () {
  * Registers key events for opponent player.
  */
 function registerOpponentKeys () {
-  if (!state.edges) {
+  if (!dom.edges) {
     throw new Error('Boom')
   }
 
   // TODO: Scale to more opponents
   /** @type {SVGCircleElement} */
-  const avatar = /** @type {*} */(state.edges.children[0])
-  const polygon = state.edges.children[1]
+  const avatar = /** @type {*} */(dom.edges.children[0])
+  const polygon = dom.edges.children[1]
 
   document.body.addEventListener(
     'keyup',
@@ -152,7 +153,7 @@ function registerOpponentKeys () {
           .join(' ')
         polygon.setAttribute('points', value)
 
-        state.socket.emit(
+        dom.socket.emit(
           'keyUp',
           {
             delta: null,

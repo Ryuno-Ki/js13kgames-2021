@@ -1,4 +1,4 @@
-import { state } from './state.js'
+import { dom } from './dom.js'
 
 /**
  * Updates the UI with given stats of the current party.
@@ -9,11 +9,11 @@ import { state } from './state.js'
  * @param {number} details.spectators
  */
 export function setParty ({ role, opponents, spectators }) {
-  if (!state.opponentsState || !state.roleState || !state.spectatorsState) {
+  if (!dom.opponentsState || !dom.roleState || !dom.spectatorsState) {
     throw new Error('Bogus HTML')
   }
 
-  state.roleState.textContent = role
-  state.opponentsState.textContent = opponents + ''
-  state.spectatorsState.textContent = spectators + ''
+  dom.roleState.textContent = role
+  dom.opponentsState.textContent = opponents + ''
+  dom.spectatorsState.textContent = spectators + ''
 }

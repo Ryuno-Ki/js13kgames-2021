@@ -1,4 +1,4 @@
-import { state } from './state.js'
+import { dom } from './dom.js'
 
 /**
  * Shows a message.
@@ -6,9 +6,9 @@ import { state } from './state.js'
  * @param {string} message
  */
 export function setMessage (message) {
-  if (state.socketState === null) {
+  if (dom.socketState === null) {
     throw new Error('HTML broken')
   }
 
-  state.socketState.textContent = message
+  dom.socketState.textContent = message
 }

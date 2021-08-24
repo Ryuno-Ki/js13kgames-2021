@@ -1,4 +1,5 @@
 import { bind } from './bind.js'
+import { dom } from './dom.js'
 import { state } from './state.js'
 import { updateHost } from './update-host.js'
 
@@ -8,8 +9,8 @@ import { updateHost } from './update-host.js'
 export function init () {
   state.hostPoints = []
   // @ts-ignore
-  state.socket = window.io({ upgrade: false, transports: ['websocket'] })
-  assignDomElements(state)
+  dom.socket = window.io({ upgrade: false, transports: ['websocket'] })
+  assignDomElements(dom)
   bind()
   state.startTime = (new Date()).valueOf()
   updateHost()
@@ -18,15 +19,15 @@ export function init () {
 /**
  * Searches the DOM for references to elements used in the game.
  *
- * @param {state} state
+ * @param {dom} dom
  */
-function assignDomElements (state) {
-  state.host = getHostState()
-  state.edges = getEdgesState()
-  state.socketState = getSocketState()
-  state.roleState = getRoleState()
-  state.opponentsState = getOpponentsState()
-  state.spectatorsState = getSpectatorsState()
+function assignDomElements (dom) {
+  dom.host = getHostState()
+  dom.edges = getEdgesState()
+  dom.socketState = getSocketState()
+  dom.roleState = getRoleState()
+  dom.opponentsState = getOpponentsState()
+  dom.spectatorsState = getSpectatorsState()
 }
 
 /**

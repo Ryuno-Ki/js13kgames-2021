@@ -162,6 +162,12 @@ function registerOpponentKeys () {
           }
         )
       }
+
+      // @ts-ignore
+      window.zzfx(
+        /* eslint-disable-next-line */
+        ...[,,350,,,.09,4,1.13,,6.9,,,,.9,,.5,,.93,.01,.18]
+      ) // Hit 37
     },
     false
   )

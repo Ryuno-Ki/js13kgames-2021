@@ -32,3 +32,4 @@ global.window = {
 }
 
 global.ROLE_UNKNOWN = ROLE_UNKNOWN
+global.zzfx = function () {}

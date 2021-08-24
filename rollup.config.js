@@ -28,11 +28,14 @@ const client = {
       flatten: true,
       verbose: true,
       targets: [{
+        src: './node_modules/zzfx/ZzFXMicro.min.js',
+        dest: './public/'
+      }, {
         src: './src/index.html',
         dest: './public/'
       }, {
         src: './src/js/shared.js',
-	dest: './public'
+        dest: './public/'
       }]
     }),
 

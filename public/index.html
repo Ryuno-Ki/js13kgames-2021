@@ -18,7 +18,7 @@
       <h1>Lido Space</h1>
       <p>What do you want to do?</p>
       <div>
-        <a href="#scene-game">Play a game</a>
+        <a href="#scene-form">Play a game</a>
         <a href="#scene-credits">See the credits</a>
       </div>
     </section>
@@ -26,19 +26,22 @@
       <div>
         <label>
           <span>How shall others call you?</span>
-          <input type="text" />
+          <input id="name" type="text" />
         </label>
       </div>
       <div>
         <label>
           <span>Do you want to start a new game, join one or just watch?</span>
-          <select>
-            <option>Make a choice</option>
-            <option>Open a new session</option>
-            <option>Join a game</option>
-            <option>Watch a party</option>
+          <select id="mode" name="mode">
+            <option value="">Make a choice</option>
+            <option value="new">Open a new session</option>
+            <option value="join">Join a game</option>
+            <option value="watch">Watch a party</option>
           </select>
         </label>
+      </div>
+      <div>
+        <a href="#scene-game">Continue the game</a>
       </div>
     </section>
     <section id="scene-game" tabindex="0">

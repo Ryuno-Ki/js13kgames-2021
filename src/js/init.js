@@ -13,6 +13,7 @@ export function init () {
   assignDomElements(dom)
   bind()
   state.startTime = (new Date()).valueOf()
+  getUserData()
   updateHost()
 }
 
@@ -119,4 +120,62 @@ function getSpectatorsState () {
   }
 
   return el
+}
+
+function getUserData () {
+  const nameEl = document.getElementById('name')
+
+  if (!nameEl) {
+    throw new Error('Cannot start game!')
+  }
+
+  const modeEl = document.getElementById('mode')
+
+  if (!modeEl) {
+    throw new Error('Cannot start game!')
+  }
+
+  const delay = 200
+  const onDebouncedInput = debounce((/** @type {*} */e) => {
+    if (e.target) {
+      state.name = e.target.value
+      console.log('Name changed', state.name)
+    }
+  }, delay)
+
+  nameEl.addEventListener('input', (e) => {
+    onDebouncedInput(e)
+  })
+
+  modeEl.addEventListener('change', (e) => {
+    if (e.target) {
+      state.mode = /** @type {*} */(e.target).value
+      console.log('Mode changed', state.mode)
+    }
+  })
+}
+
+// Kudos https://www.freecodecamp.org/news/javascript-debounce-example/
+/**
+ * Delay execution of a function.
+ *
+ * @param {*} callback
+ * @param {number} timeout
+ * @return {*}
+ */
+function debounce (callback, timeout = 300) {
+  /** @type {number | undefined} */
+  let timer
+
+  return (/** @type {*[]} */...args) => {
+    if (timer) { clearTimeout(timer) }
+    // @ts-ignore
+    const self = this
+    timer = /** @type {*} */(
+      setTimeout(
+        () => { callback.apply(self, args) },
+        timeout
+      )
+    )
+  }
 }

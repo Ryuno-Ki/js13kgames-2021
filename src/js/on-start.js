@@ -121,6 +121,7 @@ function registerOpponentKeys () {
   const avatar = /** @type {*} */(dom.edges.children[0])
   const polygon = dom.edges.children[1]
 
+  // TODO: register only after the player started a game
   document.body.addEventListener(
     'keyup',
     (/** @type {KeyboardEvent} */e) => {

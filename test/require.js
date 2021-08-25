@@ -13,6 +13,7 @@ global.document = {
   },
   getElementById: function (id) {
     return {
+      addEventListener: function () {},
       appendChild: function () {},
       children: [],
       id,

@@ -1,6 +1,6 @@
 import assert from 'assert'
 
-import { updateName } from '../src/js/server/state/reducers/update-name.js'
+import { updateName } from '../../src/js/server/state/reducers/update-name.js'
 
 describe('updateName', () => {
   it('should update the state of the user with the new name', () => {

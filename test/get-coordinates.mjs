@@ -1,6 +1,6 @@
 import assert from 'assert'
 
-import { getCoordinates } from '../src/js/get-coordinates.js'
+import { getCoordinates } from '../src/js/client/get-coordinates.js'
 
 describe('getCoordinates', () => {
   it('should get the coordinates', () => {

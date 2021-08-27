@@ -5,7 +5,7 @@ export namespace state {
     const mode: null;
     const name: string;
     const opponentPoints: Array<Array<number>>;
-    const role: any;
+    const role: null;
     const startTime: number;
     const upTime: number;
 }

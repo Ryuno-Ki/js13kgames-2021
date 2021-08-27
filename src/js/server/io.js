@@ -28,7 +28,7 @@ export function io (socket) {
  * @param {User} user
  */
 function findOpponents (user) {
-  users.forEach(function (u) {
+  users.forEach((u) => {
     if (u.socket.id !== user.socket.id && u.opponents.length === 0) {
       // @ts-ignore
       user.setRole(ROLE_HOST)

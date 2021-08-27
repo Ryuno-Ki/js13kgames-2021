@@ -1,8 +1,8 @@
 import assert from 'assert'
 import sinon from 'sinon'
 
-import { dom } from '../src/js/dom.js'
-import { updateHost } from '../src/js/update-host.js'
+import { dom } from '../src/js/client/dom.js'
+import { updateHost } from '../src/js/client/update-host.js'
 
 describe('updateHost', () => {
   let spy

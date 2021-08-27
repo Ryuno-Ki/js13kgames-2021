@@ -14,6 +14,7 @@ import { state } from './state.js'
  * @param {number} details.spectators
  */
 export function onStart ({ role, opponents, spectators }) {
+  // @ts-ignore
   state.role = role
   setParty({ role, opponents, spectators })
 

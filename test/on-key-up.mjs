@@ -1,7 +1,7 @@
 import assert from 'assert'
 
-import { onKeyUp } from '../src/js/on-key-up.js'
-import { state } from '../src/js/state.js'
+import { onKeyUp } from '../src/js/client/on-key-up.js'
+import { state } from '../src/js/client/state.js'
 
 describe('onKeyUp', () => {
   it('should update the upTime and isPressed state', () => {

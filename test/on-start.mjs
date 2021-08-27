@@ -1,7 +1,8 @@
 import assert from 'assert'
 
+// SIC!
 import shared from '../public/shared.js'
-import { onStart } from '../src/js/on-start.js'
+import { onStart } from '../src/js/client/on-start.js'
 
 const { ROLE_HOST, ROLE_OPPONENT } = shared
 global.ROLE_HOST = ROLE_HOST

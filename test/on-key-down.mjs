@@ -1,7 +1,7 @@
 import assert from 'assert'
 
-import { onKeyDown } from '../src/js/on-key-down.js'
-import { state } from '../src/js/state.js'
+import { onKeyDown } from '../src/js/client/on-key-down.js'
+import { state } from '../src/js/client/state.js'
 
 describe('onKeyDown', () => {
   it('should update the downTime and isPressed state', () => {

@@ -1,7 +1,7 @@
 import assert from 'assert'
 
-import { init } from '../src/js/init.js'
-import { state } from '../src/js/state.js'
+import { init } from '../src/js/client/init.js'
+import { state } from '../src/js/client/state.js'
 
 describe('init', () => {
   it('should initialise the game', () => {

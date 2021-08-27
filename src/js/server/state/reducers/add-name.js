@@ -7,24 +7,16 @@
  */
 
 /**
- * Updates the state for an user.
+ * Adds an user to the state.
  *
  * @param {State} state
  * @param {payload} payload
  * @returns {State}
  */
-export function updateName (state, payload) {
-  const { id, name } = payload
-  const users = state.users.map((user) => {
-    if (user.id === id) {
-      return {
-        ...user,
-        name
-      }
-    }
-
-    return user
-  })
+export function addName (state, payload) {
+  const users = /** @type {State["users"]} */([])
+    .concat(state.users)
+    .concat(payload)
 
   return Object.assign({}, state, { users })
 }

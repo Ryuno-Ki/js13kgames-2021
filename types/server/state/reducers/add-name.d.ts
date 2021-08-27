@@ -5,13 +5,13 @@
  * @property {string} payload.name
  */
 /**
- * Updates the state for an user.
+ * Adds an user to the state.
  *
  * @param {State} state
  * @param {payload} payload
  * @returns {State}
  */
-export function updateName(state: State, payload: payload): State;
+export function addName(state: State, payload: payload): State;
 export type State = import('./index.js').State;
 export type payload = {
     id: string;

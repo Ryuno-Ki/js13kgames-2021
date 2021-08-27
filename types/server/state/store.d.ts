@@ -1,12 +1,12 @@
 export default store;
-export type AddNameAction = import('./actions/add-name').Action;
-export type UpdateNameAction = import('./actions/update-name').Action;
-export type RemoveUserAction = import('./actions/remove-user').Action;
+export type AddNameAction = any;
+export type UpdateNameAction = any;
+export type RemoveUserAction = any;
 export type Action = AddNameAction | UpdateNameAction | RemoveUserAction;
 declare const store: Store;
-/** @typedef {import('./actions/add-name').Action} AddNameAction */
-/** @typedef {import('./actions/update-name').Action} UpdateNameAction */
-/** @typedef {import('./actions/remove-user').Action} RemoveUserAction */
+/** @typedef {module:actions/add-name:Action} AddNameAction */
+/** @typedef {module:actions/update-name:Action} UpdateNameAction */
+/** @typedef {module:actions/remove-user:Action} RemoveUserAction */
 /** @typedef {AddNameAction | UpdateNameAction | RemoveUserAction} Action */
 /**
  * Store to manage state

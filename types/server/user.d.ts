@@ -12,7 +12,7 @@ export class User {
     game: any;
     /** @type {Array<User>} */
     opponents: Array<User>;
-    role: string | null;
+    role: any;
     /**
      * Assigns the role in the current party.
      *

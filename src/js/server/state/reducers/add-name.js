@@ -1,4 +1,5 @@
-/** @typedef {import('./index.js').State} State */
+/** @typedef {module:index.js:State} State */
+/** @typedef {module:index.js:user} user */
 
 /**
  * @typedef {object} payload
@@ -14,7 +15,7 @@
  * @returns {State}
  */
 export function addName (state, payload) {
-  const users = /** @type {State["users"]} */([])
+  const users = /** @type {Array<user>} */([])
     .concat(state.users)
     .concat(payload)
 

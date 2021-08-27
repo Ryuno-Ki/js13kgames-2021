@@ -1,4 +1,5 @@
-/** @typedef {import('./index.js').State} State */
+/** @typedef {module:index.js:State} State */
+/** @typedef {module:index.js:user} user */
 
 /**
  * @typedef {object} payload
@@ -14,7 +15,9 @@
  */
 export function removeUser (state, payload) {
   const { id } = payload
-  const users = state.users.filter((user) => user.id !== id)
+  const users = state.users.filter((/** @type {user} */user) => {
+    return user.id !== id
+  })
 
   return Object.assign({}, state, { users })
 }

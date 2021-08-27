@@ -1,4 +1,5 @@
-/** @typedef {import('./index.js').State} State */
+/** @typedef {module:index.js:State} State */
+/** @typedef {module:index.js:user} user */
 /**
  * @typedef {object} payload
  * @property {string} payload.id
@@ -11,8 +12,9 @@
  * @param {payload} payload
  * @returns {State}
  */
-export function addName(state: State, payload: payload): State;
-export type State = import('./index.js').State;
+export function addName(state: any, payload: payload): any;
+export type State = any;
+export type user = any;
 export type payload = {
     id: string;
     name: string;

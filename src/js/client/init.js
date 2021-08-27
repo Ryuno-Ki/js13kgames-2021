@@ -167,7 +167,7 @@ function debounce (callback, timeout = 300) {
   /** @type {number | undefined} */
   let timer
 
-  return (/** @type {*[]} */...args) => {
+  return (/** @type {Array<*>} */...args) => {
     if (timer) { clearTimeout(timer) }
     // @ts-ignore
     const self = this

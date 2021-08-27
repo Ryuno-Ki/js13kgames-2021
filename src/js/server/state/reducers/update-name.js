@@ -1,4 +1,5 @@
-/** @typedef {import('./index.js').State} State */
+/** @typedef {module:index.js:State} State */
+/** @typedef {module:index.js:user} user */
 
 /**
  * @typedef {object} payload
@@ -15,7 +16,7 @@
  */
 export function updateName (state, payload) {
   const { id, name } = payload
-  const users = state.users.map((user) => {
+  const users = state.users.map((/** @type {user} */user) => {
     if (user.id === id) {
       return {
         ...user,

@@ -74,7 +74,7 @@
     "standard": "16.0.3",
     "tap": "15.0.9",
     "tsd": "0.17.0",
-    "typescript": "4.3.5",
+    "typescript": "4.4.2",
     "zip-dir": "2.0.0"
   },
   "dependencies": {

@@ -1,12 +1,14 @@
 import {
   ADD_NAME,
   CONNECT,
+  DISCONNECT,
   REMOVE_USER,
   SELECT_MODE,
   UPDATE_NAME
 } from '../../../constants.js'
 import { addName } from './add-name.js'
 import { connect } from './connect.js'
+import { disconnect } from './disconnect.js'
 import { removeUser } from './remove-user.js'
 import { selectMode } from './select-mode.js'
 import { updateName } from './update-name.js'
@@ -59,6 +61,8 @@ export function reducer (state, action) {
       return addName(state, action.payload)
     case CONNECT:
       return connect(state, action.payload)
+    case DISCONNECT:
+      return disconnect(state, action.payload)
     case REMOVE_USER:
       return removeUser(state, action.payload)
     case SELECT_MODE:

@@ -1,3 +1,4 @@
+import { pick } from '../pick.js'
 import { dom } from './dom.js'
 import { onKeyDown } from './on-key-down.js'
 import { onKeyUp } from './on-key-up.js'
@@ -69,17 +70,6 @@ function createAvatar () {
 
   const polygon = document.createElementNS(ns, 'polygon')
   dom.edges.appendChild(polygon)
-}
-
-/**
- * Selects a random element from a list.
- *
- * @param {Array<number>} list
- * @return {number}
- */
-function pick (list) {
-  const length = list.length
-  return list[Math.floor(Math.random() * length)]
 }
 
 /**

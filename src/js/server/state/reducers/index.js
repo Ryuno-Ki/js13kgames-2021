@@ -14,6 +14,13 @@ import { selectMode } from './select-mode.js'
 import { updateName } from './update-name.js'
 
 /**
+ * @typedef {object} game
+ * @property {string} game.host
+ * @property {Array<string>} game.opponents
+ * @property {Array<string>} game.spectators
+ */
+
+/**
  * @typedef {object} mode
  * @property {string} mode.id
  * @property {string} mode.mode
@@ -34,12 +41,14 @@ import { updateName } from './update-name.js'
 /**
  * @typedef {object} State
  * @property {Array<string>} connections
+ * @property {Array<game>} games
  * @property {Array<mode>} modes
  * @property {Array<user>} users
  */
 
 const initialState = {
   connections: [],
+  games: [],
   modes: [],
   users: []
 }

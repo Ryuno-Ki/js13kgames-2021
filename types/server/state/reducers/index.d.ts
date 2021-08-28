@@ -6,6 +6,11 @@
  * @returns {State}
  */
 export function reducer(state: State, action: Action): State;
+export type game = {
+    host: string;
+    opponents: Array<string>;
+    spectators: Array<string>;
+};
 export type mode = {
     id: string;
     mode: string;
@@ -20,6 +25,7 @@ export type Action = {
 };
 export type State = {
     connections: Array<string>;
+    games: Array<game>;
     modes: Array<mode>;
     users: Array<user>;
 };

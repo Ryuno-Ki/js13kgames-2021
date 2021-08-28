@@ -1,4 +1,5 @@
 /** @typedef {module:index.js:State} State */
+/** @typedef {module:index.js:game} game */
 /** @typedef {module:index.js:mode} mode */
 /**
  * @typedef {object} payload
@@ -14,6 +15,7 @@
  */
 export function selectMode(state: any, payload: payload): any;
 export type State = any;
+export type game = any;
 export type mode = any;
 export type payload = {
     id: string;

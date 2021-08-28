@@ -1,4 +1,5 @@
 /** @typedef {module:index.js:State} State */
+/** @typedef {module:index.js:mode} mode */
 /** @typedef {module:index.js:user} user */
 
 /**
@@ -15,9 +16,13 @@
  * @returns {State}
  */
 export function addName (state, payload) {
+  const modes = /** @type {Array<mode>} */([])
+    .concat(state.modes)
+    .concat({ id: payload.id, mode: null })
+
   const users = /** @type {Array<user>} */([])
     .concat(state.users)
     .concat(payload)
 
-  return Object.assign({}, state, { users })
+  return Object.assign({}, state, { modes, users })
 }

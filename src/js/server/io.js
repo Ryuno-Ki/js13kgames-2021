@@ -1,15 +1,22 @@
-import { SOCKET_ADD_USER } from '../constants.js'
+import { SOCKET_ADD_USER, SOCKET_SELECT_MODE } from '../constants.js'
 import { getLogger } from '../logger.js'
 import { Game } from './game.js'
 import { addName } from './state/actions/add-name.js'
+import { selectMode } from './state/actions/select-mode.js'
 import store from './state/store.js'
 import { User } from './user.js'
 import { users } from './users.js'
 
 /** @typedef {*} Socket */
+
 /**
  * @typedef {object} AddUserDetails
  * @property {string} AddUserDetails.name
+ */
+
+/**
+ * @typedef {object} SelectModeDetails
+ * @property {string} SelectModeDetails.mode
  */
 
 const logger = getLogger('io')
@@ -26,6 +33,11 @@ export function io (socket) {
   socket.on('disconnect', () => onDisconnect(socket, user))
   socket.on(SOCKET_ADD_USER, (/** @type {AddUserDetails} */details) => {
     store.dispatch(addName(socket.id, details.name))
+    logger.debug('State', store.getState())
+  })
+
+  socket.on(SOCKET_SELECT_MODE, (/** @type {SelectModeDetails} */details) => {
+    store.dispatch(selectMode(socket.id, details.mode))
     logger.debug('State', store.getState())
   })
 

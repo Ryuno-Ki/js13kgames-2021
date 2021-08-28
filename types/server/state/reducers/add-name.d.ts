@@ -1,4 +1,5 @@
 /** @typedef {module:index.js:State} State */
+/** @typedef {module:index.js:mode} mode */
 /** @typedef {module:index.js:user} user */
 /**
  * @typedef {object} payload
@@ -14,6 +15,7 @@
  */
 export function addName(state: any, payload: payload): any;
 export type State = any;
+export type mode = any;
 export type user = any;
 export type payload = {
     id: string;

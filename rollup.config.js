@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Lido Space.  If not, see <https://www.gnu.org/licenses/>.`
 
 const client = {
-  input: './src/js/app.js',
+  input: './src/js/client/app.js',
   output: {
     file: './public/client.js',
     format: 'iife',
@@ -53,7 +53,7 @@ const client = {
 }
 
 const server = {
-  input: './src/js/server.js',
+  input: './src/js/server/server.js',
   output: {
     file: './public/server.js',
     format: 'cjs'

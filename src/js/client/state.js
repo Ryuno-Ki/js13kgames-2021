@@ -6,8 +6,10 @@ export const state = {
   /** @type {Array<number>} */
   hostPoints: [],
   isPressed: false,
+  /** @type {string | null} */
   mode: null,
-  name: '',
+  /** @type {string | null} */
+  name: null,
   /** @type {Array<Array<number>>} */
   opponentPoints: [],
   // @ts-ignore

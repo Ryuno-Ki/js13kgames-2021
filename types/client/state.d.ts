@@ -2,8 +2,8 @@ export namespace state {
     const downTime: number;
     const hostPoints: Array<number>;
     const isPressed: boolean;
-    const mode: null;
-    const name: string;
+    const mode: string | null;
+    const name: string | null;
     const opponentPoints: Array<Array<number>>;
     const role: any;
     const startTime: number;

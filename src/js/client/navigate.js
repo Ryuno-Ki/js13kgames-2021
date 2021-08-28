@@ -10,5 +10,5 @@ export function navigate (target) {
   url.hash = `#scene-${target}`
 
   window.history.pushState(state, title, url.href)
-  window.location.hash = url.href
+  window.location.hash = url.hash
 }

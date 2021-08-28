@@ -1,5 +1,6 @@
 import { bind } from './bind.js'
 import { dom } from './dom.js'
+import { navigate } from './navigate.js'
 import { state } from './state.js'
 import { updateHost } from './update-host.js'
 
@@ -123,59 +124,30 @@ function getSpectatorsState () {
 }
 
 function getUserData () {
-  const nameEl = document.getElementById('name')
+  const form = document.getElementById('user-form')
 
-  if (!nameEl) {
+  if (!form) {
     throw new Error('Cannot start game!')
   }
 
-  const modeEl = document.getElementById('mode')
+  form.addEventListener('submit', (e) => {
+    e.preventDefault()
 
-  if (!modeEl) {
-    throw new Error('Cannot start game!')
-  }
-
-  const delay = 200
-  const onDebouncedInput = debounce((/** @type {*} */e) => {
-    if (e.target) {
-      state.name = e.target.value
-      console.log('Name changed', state.name)
+    if (!e.target) {
+      throw new Error('Something went wrong!')
     }
-  }, delay)
 
-  nameEl.addEventListener('input', (e) => {
-    onDebouncedInput(e)
-  })
+    const formData = new FormData(/** @type {HTMLFormElement} */(e.target))
+    const name = formData.get('name')
+    const mode = formData.get('mode')
 
-  modeEl.addEventListener('change', (e) => {
-    if (e.target) {
-      state.mode = /** @type {*} */(e.target).value
-      console.log('Mode changed', state.mode)
+    if (name && mode) {
+      state.name = String(name)
+      state.mode = String(mode)
+      console.log('State', state)
+      navigate('game')
+    } else {
+      console.error('Show validation error')
     }
   })
-}
-
-// Kudos https://www.freecodecamp.org/news/javascript-debounce-example/
-/**
- * Delay execution of a function.
- *
- * @param {*} callback
- * @param {number} timeout
- * @return {*}
- */
-function debounce (callback, timeout = 300) {
-  /** @type {number | undefined} */
-  let timer
-
-  return (/** @type {Array<*>} */...args) => {
-    if (timer) { clearTimeout(timer) }
-    // @ts-ignore
-    const self = this
-    timer = /** @type {*} */(
-      setTimeout(
-        () => { callback.apply(self, args) },
-        timeout
-      )
-    )
-  }
 }

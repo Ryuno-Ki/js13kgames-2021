@@ -1,4 +1,5 @@
 import { bind } from './bind.js'
+import { SOCKET_ADD_USER } from '../constants.js'
 import { dom } from './dom.js'
 import { navigate } from './navigate.js'
 import { state } from './state.js'
@@ -145,6 +146,7 @@ function getUserData () {
       state.name = String(name)
       state.mode = String(mode)
       console.log('State', state)
+      dom.socket.emit(SOCKET_ADD_USER, { name: state.name })
       navigate('game')
     } else {
       console.error('Show validation error')

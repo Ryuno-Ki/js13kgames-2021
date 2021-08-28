@@ -1,4 +1,3 @@
-/** @typedef {*} Socket */
 /**
  * Socket.io wrapper
  *
@@ -6,3 +5,6 @@
  */
 export function io(socket: Socket): void;
 export type Socket = any;
+export type AddUserDetails = {
+    name: string;
+};

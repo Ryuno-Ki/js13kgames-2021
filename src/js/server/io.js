@@ -1,8 +1,18 @@
+import { SOCKET_ADD_USER } from '../constants.js'
+import { getLogger } from '../logger.js'
 import { Game } from './game.js'
+import { addName } from './state/actions/add-name.js'
+import store from './state/store.js'
 import { User } from './user.js'
 import { users } from './users.js'
 
 /** @typedef {*} Socket */
+/**
+ * @typedef {object} AddUserDetails
+ * @property {string} AddUserDetails.name
+ */
+
+const logger = getLogger('io')
 
 /**
  * Socket.io wrapper
@@ -14,6 +24,11 @@ export function io (socket) {
   users.push(user)
 
   socket.on('disconnect', () => onDisconnect(socket, user))
+  socket.on(SOCKET_ADD_USER, (/** @type {AddUserDetails} */details) => {
+    store.dispatch(addName(socket.id, details.name))
+    logger.debug('State', store.getState())
+  })
+
   socket.on('keyUp', (/** @type {object} */details) => {
     onKeyUp(socket, user, details)
   })

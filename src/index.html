@@ -32,6 +32,7 @@
               name="name"
               type="text"
               aria-describedby="privacy-name"
+              required
               />
           </label>
           <p id="privacy-name" class="description">
@@ -42,7 +43,12 @@
         <div>
           <label>
             <span>Do you want to start a new game, join one or just watch?</span>
-            <select id="mode" name="mode" aria-describedby="description-mode">
+            <select
+              id="mode"
+              name="mode"
+              aria-describedby="description-mode"
+              required
+              >
               <option value="">Make a choice</option>
               <option value="new">Open a new session</option>
               <option value="join">Join a game</option>

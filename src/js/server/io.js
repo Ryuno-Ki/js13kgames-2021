@@ -3,10 +3,10 @@ import { getLogger } from '../logger.js'
 import { Game } from './game.js'
 import { addName } from './state/actions/add-name.js'
 import { connect } from './state/actions/connect.js'
+import { disconnect } from './state/actions/disconnect.js'
 import { selectMode } from './state/actions/select-mode.js'
 import store from './state/store.js'
 import { User } from './user.js'
-import { users } from './users.js'
 
 /** @typedef {*} Socket */
 
@@ -30,7 +30,6 @@ const logger = getLogger('io')
 export function io (socket) {
   const user = new User(socket)
   store.dispatch(connect(socket.id))
-  users.push(user)
 
   socket.on('disconnect', () => onDisconnect(socket, user))
   socket.on(SOCKET_ADD_USER, (/** @type {AddUserDetails} */details) => {
@@ -57,6 +56,7 @@ export function io (socket) {
  * @param {User} user
  */
 function findOpponents (user) {
+  const users = /** @type {Array<User>} */([])
   users.forEach((u) => {
     if (u.socket.id !== user.socket.id && u.opponents.length === 0) {
       // @ts-ignore
@@ -69,15 +69,6 @@ function findOpponents (user) {
 }
 
 /**
- * Forget about this user.
- *
- * @param {User} user
- */
-function removeUser (user) {
-  users.splice(users.indexOf(user), 1)
-}
-
-/**
  * Clean up on disconnect.
  *
  * @param {*} socket
@@ -85,7 +76,7 @@ function removeUser (user) {
  */
 function onDisconnect (socket, user) {
   console.log(`Disconnected: ${socket.id}`)
-  removeUser(user)
+  store.dispatch(disconnect(socket.id))
 
   if (user.opponents.length > 0) {
     user.opponents.forEach(function (opponent) {

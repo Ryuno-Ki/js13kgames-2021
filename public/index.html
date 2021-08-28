@@ -23,26 +23,49 @@
       </div>
     </section>
     <section id="scene-form" tabindex="0">
-      <div>
-        <label>
-          <span>How shall others call you?</span>
-          <input id="name" type="text" />
-        </label>
-      </div>
-      <div>
-        <label>
-          <span>Do you want to start a new game, join one or just watch?</span>
-          <select id="mode" name="mode">
-            <option value="">Make a choice</option>
-            <option value="new">Open a new session</option>
-            <option value="join">Join a game</option>
-            <option value="watch">Watch a party</option>
-          </select>
-        </label>
-      </div>
-      <div>
-        <a href="#scene-game">Continue the game</a>
-      </div>
+      <form id="user-form" method="POST" action="./">
+        <div>
+          <label>
+            <span>How shall others call you?</span>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              aria-describedby="privacy-name"
+              required
+              />
+          </label>
+          <p id="privacy-name" class="description">
+            This information will be stored on the server (hosted in USA) and
+            be visible to other players.
+          </p>
+        </div>
+        <div>
+          <label>
+            <span>Do you want to start a new game, join one or just watch?</span>
+            <select
+              id="mode"
+              name="mode"
+              aria-describedby="description-mode"
+              required
+              >
+              <option value="">Make a choice</option>
+              <option value="new">Open a new session</option>
+              <option value="join">Join a game</option>
+              <option value="watch">Watch a party</option>
+            </select>
+          </label>
+          <p id="description-mode" class="description">
+            Opening a new session will imply, that you might have to wait for
+            other players to join that session. Joining a game will assign you
+            to a currently running one. Watching means, that you can observe
+            an ongoing session.
+          </p>
+        </div>
+        <div>
+          <button type="submit">Continue the game</button>
+        </div>
+      </form>
     </section>
     <section id="scene-game" tabindex="0">
       <p>
@@ -89,6 +112,6 @@
   <script src="./ZzFXMicro.min.js"></script>
   <script src="./shared.js"></script>
   <script src="./client.js"></script>
-  <script>window.zzfx=zzfx;window.lido.app();location.hash = '#scene-title'</script>
+  <script>window.zzfx=zzfx;window.lido.app();</script>
 </body>
 </html>

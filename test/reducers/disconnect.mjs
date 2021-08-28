@@ -4,11 +4,13 @@ import { disconnect } from '../../src/js/server/state/reducers/disconnect.js'
 
 describe('disconnect', () => {
   it('should remove a connection from the state', () => {
+    const id = 'socket.io hash'
     const oldState = {
-      connections: ['socket.io hash']
+      connections: [id],
+      games: [{ host: id, opponents: [], spectators: [] }],
+      modes: [{ id, mode: 'new' }],
+      users: [{ id, name: 'Test' }]
     }
-
-    const id = oldState.connections[0]
 
     const newState = disconnect(oldState, { id })
 

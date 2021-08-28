@@ -1,7 +1,19 @@
-import { ADD_NAME, REMOVE_USER, UPDATE_NAME } from '../../../constants.js'
+import {
+  ADD_NAME,
+  REMOVE_USER,
+  SELECT_MODE,
+  UPDATE_NAME
+} from '../../../constants.js'
 import { addName } from './add-name.js'
 import { removeUser } from './remove-user.js'
+import { selectMode } from './select-mode.js'
 import { updateName } from './update-name.js'
+
+/**
+ * @typedef {object} mode
+ * @property {string} mode.id
+ * @property {string} mode.mode
+ */
 
 /**
  * @typedef {object} user
@@ -17,10 +29,12 @@ import { updateName } from './update-name.js'
 
 /**
  * @typedef {object} State
+ * @property {Array<mode>} modes
  * @property {Array<user>} users
  */
 
 const initialState = {
+  modes: [],
   users: []
 }
 
@@ -41,6 +55,8 @@ export function reducer (state, action) {
       return addName(state, action.payload)
     case REMOVE_USER:
       return removeUser(state, action.payload)
+    case SELECT_MODE:
+      return selectMode(state, action.payload)
     case UPDATE_NAME:
       return updateName(state, action.payload)
     default:

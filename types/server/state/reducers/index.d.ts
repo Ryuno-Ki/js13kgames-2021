@@ -6,6 +6,10 @@
  * @returns {State}
  */
 export function reducer(state: State, action: Action): State;
+export type mode = {
+    id: string;
+    mode: string;
+};
 export type user = {
     id: string;
     name: string;
@@ -15,5 +19,6 @@ export type Action = {
     payload: any;
 };
 export type State = {
+    modes: Array<mode>;
     users: Array<user>;
 };

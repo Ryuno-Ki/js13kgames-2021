@@ -2,6 +2,7 @@ import { SOCKET_ADD_USER, SOCKET_SELECT_MODE } from '../constants.js'
 import { getLogger } from '../logger.js'
 import { Game } from './game.js'
 import { addName } from './state/actions/add-name.js'
+import { connect } from './state/actions/connect.js'
 import { selectMode } from './state/actions/select-mode.js'
 import store from './state/store.js'
 import { User } from './user.js'
@@ -28,6 +29,7 @@ const logger = getLogger('io')
  */
 export function io (socket) {
   const user = new User(socket)
+  store.dispatch(connect(socket.id))
   users.push(user)
 
   socket.on('disconnect', () => onDisconnect(socket, user))

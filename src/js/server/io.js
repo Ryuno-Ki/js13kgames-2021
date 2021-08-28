@@ -1,6 +1,5 @@
 import { SOCKET_ADD_USER, SOCKET_SELECT_MODE } from '../constants.js'
 import { getLogger } from '../logger.js'
-import { Game } from './game.js'
 import { addName } from './state/actions/add-name.js'
 import { connect } from './state/actions/connect.js'
 import { disconnect } from './state/actions/disconnect.js'
@@ -46,26 +45,7 @@ export function io (socket) {
     onKeyUp(socket, user, details)
   })
 
-  findOpponents(user)
-  console.log(`Connected: ${socket.id}`)
-}
-
-/**
- * Search for an opponent.
- *
- * @param {User} user
- */
-function findOpponents (user) {
-  const users = /** @type {Array<User>} */([])
-  users.forEach((u) => {
-    if (u.socket.id !== user.socket.id && u.opponents.length === 0) {
-      // @ts-ignore
-      user.setRole(ROLE_HOST)
-      // @ts-ignore
-      u.setRole(ROLE_OPPONENT)
-      new Game(user, [u]).start()
-    }
-  })
+  logger.info(`Connected: ${socket.id}`)
 }
 
 /**
@@ -75,15 +55,8 @@ function findOpponents (user) {
  * @param {User} user
  */
 function onDisconnect (socket, user) {
-  console.log(`Disconnected: ${socket.id}`)
+  logger.info(`Disconnected: ${socket.id}`)
   store.dispatch(disconnect(socket.id))
-
-  if (user.opponents.length > 0) {
-    user.opponents.forEach(function (opponent) {
-      opponent.end()
-      findOpponents(opponent)
-    })
-  }
 }
 
 /**

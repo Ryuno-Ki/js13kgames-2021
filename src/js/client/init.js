@@ -17,6 +17,8 @@ export function init () {
   state.startTime = (new Date()).valueOf()
   getUserData()
   updateHost()
+  patchLinks()
+  navigate('title')
 }
 
 /**
@@ -152,5 +154,23 @@ function getUserData () {
     } else {
       console.error('Show validation error')
     }
+  })
+}
+
+/**
+ * Patch all links, since the approach with navigate won't work on Opera or
+ * Chromium web browser.
+ */
+function patchLinks () {
+  Array.from(document.querySelectorAll('a')).forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href')
+
+      if (href) {
+        e.preventDefault()
+        const target = href.slice('#scene-'.length)
+        navigate(target)
+      }
+    }, false)
   })
 }

@@ -19,6 +19,7 @@ export type Action = {
     payload: any;
 };
 export type State = {
+    connections: Array<string>;
     modes: Array<mode>;
     users: Array<user>;
 };

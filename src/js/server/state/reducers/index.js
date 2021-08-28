@@ -1,10 +1,12 @@
 import {
   ADD_NAME,
+  CONNECT,
   REMOVE_USER,
   SELECT_MODE,
   UPDATE_NAME
 } from '../../../constants.js'
 import { addName } from './add-name.js'
+import { connect } from './connect.js'
 import { removeUser } from './remove-user.js'
 import { selectMode } from './select-mode.js'
 import { updateName } from './update-name.js'
@@ -29,11 +31,13 @@ import { updateName } from './update-name.js'
 
 /**
  * @typedef {object} State
+ * @property {Array<string>} connections
  * @property {Array<mode>} modes
  * @property {Array<user>} users
  */
 
 const initialState = {
+  connections: [],
   modes: [],
   users: []
 }
@@ -53,6 +57,8 @@ export function reducer (state, action) {
   switch (action.type) {
     case ADD_NAME:
       return addName(state, action.payload)
+    case CONNECT:
+      return connect(state, action.payload)
     case REMOVE_USER:
       return removeUser(state, action.payload)
     case SELECT_MODE:

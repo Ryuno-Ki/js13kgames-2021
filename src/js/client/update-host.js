@@ -1,3 +1,4 @@
+import { ERROR } from '../constants.js'
 import { getCoordinates } from './get-coordinates.js'
 import { dom } from './dom.js'
 
@@ -6,7 +7,7 @@ import { dom } from './dom.js'
  */
 export function updateHost () {
   if (dom.host === null) {
-    throw new Error('Game not properly initialised!')
+    throw new Error(ERROR)
   }
 
   const value = getCoordinates()

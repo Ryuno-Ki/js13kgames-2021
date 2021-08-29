@@ -1,3 +1,4 @@
+import { ERROR } from '../constants.js'
 import { onConnect } from './on-connect.js'
 import { onDisconnect } from './on-disconnect.js'
 import { onEnd } from './on-end.js'
@@ -11,7 +12,7 @@ import { dom } from './dom.js'
  */
 export function bind () {
   if (dom.socket === null) {
-    throw new Error('Game not properly initialised!')
+    throw new Error(ERROR)
   }
 
   dom.socket.on('start', onStart)

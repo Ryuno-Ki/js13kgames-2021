@@ -1,18 +1,11 @@
 /**
- * Reply synced state.
+ * Replay synced state.
  *
  * @param {object} details
- * @param {number} details.delta
- * @param {object} details.position
- * @param {string} details.position.cx
- * @param {string} details.position.cy
+ * @param {Array<*>} details.points
  * @param {string} details.role
  */
 export function onSync(details: {
-    delta: number;
-    position: {
-        cx: string;
-        cy: string;
-    };
+    points: Array<any>;
     role: string;
 }): void;

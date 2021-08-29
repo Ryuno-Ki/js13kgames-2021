@@ -1,24 +1,25 @@
+import { ERROR } from '../constants.js'
 import { dom } from './dom.js'
 import { state } from './state.js'
-import { updateHost } from './update-host.js'
 
 /**
- * Reply synced state.
+ * Replay synced state.
  *
  * @param {object} details
- * @param {number} details.delta
- * @param {object} details.position
- * @param {string} details.position.cx
- * @param {string} details.position.cy
+ * @param {Array<*>} details.points
  * @param {string} details.role
  */
 export function onSync (details) {
-  const { delta, position, role } = details
+  const { points, role } = details
 
   // @ts-ignore
   if (role === ROLE_HOST) {
-    state.hostPoints.push(delta)
-    updateHost()
+    if (dom.host === null) {
+      throw new Error(ERROR)
+    }
+
+    const value = points.map((point) => point.join(',')).join(' ')
+    dom.host.setAttribute('points', value)
   }
 
   // @ts-ignore
@@ -37,7 +38,7 @@ export function onSync (details) {
       avatar = dom.edges.children[0]
     }
 
-    const { cx, cy } = position
+    const { cx, cy } = { cx: '0', cy: '0' }
     avatar.setAttribute('cx', cx)
     avatar.setAttribute('cy', cy)
     state.opponentPoints.push([parseInt(cx, 10), parseInt(cy, 10)])
@@ -47,13 +48,13 @@ export function onSync (details) {
 
 function updateOpponent () {
   if (!dom.edges) {
-    throw new Error('Boom')
+    throw new Error(ERROR)
   }
 
   const polygon = dom.edges.children[1]
 
   if (!polygon) {
-    throw new Error('Boom')
+    throw new Error(ERROR)
   }
 
   const value = state.opponentPoints.map((point) => point.join(',')).join(' ')

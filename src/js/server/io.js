@@ -52,12 +52,15 @@ export function io (socket) {
 
   socket.on(SOCKET_SELECT_MODE, (/** @type {SelectModeDetails} */details) => {
     store.dispatch(selectMode(socket.id, details.mode))
+    // TODO: Associate opponent and spectator with a game
     socket.emit('start', { role: ROLE_HOST, opponents: [], spectators: [] })
   })
 
   socket.on(SOCKET_KEY_UP, (/** @type {OnKeyUpDetails} */details) => {
+    // TODO: Differentiate between host and opponent via socket.id
     store.dispatch(addPoint(socket.id, mapDeltaToPoint(details.delta)))
     store.dispatch(addPoint(socket.id, { ...center }))
+    // TODO: Also emit a SYNC for all opponents if they triggered the KEY_UP
     socket.emit(
       SOCKET_SYNC,
       { role: ROLE_HOST, points: store.getPointsForHost(socket.id) }

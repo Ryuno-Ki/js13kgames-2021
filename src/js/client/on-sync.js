@@ -38,6 +38,7 @@ export function onSync (details) {
       avatar = dom.edges.children[0]
     }
 
+    // FIXME: Update with information about this opponent's avatar
     const { cx, cy } = { cx: '0', cy: '0' }
     avatar.setAttribute('cx', cx)
     avatar.setAttribute('cy', cy)

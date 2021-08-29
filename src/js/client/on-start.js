@@ -1,3 +1,4 @@
+import { ERROR } from '../constants.js'
 import { pick } from '../pick.js'
 import { dom } from './dom.js'
 import { onKeyDown } from './on-key-down.js'
@@ -30,12 +31,13 @@ export function onStart ({ role, opponents, spectators }) {
     registerOpponentKeys()
   }
 
+  // TODO: Add new state property for states to allow matchmaking
   setMessage('Playing')
 }
 
 function createAvatar () {
   if (!dom.edges) {
-    throw new Error('Boom')
+    throw new Error(ERROR)
   }
 
   const ns = 'http://www.w3.org/2000/svg'
@@ -104,7 +106,7 @@ function registerHostKeys () {
  */
 function registerOpponentKeys () {
   if (!dom.edges) {
-    throw new Error('Boom')
+    throw new Error(ERROR)
   }
 
   // TODO: Scale to more opponents
@@ -175,7 +177,7 @@ function moveAvatarUp (avatar) {
   let cy = avatar.getAttribute('cy')
 
   if (cy === null) {
-    throw new Error('Boom')
+    throw new Error(ERROR)
   }
 
   cy = parseInt(cy, 10)
@@ -194,7 +196,7 @@ function moveAvatarRight (avatar) {
   let cx = avatar.getAttribute('cx')
 
   if (cx === null) {
-    throw new Error('Boom')
+    throw new Error(ERROR)
   }
 
   cx = parseInt(cx, 10)
@@ -213,7 +215,7 @@ function moveAvatarDown (avatar) {
   let cy = avatar.getAttribute('cy')
 
   if (cy === null) {
-    throw new Error('Boom')
+    throw new Error(ERROR)
   }
 
   cy = parseInt(cy, 10)
@@ -232,7 +234,7 @@ function moveAvatarLeft (avatar) {
   let cx = avatar.getAttribute('cx')
 
   if (cx === null) {
-    throw new Error('Boom')
+    throw new Error(ERROR)
   }
 
   cx = parseInt(cx, 10)

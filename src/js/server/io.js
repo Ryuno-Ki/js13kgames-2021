@@ -3,7 +3,8 @@ import {
   CANVAS_WIDTH,
   SOCKET_ADD_USER,
   SOCKET_KEY_UP,
-  SOCKET_SELECT_MODE
+  SOCKET_SELECT_MODE,
+  SOCKET_SYNC
 } from '../constants.js'
 import { getLogger } from '../logger.js'
 
@@ -59,6 +60,10 @@ export function io (socket) {
   socket.on(SOCKET_KEY_UP, (/** @type {OnKeyUpDetails} */details) => {
     store.dispatch(addPoint(socket.id, mapDeltaToPoint(details.delta)))
     store.dispatch(addPoint(socket.id, { ...center }))
+    socket.emit(
+      SOCKET_SYNC,
+      { role: ROLE_HOST, points: store.getPointsForHost(socket.id) }
+    )
   })
 
   logger.info(`Connected: ${socket.id}`)

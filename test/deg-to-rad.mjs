@@ -1,6 +1,6 @@
 import assert from 'assert'
 
-import { degToRad } from '../src/js/client/deg-to-rad.js'
+import { degToRad } from '../src/js/server/deg-to-rad.js'
 
 describe('degToRad', () => {
   it('should map degree to radians', () => {

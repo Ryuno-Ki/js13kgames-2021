@@ -1,6 +1,6 @@
 import assert from 'assert'
 
-import { polarToCartesian } from '../src/js/client/polar-to-cartesian.js'
+import { polarToCartesian } from '../src/js/server/polar-to-cartesian.js'
 
 describe('polarToCartesian', () => {
   it('should map polar coordinates to cartesian ones', () => {

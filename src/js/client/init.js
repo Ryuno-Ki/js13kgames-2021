@@ -3,7 +3,6 @@ import { SOCKET_ADD_USER, SOCKET_SELECT_MODE } from '../constants.js'
 import { dom } from './dom.js'
 import { navigate } from './navigate.js'
 import { state } from './state.js'
-import { updateHost } from './update-host.js'
 
 /**
  * Setup the client code.
@@ -16,7 +15,6 @@ export function init () {
   bind()
   state.startTime = (new Date()).valueOf()
   getUserData()
-  updateHost()
   patchLinks()
   navigate('title')
 }

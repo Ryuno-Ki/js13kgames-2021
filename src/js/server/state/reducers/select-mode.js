@@ -1,9 +1,14 @@
-import { MAXIMUM_GAME_SIZE } from '../../../constants.js'
+import {
+  CANVAS_HEIGHT,
+  CANVAS_WIDTH,
+  MAXIMUM_GAME_SIZE
+} from '../../../constants.js'
 import { pick } from '../../../pick.js'
 
 /** @typedef {module:index.js:State} State */
 /** @typedef {module:index.js:game} game */
 /** @typedef {module:index.js:mode} mode */
+/** @typedef {module:index.js:point} point */
 
 /**
  * @typedef {object} payload
@@ -20,10 +25,12 @@ import { pick } from '../../../pick.js'
  */
 export function selectMode (state, payload) {
   let games = state.games
+  let points = state.points
 
   switch (payload.mode) {
     case 'new':
       games = newGame(state, payload)
+      points = initialPointsForHost(state, payload)
       break
     case 'join':
       games = joinGame(state, payload)
@@ -43,7 +50,7 @@ export function selectMode (state, payload) {
     return mode
   })
 
-  return Object.assign({}, state, { games, modes })
+  return Object.assign({}, state, { games, modes, points })
 }
 
 /**
@@ -119,4 +126,17 @@ function watchGame (state, payload) {
 
     return g
   })
+}
+
+/**
+ * Populate the points with the center for the host.
+ *
+ * @param {State} state
+ * @param {payload} payload
+ * @returns {State}
+ */
+function initialPointsForHost (state, payload) {
+  return /** @type {Array<point>} */([])
+    .concat(state.points)
+    .concat({ id: payload.id, x: CANVAS_WIDTH / 2, y: CANVAS_HEIGHT / 2 })
 }

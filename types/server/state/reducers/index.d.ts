@@ -15,6 +15,11 @@ export type mode = {
     id: string;
     mode: string;
 };
+export type point = {
+    id: string;
+    x: number;
+    y: number;
+};
 export type user = {
     id: string;
     name: string;
@@ -27,5 +32,6 @@ export type State = {
     connections: Array<string>;
     games: Array<game>;
     modes: Array<mode>;
+    points: Array<point>;
     users: Array<user>;
 };

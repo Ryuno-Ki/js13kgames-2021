@@ -1,5 +1,6 @@
 import {
   ADD_NAME,
+  ADD_POINT,
   CONNECT,
   DISCONNECT,
   REMOVE_USER,
@@ -7,6 +8,7 @@ import {
   UPDATE_NAME
 } from '../../../constants.js'
 import { addName } from './add-name.js'
+import { addPoint } from './add-point.js'
 import { connect } from './connect.js'
 import { disconnect } from './disconnect.js'
 import { removeUser } from './remove-user.js'
@@ -27,6 +29,13 @@ import { updateName } from './update-name.js'
  */
 
 /**
+ * @typedef {object} point
+ * @property {string} point.id
+ * @property {number} point.x
+ * @property {number} point.y
+ */
+
+/**
  * @typedef {object} user
  * @property {string} user.id
  * @property {string} user.name
@@ -43,6 +52,7 @@ import { updateName } from './update-name.js'
  * @property {Array<string>} connections
  * @property {Array<game>} games
  * @property {Array<mode>} modes
+ * @property {Array<point>} points
  * @property {Array<user>} users
  */
 
@@ -50,6 +60,7 @@ const initialState = {
   connections: [],
   games: [],
   modes: [],
+  points: [],
   users: []
 }
 
@@ -68,6 +79,8 @@ export function reducer (state, action) {
   switch (action.type) {
     case ADD_NAME:
       return addName(state, action.payload)
+    case ADD_POINT:
+      return addPoint(state, action.payload)
     case CONNECT:
       return connect(state, action.payload)
     case DISCONNECT:

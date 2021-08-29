@@ -16,7 +16,6 @@ import { connect } from './state/actions/connect.js'
 import { disconnect } from './state/actions/disconnect.js'
 import { selectMode } from './state/actions/select-mode.js'
 import store from './state/store.js'
-import { User } from './user.js'
 
 /** @typedef {*} Socket */
 
@@ -44,10 +43,9 @@ const logger = getLogger('io')
  * @param {Socket} socket
  */
 export function io (socket) {
-  const user = new User(socket)
   store.dispatch(connect(socket.id))
 
-  socket.on('disconnect', () => onDisconnect(socket, user))
+  socket.on('disconnect', () => onDisconnect(socket))
   socket.on(SOCKET_ADD_USER, (/** @type {AddUserDetails} */details) => {
     store.dispatch(addName(socket.id, details.name))
   })
@@ -73,9 +71,8 @@ export function io (socket) {
  * Clean up on disconnect.
  *
  * @param {*} socket
- * @param {User} user
  */
-function onDisconnect (socket, user) {
+function onDisconnect (socket) {
   logger.info(`Disconnected: ${socket.id}`)
   store.dispatch(disconnect(socket.id))
 }

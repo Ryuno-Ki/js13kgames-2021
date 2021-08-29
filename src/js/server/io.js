@@ -1,6 +1,16 @@
-import { SOCKET_ADD_USER, SOCKET_SELECT_MODE } from '../constants.js'
+import {
+  CANVAS_HEIGHT,
+  CANVAS_WIDTH,
+  SOCKET_ADD_USER,
+  SOCKET_KEY_UP,
+  SOCKET_SELECT_MODE
+} from '../constants.js'
 import { getLogger } from '../logger.js'
+
+import { degToRad } from './deg-to-rad.js'
+import { polarToCartesian } from './polar-to-cartesian.js'
 import { addName } from './state/actions/add-name.js'
+import { addPoint } from './state/actions/add-point.js'
 import { connect } from './state/actions/connect.js'
 import { disconnect } from './state/actions/disconnect.js'
 import { selectMode } from './state/actions/select-mode.js'
@@ -15,10 +25,16 @@ import { User } from './user.js'
  */
 
 /**
+ * @typedef {object} OnKeyUpDetails
+ * @property {number} OnKeyUpDetails.delta
+ */
+
+/**
  * @typedef {object} SelectModeDetails
  * @property {string} SelectModeDetails.mode
  */
 
+const center = { x: CANVAS_WIDTH / 2, y: CANVAS_HEIGHT / 2 }
 const logger = getLogger('io')
 
 /**
@@ -37,10 +53,12 @@ export function io (socket) {
 
   socket.on(SOCKET_SELECT_MODE, (/** @type {SelectModeDetails} */details) => {
     store.dispatch(selectMode(socket.id, details.mode))
+    socket.emit('start', { role: ROLE_HOST, opponents: [], spectators: [] })
   })
 
-  socket.on('keyUp', (/** @type {object} */details) => {
-    onKeyUp(socket, user, details)
+  socket.on(SOCKET_KEY_UP, (/** @type {OnKeyUpDetails} */details) => {
+    store.dispatch(addPoint(socket.id, mapDeltaToPoint(details.delta)))
+    store.dispatch(addPoint(socket.id, { ...center }))
   })
 
   logger.info(`Connected: ${socket.id}`)
@@ -58,30 +76,24 @@ function onDisconnect (socket, user) {
 }
 
 /**
- * Sync all players about keyup.
+ * Computes the cartesian coordinates for a pointed added by host.
  *
- * @param {Socket} socket
- * @param {User} user
- * @param {object} details
+ * @param {number} delta
+ * @returns {*}
  */
-async function onKeyUp (socket, user, details) {
-  try {
-    await updateStorage()
-  } catch (exc) {
-    console.error(exc)
-  }
+function mapDeltaToPoint (delta) {
+  // Arbitrary
+  const distanceFromCenter = 10 * 13
+  // Number of vertices of the imaginary polygon
+  const fullCircle = 13
 
-  user.opponents.forEach((opponent) => {
-    opponent.socket.emit('sync', details)
+  const { x, y } = polarToCartesian({
+    radius: distanceFromCenter * Math.random(),
+    angle: degToRad(360 * delta / fullCircle)
   })
-}
 
-/**
- * Update this session in storage.
- * */
-async function updateStorage () {
-  // @ts-ignore
-  const games = storage.get('games', 0)
-  // @ts-ignore
-  await storage.set('games', games + 1)
+  return {
+    x: Math.floor(center.x + x),
+    y: Math.floor(center.y + y)
+  }
 }

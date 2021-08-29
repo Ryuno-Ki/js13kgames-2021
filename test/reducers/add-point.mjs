@@ -15,7 +15,7 @@ describe('addPoint', () => {
 
     assert.equal(newState.points.length, oldState.points.length + 1)
     assert.equal(newState.points[0].id, id)
-    assert.equal(newState.points[0].point.x, point.x)
-    assert.equal(newState.points[0].point.y, point.y)
+    assert.equal(newState.points[0].x, point.x)
+    assert.equal(newState.points[0].y, point.y)
   })
 })

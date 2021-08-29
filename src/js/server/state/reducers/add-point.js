@@ -17,9 +17,14 @@
  * @returns {State}
  */
 export function addPoint (state, payload) {
+  const point = {
+    id: payload.id,
+    ...payload.point
+  }
+
   const points = /** @type {Array<point>} */([])
     .concat(state.points)
-    .concat(payload)
+    .concat(point)
 
   return Object.assign({}, state, { points })
 }

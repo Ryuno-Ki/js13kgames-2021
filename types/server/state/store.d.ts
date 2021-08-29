@@ -12,7 +12,26 @@ declare class Store {
     constructor(reducer: Function);
     reducer: Function;
     state: any;
-    getState(): any;
     /** @param {Action} action */
     dispatch(action: Action): void;
+    /**
+     * Filters the points for the host of a game socketId participates in.
+     *
+     * @param {string} socketId
+     * @returns {Array<Array<number>>}
+     */
+    getPointsForHost(socketId: string): Array<Array<number>>;
+    /**
+     * Get the current state.
+     * @returns {*}
+     */
+    getState(): any;
+    /**
+     * Filter the games for the one socketId participates in.
+     *
+     * @private
+     * @param {string} socketId
+     * @returns {*}
+     */
+    private _findGameBySocketId;
 }

@@ -33,12 +33,10 @@ export function io (socket) {
   socket.on('disconnect', () => onDisconnect(socket, user))
   socket.on(SOCKET_ADD_USER, (/** @type {AddUserDetails} */details) => {
     store.dispatch(addName(socket.id, details.name))
-    logger.debug('State', store.getState())
   })
 
   socket.on(SOCKET_SELECT_MODE, (/** @type {SelectModeDetails} */details) => {
     store.dispatch(selectMode(socket.id, details.mode))
-    logger.debug('State', store.getState())
   })
 
   socket.on('keyUp', (/** @type {object} */details) => {

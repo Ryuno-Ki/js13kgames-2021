@@ -15,7 +15,6 @@
  * @returns {State}
  */
 export function navigate (state, payload) {
-  console.log('navigate', state.scenes, payload)
   const scenes = state.scenes
     .map((/** @type {scene} */scene) => {
       if (scene.id === payload.id) {

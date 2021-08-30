@@ -173,7 +173,7 @@ function makeMatch () {
     if (mode) {
       state.mode = String(mode)
       console.log('State', state)
-      dom.socket.emit(SOCKET_SELECT_MODE, { name: state.name })
+      dom.socket.emit(SOCKET_SELECT_MODE, { mode: state.mode })
       navigate('game')
     } else {
       console.error('Show validation error')

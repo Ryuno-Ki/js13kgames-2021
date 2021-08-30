@@ -1,6 +1,7 @@
 import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
+  MAXIMUM_GAME_SIZE,
   SOCKET_ADD_USER,
   SOCKET_KEY_UP,
   SOCKET_NAVIGATE,
@@ -15,6 +16,7 @@ import { addName } from './state/actions/add-name.js'
 import { addPoint } from './state/actions/add-point.js'
 import { connect } from './state/actions/connect.js'
 import { disconnect } from './state/actions/disconnect.js'
+import { joinGame } from './state/actions/join-game.js'
 import { navigate } from './state/actions/navigate.js'
 import { selectMode } from './state/actions/select-mode.js'
 import store from './state/store.js'
@@ -43,6 +45,7 @@ import store from './state/store.js'
 
 const center = { x: CANVAS_WIDTH / 2, y: CANVAS_HEIGHT / 2 }
 const logger = getLogger('io')
+let nextAi = 0
 
 /**
  * Socket.io wrapper
@@ -63,6 +66,9 @@ export function io (socket) {
 
   socket.on(SOCKET_SELECT_MODE, (/** @type {SelectModeDetails} */details) => {
     store.dispatch(selectMode(socket.id, details.mode))
+    if (details.mode === 'new') {
+      populateWithBots(socket.id)
+    }
     // TODO: Associate opponent and spectator with a game
     socket.emit('start', { role: ROLE_HOST, opponents: [], spectators: [] })
   })
@@ -111,5 +117,19 @@ function mapDeltaToPoint (delta) {
   return {
     x: Math.floor(center.x + x),
     y: Math.floor(center.y + y)
+  }
+}
+
+/**
+ * Populate a game with bots until human players join.
+ *
+ * @param {string} socketId
+ */
+function populateWithBots (socketId) {
+  for (let i = 0; i < MAXIMUM_GAME_SIZE - 1; i++) {
+    const id = `AI-${nextAi}`
+    store.dispatch(addName(id, `Bot No. ${nextAi}`))
+    store.dispatch(joinGame(id, socketId))
+    nextAi += 1
   }
 }

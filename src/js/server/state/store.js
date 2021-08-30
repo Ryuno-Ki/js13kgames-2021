@@ -22,8 +22,31 @@ class Store {
   /** @param {Action} action */
   dispatch (action) {
     this.state = this.reducer(this.state, action)
-    logger.debug('State', this.getState())
+    logger.debug('State', action, this.getState())
     // TODO: Persist state in storage here?
+  }
+
+  /**
+   * Queries the store for the game hosted by given socketId.
+   *
+   * @param {string} socketId
+   * @returns {* | null}
+   */
+  getGameForHost (socketId) {
+    const game = this._findGameBySocketId(socketId)
+
+    if (!game) {
+      return null
+    }
+
+    return {
+      host: this._resolveNameForId(game.host),
+      opponents: game.opponents
+        .map((/** @type {string} */opponent) => {
+          return this._resolveNameForId(opponent)
+        }),
+      spectators: game.spectators
+    }
   }
 
   /**
@@ -79,6 +102,25 @@ class Store {
     })
 
     return game || null
+  }
+
+  /**
+   * Looks up the user name for given socketId.
+   *
+   * @private
+   * @param {string} socketId
+   * @returns {string | null}
+   */
+  _resolveNameForId (socketId) {
+    const user = this.state.users.find((/** @type {*} */user) => {
+      return user.id === socketId
+    })
+
+    if (!user) {
+      return null
+    }
+
+    return user.name
   }
 }
 

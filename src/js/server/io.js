@@ -69,8 +69,11 @@ export function io (socket) {
     if (details.mode === 'new') {
       populateWithBots(socket.id)
     }
-    // TODO: Associate opponent and spectator with a game
-    socket.emit('start', { role: ROLE_HOST, opponents: [], spectators: [] })
+
+    socket.emit(
+      'start',
+      { role: ROLE_HOST, ...store.getGameForHost(socket.id) }
+    )
   })
 
   socket.on(SOCKET_KEY_UP, (/** @type {OnKeyUpDetails} */details) => {

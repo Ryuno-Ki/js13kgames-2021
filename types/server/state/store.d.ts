@@ -15,6 +15,13 @@ declare class Store {
     /** @param {Action} action */
     dispatch(action: Action): void;
     /**
+     * Queries the store for the game hosted by given socketId.
+     *
+     * @param {string} socketId
+     * @returns {* | null}
+     */
+    getGameForHost(socketId: string): any | null;
+    /**
      * Filters the points for the host of a game socketId participates in.
      *
      * @param {string} socketId
@@ -34,4 +41,12 @@ declare class Store {
      * @returns {*}
      */
     private _findGameBySocketId;
+    /**
+     * Looks up the user name for given socketId.
+     *
+     * @private
+     * @param {string} socketId
+     * @returns {string | null}
+     */
+    private _resolveNameForId;
 }

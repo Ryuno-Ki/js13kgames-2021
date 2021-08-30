@@ -1,7 +1,6 @@
 import {
   CANVAS_HEIGHT,
-  CANVAS_WIDTH,
-  MAXIMUM_GAME_SIZE
+  CANVAS_WIDTH
 } from '../../../constants.js'
 import { pick } from '../../../pick.js'
 
@@ -26,7 +25,6 @@ import { pick } from '../../../pick.js'
 export function selectMode (state, payload) {
   let games = state.games
   let points = state.points
-  let gameToJoin
 
   switch (payload.mode) {
     case 'new':
@@ -34,9 +32,7 @@ export function selectMode (state, payload) {
       points = initialPointsForHost(state, payload)
       break
     case 'join':
-      gameToJoin = findGameToJoin(state)
-      games = joinGame(state, payload, gameToJoin)
-      points = initialPointsForOpponent(state, payload, games, gameToJoin)
+      points = initialPointsForOpponent(state, payload)
       break
     case 'watch':
       games = watchGame(state, payload)
@@ -71,29 +67,6 @@ function newGame (state, payload) {
       opponents: /** @type {Array<string>} */([]),
       spectators: /** @type {Array<string>} */([])
     }))
-}
-
-/**
- * Join a game.
- *
- * @param {State} state
- * @param {payload} payload
- * @param {game} gameToJoin
- * @returns {State}
- */
-function joinGame (state, payload, gameToJoin) {
-  return state.games.map((/** @type {game} */g) => {
-    if (g.host === gameToJoin.host) {
-      return {
-        ...g,
-        opponents: /** @type {Array<string>} */([])
-          .concat(g.opponents)
-          .concat(payload.id)
-      }
-    }
-
-    return g
-  })
 }
 
 /**
@@ -143,11 +116,9 @@ function initialPointsForHost (state, payload) {
  *
  * @param {State} state
  * @param {payload} payload
- * @param {Array<game>} games
- * @param {game} gameToJoin
  * @returns {State}
  */
-function initialPointsForOpponent (state, payload, games, gameToJoin) {
+function initialPointsForOpponent (state, payload) {
   let index = 0
 
   if (payload.id.startsWith('AI-')) {
@@ -168,23 +139,4 @@ function initialPointsForOpponent (state, payload, games, gameToJoin) {
   return /** @type {Array<point>} */([])
     .concat(state.points)
     .concat({ id: payload.id, ...point })
-}
-
-/**
- * Picks a random game from those available to join.
- *
- * @param {State} state
- * @returns {game}
- */
-function findGameToJoin (state) {
-  const gamesWithHostAndSpace = state
-    .games
-    .filter((/** @type {game} */g) => Boolean(g.host))
-    .filter((/** @type {game} */g) => {
-      return g.opponents
-        .filter((/** @type {string} */opponent) => !opponent.startsWith('AI-'))
-        .length < MAXIMUM_GAME_SIZE
-    })
-
-  return pick(gamesWithHostAndSpace)
 }

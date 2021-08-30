@@ -1,5 +1,5 @@
 import { bind } from './bind.js'
-import { SOCKET_ADD_USER, SOCKET_SELECT_MODE } from '../constants.js'
+import { ERROR, SOCKET_ADD_USER, SOCKET_SELECT_MODE } from '../constants.js'
 import { dom } from './dom.js'
 import { navigate } from './navigate.js'
 import { state } from './state.js'
@@ -15,6 +15,7 @@ export function init () {
   bind()
   state.startTime = (new Date()).valueOf()
   getUserData()
+  makeMatch()
   patchLinks()
   navigate('title')
 }
@@ -42,7 +43,7 @@ function getHostState () {
   const el = document.getElementById('host')
 
   if (!el) {
-    throw new Error('Cannot start game!')
+    throw new Error(ERROR)
   }
 
   return /** @type {*} */(el)
@@ -57,7 +58,7 @@ function getEdgesState () {
   const el = document.getElementById('edges')
 
   if (!el) {
-    throw new Error('Cannot start game!')
+    throw new Error(ERROR)
   }
 
   el.innerHTML = ''
@@ -73,7 +74,7 @@ function getSocketState () {
   const el = document.getElementById('socketState')
 
   if (!el) {
-    throw new Error('Cannot start game!')
+    throw new Error(ERROR)
   }
 
   return el
@@ -88,7 +89,7 @@ function getRoleState () {
   const el = document.getElementById('role')
 
   if (!el) {
-    throw new Error('Cannot start game!')
+    throw new Error(ERROR)
   }
 
   return el
@@ -103,7 +104,7 @@ function getOpponentsState () {
   const el = document.getElementById('opponents')
 
   if (!el) {
-    throw new Error('Cannot start game!')
+    throw new Error(ERROR)
   }
 
   return el
@@ -118,7 +119,7 @@ function getSpectatorsState () {
   const el = document.getElementById('spectators')
 
   if (!el) {
-    throw new Error('Cannot start game!')
+    throw new Error(ERROR)
   }
 
   return el
@@ -128,26 +129,51 @@ function getUserData () {
   const form = document.getElementById('user-form')
 
   if (!form) {
-    throw new Error('Cannot start game!')
+    throw new Error(ERROR)
   }
 
   form.addEventListener('submit', (e) => {
     e.preventDefault()
 
     if (!e.target) {
-      throw new Error('Something went wrong!')
+      throw new Error(ERROR)
     }
 
     const formData = new FormData(/** @type {HTMLFormElement} */(e.target))
     const name = formData.get('name')
-    const mode = formData.get('mode')
 
-    if (name && mode) {
+    if (name) {
       state.name = String(name)
-      state.mode = String(mode)
       console.log('State', state)
       dom.socket.emit(SOCKET_ADD_USER, { name: state.name })
-      dom.socket.emit(SOCKET_SELECT_MODE, { mode: state.mode })
+      navigate('match-form')
+    } else {
+      console.error('Show validation error')
+    }
+  })
+}
+
+function makeMatch () {
+  const form = document.getElementById('match-form')
+
+  if (!form) {
+    throw new Error(ERROR)
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+    if (!e.target) {
+      throw new Error(ERROR)
+    }
+
+    const formData = new FormData(/** @type {HTMLFormElement} */(e.target))
+    const mode = formData.get('mode')
+
+    if (mode) {
+      state.mode = String(mode)
+      console.log('State', state)
+      dom.socket.emit(SOCKET_SELECT_MODE, { name: state.name })
       navigate('game')
     } else {
       console.error('Show validation error')

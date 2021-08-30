@@ -18,28 +18,36 @@
       <h1>Lido Space</h1>
       <p>What do you want to do?</p>
       <div>
-        <a href="#scene-form">Play a game</a>
+        <a href="#scene-user-form">Play a game</a>
         <a href="#scene-credits">See the credits</a>
       </div>
     </section>
-    <section id="scene-form" tabindex="0" style="display: none;">
+    <section id="scene-user-form" tabindex="0" style="display: none;">
       <form id="user-form" method="POST" action="./">
+        <label>
+          <span>How shall others call you?</span>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            aria-describedby="privacy-name"
+	    pattern="[a-zA-Z0-9-_]+"
+            required
+            />
+        </label>
+        <p id="privacy-name" class="description">
+	  Allowed input are all Latin characters, digits, hypen and underscore.
+          This information will be stored on the server (hosted in USA) and
+          be visible to other players.
+        </p>
         <div>
-          <label>
-            <span>How shall others call you?</span>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              aria-describedby="privacy-name"
-              required
-              />
-          </label>
-          <p id="privacy-name" class="description">
-            This information will be stored on the server (hosted in USA) and
-            be visible to other players.
-          </p>
+          <button type="submit">Continue to select party</button>
         </div>
+      </form>
+    </section>
+
+    <section id="scene-match-form" tabindex="0" style="display: none;">
+      <form id="match-form" method="POST" action="./">
         <div>
           <label>
             <span>Do you want to start a new game, join one or just watch?</span>

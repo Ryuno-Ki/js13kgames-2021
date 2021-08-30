@@ -148,12 +148,16 @@ body {
   transition: background 0.2s ease-out, color 0.2s ease-out;
 }
 
+section {
+  max-width: 60ch;
+}
+
 a {
   /* Orange Web */
   color: #f49f0a;
 }
 
-button[type="button"],
+button[type="submit"],
 a[href^="#"] {
   background-color: #f49f0a;
   border: none;
@@ -170,8 +174,13 @@ label {
   display: block;
 }
 
+.description {
+  font-size: 0.8em;
+}
+
 meter,
-input[type="text"] {
+input[type="text"],
+select {
   display: block;
   min-width: 100%;
 }

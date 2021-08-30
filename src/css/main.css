@@ -179,10 +179,35 @@ label {
 }
 
 meter,
-input[type="text"],
-select {
+input[type="text"] {
   display: block;
   min-width: 100%;
+}
+
+#match-form label {
+  display: inline-block;
+}
+
+#match-form .description,
+#match-form .matches,
+#match-form .matches .nothing {
+  display: none;
+}
+
+#match-form [value="new"]:checked ~ #description-mode-new {
+  display: block;
+}
+
+#match-form [value="join"]:checked ~ #description-mode-join,
+#match-form [value="join"]:checked ~ #matches-mode-join,
+#match-form [value="join"]:checked ~ #matches-mode-join ol:empty + .nothing {
+  display: block;
+}
+
+#match-form [value="watch"]:checked ~ #description-mode-watch,
+#match-form [value="watch"]:checked ~ #matches-mode-watch,
+#match-form [value="watch"]:checked ~ #matches-mode-watch ol:empty + .nothing {
+  display: block;
 }
 
 meter {

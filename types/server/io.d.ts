@@ -12,7 +12,8 @@ export type NavigateDetails = {
     scene: string;
 };
 export type OnKeyUpDetails = {
-    delta: number;
+    delta?: number | undefined;
+    direction?: number | undefined;
 };
 export type SelectModeDetails = {
     mode: string;

@@ -6,6 +6,7 @@ import {
   SOCKET_KEY_UP,
   SOCKET_NAVIGATE,
   SOCKET_SELECT_MODE,
+  SOCKET_START,
   SOCKET_SYNC
 } from '../constants.js'
 import { getLogger } from '../logger.js'
@@ -35,7 +36,8 @@ import store from './state/store.js'
 
 /**
  * @typedef {object} OnKeyUpDetails
- * @property {number} OnKeyUpDetails.delta
+ * @property {number} [OnKeyUpDetails.delta]
+ * @property {number} [OnKeyUpDetails.direction]
  */
 
 /**
@@ -71,20 +73,47 @@ export function io (socket) {
     }
 
     socket.emit(
-      'start',
+      SOCKET_START,
       { role: ROLE_HOST, ...store.getGameForHost(socket.id) }
     )
-  })
 
-  socket.on(SOCKET_KEY_UP, (/** @type {OnKeyUpDetails} */details) => {
-    // TODO: Differentiate between host and opponent via socket.id
-    store.dispatch(addPoint(socket.id, mapDeltaToPoint(details.delta)))
-    store.dispatch(addPoint(socket.id, { ...center }))
-    // TODO: Also emit a SYNC for all opponents if they triggered the KEY_UP
     socket.emit(
       SOCKET_SYNC,
       { role: ROLE_HOST, points: store.getPointsForHost(socket.id) }
     )
+  })
+
+  socket.on(SOCKET_KEY_UP, (/** @type {OnKeyUpDetails} */details) => {
+    if (details.delta) {
+      // Host case
+      store.dispatch(addPoint(socket.id, mapDeltaToPoint(details.delta)))
+      store.dispatch(addPoint(socket.id, { ...center }))
+      socket.emit(
+        SOCKET_SYNC,
+        { role: ROLE_HOST, points: store.getPointsForHost(socket.id) }
+      )
+
+      store.getOpponentIdsOfHost(socket.id)
+        .forEach((/** @type {string} */opponentId) => {
+          socket.emit(
+            SOCKET_SYNC,
+            {
+              role: ROLE_OPPONENT,
+              points: store.getPointsForOpponent(opponentId)
+            }
+          )
+        })
+    } else if (details.direction) {
+      // Opponents case
+      store.dispatch(
+        addPoint(socket.id, mapDirectionToPoint(socket.id, details.direction))
+      )
+
+      socket.emit(
+        SOCKET_SYNC,
+        { role: ROLE_OPPONENT, points: store.getPointsForOpponent(socket.id) }
+      )
+    }
   })
 
   logger.info(`Connected: ${socket.id}`)
@@ -120,6 +149,24 @@ function mapDeltaToPoint (delta) {
   return {
     x: Math.floor(center.x + x),
     y: Math.floor(center.y + y)
+  }
+}
+
+/**
+ * Computes the next point based on the chosen direction.
+ *
+ * @param {string} socketId
+ * @param {number} direction
+ * @returns {*}
+ */
+function mapDirectionToPoint (socketId, direction) {
+  const points = store.getPointsForOpponent(socketId)
+  logger.debug('OPP', points, socketId, direction)
+  const [x, y] = points.slice(-1)
+
+  return {
+    x,
+    y
   }
 }
 

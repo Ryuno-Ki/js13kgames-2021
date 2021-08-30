@@ -1,4 +1,9 @@
-import { ERROR } from '../constants.js'
+import {
+  ERROR,
+  SOCKET_CONNECT,
+  SOCKET_START,
+  SOCKET_SYNC
+} from '../constants.js'
 import { onConnect } from './on-connect.js'
 import { onDisconnect } from './on-disconnect.js'
 import { onEnd } from './on-end.js'
@@ -15,10 +20,10 @@ export function bind () {
     throw new Error(ERROR)
   }
 
-  dom.socket.on('start', onStart)
-  dom.socket.on('sync', onSync)
+  dom.socket.on(SOCKET_START, onStart)
+  dom.socket.on(SOCKET_SYNC, onSync)
   dom.socket.on('end', onEnd)
-  dom.socket.on('connect', onConnect)
+  dom.socket.on(SOCKET_CONNECT, onConnect)
   dom.socket.on('disconnect', onDisconnect)
   dom.socket.on('error', onError)
 }

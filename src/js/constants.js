@@ -5,6 +5,7 @@ export const CANVAS_WIDTH = 320
 export const CONNECT = 'CONNECT'
 export const DISCONNECT = 'DISCONNECT'
 export const ERROR = 'Game not properly initialised!'
+export const JOIN_GAME = 'JOIN_GAME'
 export const MAXIMUM_GAME_SIZE = 4
 export const MAXIMUM_NUMBER_OF_VERTICES = 13
 export const NAVIGATE = 'NAVIGATE'

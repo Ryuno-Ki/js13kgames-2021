@@ -61,7 +61,6 @@ function getEdgesState () {
     throw new Error(ERROR)
   }
 
-  el.innerHTML = ''
   return /** @type {*} */(el)
 }
 

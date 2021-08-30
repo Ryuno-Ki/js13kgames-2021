@@ -7,6 +7,7 @@ import {
   NAVIGATE,
   REMOVE_USER,
   SELECT_MODE,
+  SWAP_USER,
   UPDATE_NAME
 } from '../../../constants.js'
 import { addName } from './add-name.js'
@@ -17,6 +18,7 @@ import { joinGame } from './join-game.js'
 import { navigate } from './navigate.js'
 import { removeUser } from './remove-user.js'
 import { selectMode } from './select-mode.js'
+import { swapUser } from './swap-user.js'
 import { updateName } from './update-name.js'
 
 /**
@@ -104,6 +106,8 @@ export function reducer (state, action) {
       return removeUser(state, action.payload)
     case SELECT_MODE:
       return selectMode(state, action.payload)
+    case SWAP_USER:
+      return swapUser(state, action.payload)
     case UPDATE_NAME:
       return updateName(state, action.payload)
     default:

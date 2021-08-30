@@ -10,20 +10,20 @@ describe('swapUser', () => {
     const oldState = {
       games: [{
         opponents: [
-	  id
-	]
+          id
+        ]
       }],
       modes: [{
         id,
-	mode: 'join'
+        mode: 'join'
       }, {
         id: replacedId,
-	mode: 'join'
+        mode: 'join'
       }],
       points: [{
         id,
-	x: 0,
-	y: 1
+        x: 0,
+        y: 1
       }]
     }
 

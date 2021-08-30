@@ -15,6 +15,10 @@ declare class Store {
     /** @param {Action} action */
     dispatch(action: Action): void;
     /**
+     * Searches all games for one with bots as opponents.
+     */
+    findGameAvailableForJoin(): any;
+    /**
      * Queries the store for the game hosted by given socketId.
      *
      * @param {string} socketId

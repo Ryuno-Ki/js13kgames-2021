@@ -20,6 +20,7 @@ import { disconnect } from './state/actions/disconnect.js'
 import { joinGame } from './state/actions/join-game.js'
 import { navigate } from './state/actions/navigate.js'
 import { selectMode } from './state/actions/select-mode.js'
+import { swapUser } from './state/actions/swap-user.js'
 import store from './state/store.js'
 
 /** @typedef {*} Socket */
@@ -68,19 +69,38 @@ export function io (socket) {
 
   socket.on(SOCKET_SELECT_MODE, (/** @type {SelectModeDetails} */details) => {
     store.dispatch(selectMode(socket.id, details.mode))
-    if (details.mode === 'new') {
-      populateWithBots(socket.id)
+    let game
+
+    switch (details.mode) {
+      case 'new':
+        populateWithBots(socket.id)
+
+        socket.emit(
+          SOCKET_START,
+          { role: ROLE_HOST, ...store.getGameForHost(socket.id) }
+        )
+
+        syncPoints(socket, socket.id)
+        break
+      case 'join':
+        game = store.findGameAvailableForJoin()
+
+        if (game) {
+          store.dispatch(
+            swapUser(
+              socket.id,
+              game.opponents.find(
+                (/** @type {string} */o) => o.startsWith('AI-')
+              )
+            )
+          )
+
+          syncPoints(socket, socket.id)
+        }
+        break
+      default:
+        // noop
     }
-
-    socket.emit(
-      SOCKET_START,
-      { role: ROLE_HOST, ...store.getGameForHost(socket.id) }
-    )
-
-    socket.emit(
-      SOCKET_SYNC,
-      { role: ROLE_HOST, points: store.getPointsForHost(socket.id) }
-    )
   })
 
   socket.on(SOCKET_KEY_UP, (/** @type {OnKeyUpDetails} */details) => {
@@ -88,21 +108,7 @@ export function io (socket) {
       // Host case
       store.dispatch(addPoint(socket.id, mapDeltaToPoint(details.delta)))
       store.dispatch(addPoint(socket.id, { ...center }))
-      socket.emit(
-        SOCKET_SYNC,
-        { role: ROLE_HOST, points: store.getPointsForHost(socket.id) }
-      )
-
-      store.getOpponentIdsOfHost(socket.id)
-        .forEach((/** @type {string} */opponentId) => {
-          socket.emit(
-            SOCKET_SYNC,
-            {
-              role: ROLE_OPPONENT,
-              points: store.getPointsForOpponent(opponentId)
-            }
-          )
-        })
+      syncPoints(socket, socket.id)
     } else if (details.direction) {
       // Opponents case
       store.dispatch(
@@ -184,4 +190,28 @@ function populateWithBots (socketId) {
 
     nextAi += 1
   }
+}
+
+/**
+ * Trigger an update on all client regarding the points.
+ *
+ * @param {*} socket
+ * @param {string} socketId
+ */
+function syncPoints (socket, socketId) {
+  socket.emit(
+    SOCKET_SYNC,
+    { role: ROLE_HOST, points: store.getPointsForHost(socket.id) }
+  )
+
+  store.getOpponentIdsOfHost(socket.id)
+    .forEach((/** @type {string} */opponentId) => {
+      socket.emit(
+        SOCKET_SYNC,
+        {
+          role: ROLE_OPPONENT,
+          points: store.getPointsForOpponent(opponentId)
+        }
+      )
+    })
 }

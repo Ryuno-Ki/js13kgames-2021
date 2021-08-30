@@ -27,6 +27,25 @@ class Store {
   }
 
   /**
+   * Searches all games for one with bots as opponents.
+   */
+  findGameAvailableForJoin () {
+    const game = this.state.games.find((/** @type {*} */g) => {
+      const hasBot = g.opponents.find(
+        (/** @type {string} */o) => o.startsWith('AI-')
+      )
+
+      return !!hasBot
+    })
+
+    if (!game) {
+      return null
+    }
+
+    return game
+  }
+
+  /**
    * Queries the store for the game hosted by given socketId.
    *
    * @param {string} socketId
@@ -94,7 +113,6 @@ class Store {
       return []
     }
 
-    console.log('Points', this.state.points, game.opponents)
     return this.state.points
       .filter((/** @type {*} */point) => game.opponents.includes(point.id))
       .map((/** @type {*} */point) => [point.x, point.y])

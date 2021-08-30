@@ -1,6 +1,8 @@
 /** @typedef {module:index.js:State} State */
 /** @typedef {module:index.js:game} game */
 /** @typedef {module:index.js:mode} mode */
+/** @typedef {module:index.js:point} point */
+/** @typedef {module:index.js:scene} scene */
 /** @typedef {module:index.js:user} user */
 
 /**
@@ -20,7 +22,6 @@ export function disconnect (state, payload) {
     .connections
     .filter((/** @type {string} */connection) => connection !== payload.id)
 
-  // TODO: Add tests for this
   const games = state
     .games
     .filter((/** @type {game} */g) => g.host !== payload.id)
@@ -42,12 +43,24 @@ export function disconnect (state, payload) {
     })
 
   const modes = state
-    .users
+    .modes
     .filter((/** @type {mode} */m) => m.id !== payload.id)
+
+  const points = state
+    .points
+    .filter((/** @type {point} */p) => p.id !== payload.id)
+
+  const scenes = state
+    .scenes
+    .filter((/** @type {scene} */s) => s.id !== payload.id)
 
   const users = state
     .users
     .filter((/** @type {user} */u) => u.id !== payload.id)
 
-  return Object.assign({}, state, { connections, games, modes, users })
+  return Object.assign(
+    {},
+    state,
+    { connections, games, modes, points, scenes, users }
+  )
 }

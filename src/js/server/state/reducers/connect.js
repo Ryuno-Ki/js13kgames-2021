@@ -1,4 +1,7 @@
+import { SCENE_TITLE } from '../../../constants.js'
+
 /** @typedef {module:index.js:State} State */
+/** @typedef {module:index.js:scene} scene */
 
 /**
  * @typedef {object} payload
@@ -17,5 +20,9 @@ export function connect (state, payload) {
     .concat(state.connections)
     .concat(payload.id)
 
-  return Object.assign({}, state, { connections })
+  const scenes = /** @type {Array<scene>} */([])
+    .concat(state.scenes)
+    .concat({ id: payload.id, scene: SCENE_TITLE })
+
+  return Object.assign({}, state, { connections, scenes })
 }

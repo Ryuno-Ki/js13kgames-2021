@@ -3,6 +3,7 @@ import {
   CANVAS_WIDTH,
   SOCKET_ADD_USER,
   SOCKET_KEY_UP,
+  SOCKET_NAVIGATE,
   SOCKET_SELECT_MODE,
   SOCKET_SYNC
 } from '../constants.js'
@@ -14,6 +15,7 @@ import { addName } from './state/actions/add-name.js'
 import { addPoint } from './state/actions/add-point.js'
 import { connect } from './state/actions/connect.js'
 import { disconnect } from './state/actions/disconnect.js'
+import { navigate } from './state/actions/navigate.js'
 import { selectMode } from './state/actions/select-mode.js'
 import store from './state/store.js'
 
@@ -22,6 +24,11 @@ import store from './state/store.js'
 /**
  * @typedef {object} AddUserDetails
  * @property {string} AddUserDetails.name
+ */
+
+/**
+ * @typedef {object} NavigateDetails
+ * @property {string} NavigateDetails.scene
  */
 
 /**
@@ -48,6 +55,10 @@ export function io (socket) {
   socket.on('disconnect', () => onDisconnect(socket))
   socket.on(SOCKET_ADD_USER, (/** @type {AddUserDetails} */details) => {
     store.dispatch(addName(socket.id, details.name))
+  })
+
+  socket.on(SOCKET_NAVIGATE, (/** @type {NavigateDetails} */details) => {
+    store.dispatch(navigate(socket.id, details.scene))
   })
 
   socket.on(SOCKET_SELECT_MODE, (/** @type {SelectModeDetails} */details) => {

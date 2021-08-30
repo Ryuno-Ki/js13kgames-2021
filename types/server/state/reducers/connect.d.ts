@@ -1,4 +1,5 @@
 /** @typedef {module:index.js:State} State */
+/** @typedef {module:index.js:scene} scene */
 /**
  * @typedef {object} payload
  * @property {string} payload.id
@@ -12,6 +13,7 @@
  */
 export function connect(state: any, payload: payload): any;
 export type State = any;
+export type scene = any;
 export type payload = {
     id: string;
 };

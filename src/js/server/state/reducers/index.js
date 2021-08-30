@@ -38,6 +38,12 @@ import { updateName } from './update-name.js'
  */
 
 /**
+ * @typedef {object} scene
+ * @property {string} scene.id
+ * @property {string} scene.scene
+ */
+
+/**
  * @typedef {object} user
  * @property {string} user.id
  * @property {string} user.name
@@ -63,6 +69,7 @@ const initialState = {
   games: [],
   modes: [],
   points: [],
+  scenes: [],
   users: []
 }
 

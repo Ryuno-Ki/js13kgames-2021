@@ -1,3 +1,6 @@
+import { SOCKET_NAVIGATE } from '../constants.js'
+import { dom } from './dom.js'
+
 /**
  * Update the history and move to new scene.
  *
@@ -14,6 +17,7 @@ export function navigate (target) {
 
   hideAll()
   show(url.hash)
+  dom.socket.emit(SOCKET_NAVIGATE, { scene: target })
 }
 
 /**

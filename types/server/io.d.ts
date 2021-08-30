@@ -8,6 +8,9 @@ export type Socket = any;
 export type AddUserDetails = {
     name: string;
 };
+export type NavigateDetails = {
+    scene: string;
+};
 export type OnKeyUpDetails = {
     delta: number;
 };

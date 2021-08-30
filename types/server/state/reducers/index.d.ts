@@ -20,6 +20,10 @@ export type point = {
     x: number;
     y: number;
 };
+export type scene = {
+    id: string;
+    scene: string;
+};
 export type user = {
     id: string;
     name: string;

@@ -29,6 +29,20 @@ declare class Store {
      */
     getPointsForHost(socketId: string): Array<Array<number>>;
     /**
+     * Queries the state for all opponents in the game led by the host.
+     *
+     * @param {string} socketId
+     * @returns {*}
+     */
+    getOpponentIdsOfHost(socketId: string): any;
+    /**
+     * Filters the points for the opponent of a game socketId participates in.
+     *
+     * @param {string} socketId
+     * @returns {Array<Array<number>>}
+     */
+    getPointsForOpponent(socketId: string): Array<Array<number>>;
+    /**
      * Get the current state.
      * @returns {*}
      */

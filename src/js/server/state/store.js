@@ -68,6 +68,39 @@ class Store {
   }
 
   /**
+   * Queries the state for all opponents in the game led by the host.
+   *
+   * @param {string} socketId
+   * @returns {*}
+   */
+  getOpponentIdsOfHost (socketId) {
+    const game = this._findGameBySocketId(socketId)
+    if (!game) {
+      return []
+    }
+
+    return game.opponents
+  }
+
+  /**
+   * Filters the points for the opponent of a game socketId participates in.
+   *
+   * @param {string} socketId
+   * @returns {Array<Array<number>>}
+   */
+  getPointsForOpponent (socketId) {
+    const game = this._findGameBySocketId(socketId)
+    if (!game) {
+      return []
+    }
+
+    console.log('Points', this.state.points, game.opponents)
+    return this.state.points
+      .filter((/** @type {*} */point) => game.opponents.includes(point.id))
+      .map((/** @type {*} */point) => [point.x, point.y])
+  }
+
+  /**
    * Get the current state.
    * @returns {*}
    */
@@ -90,11 +123,7 @@ class Store {
         return true
       }
 
-      const isOpponent = !!g.opponents.find(
-        (/** @type {*} */opponent) => opponent.id === socketId
-      )
-
-      if (isOpponent) {
+      if (g.opponents.includes(socketId)) {
         return true
       }
 

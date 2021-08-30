@@ -26,6 +26,7 @@ import { pick } from '../../../pick.js'
 export function selectMode (state, payload) {
   let games = state.games
   let points = state.points
+  let gameToJoin
 
   switch (payload.mode) {
     case 'new':
@@ -33,7 +34,9 @@ export function selectMode (state, payload) {
       points = initialPointsForHost(state, payload)
       break
     case 'join':
-      games = joinGame(state, payload)
+      gameToJoin = findGameToJoin(state)
+      games = joinGame(state, payload, gameToJoin)
+      points = initialPointsForOpponent(state, payload, games, gameToJoin)
       break
     case 'watch':
       games = watchGame(state, payload)
@@ -75,16 +78,10 @@ function newGame (state, payload) {
  *
  * @param {State} state
  * @param {payload} payload
+ * @param {game} gameToJoin
  * @returns {State}
  */
-function joinGame (state, payload) {
-  const gamesWithHostAndSpace = state
-    .games
-    .filter((/** @type {game} */g) => Boolean(g.host))
-    .filter((/** @type {game} */g) => g.opponents.length < MAXIMUM_GAME_SIZE)
-
-  const gameToJoin = pick(gamesWithHostAndSpace)
-
+function joinGame (state, payload, gameToJoin) {
   return state.games.map((/** @type {game} */g) => {
     if (g.host === gameToJoin.host) {
       return {
@@ -139,4 +136,55 @@ function initialPointsForHost (state, payload) {
   return /** @type {Array<point>} */([])
     .concat(state.points)
     .concat({ id: payload.id, x: CANVAS_WIDTH / 2, y: CANVAS_HEIGHT / 2 })
+}
+
+/**
+ * Populate the points with the center for the host.
+ *
+ * @param {State} state
+ * @param {payload} payload
+ * @param {Array<game>} games
+ * @param {game} gameToJoin
+ * @returns {State}
+ */
+function initialPointsForOpponent (state, payload, games, gameToJoin) {
+  let index = 0
+
+  if (payload.id.startsWith('AI-')) {
+    const id = /\d+/.exec(payload.id)
+    if (id) {
+      index = parseInt(id[0], 10) % 4
+    }
+  }
+
+  const points = [
+    { x: 0, y: CANVAS_HEIGHT / 2 },
+    { x: CANVAS_WIDTH, y: CANVAS_HEIGHT / 2 },
+    { x: CANVAS_WIDTH / 2, y: 0 },
+    { x: CANVAS_WIDTH / 2, y: CANVAS_HEIGHT }
+  ]
+  const point = points[index]
+
+  return /** @type {Array<point>} */([])
+    .concat(state.points)
+    .concat({ id: payload.id, ...point })
+}
+
+/**
+ * Picks a random game from those available to join.
+ *
+ * @param {State} state
+ * @returns {game}
+ */
+function findGameToJoin (state) {
+  const gamesWithHostAndSpace = state
+    .games
+    .filter((/** @type {game} */g) => Boolean(g.host))
+    .filter((/** @type {game} */g) => {
+      return g.opponents
+        .filter((/** @type {string} */opponent) => !opponent.startsWith('AI-'))
+        .length < MAXIMUM_GAME_SIZE
+    })
+
+  return pick(gamesWithHostAndSpace)
 }

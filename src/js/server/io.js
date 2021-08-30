@@ -129,7 +129,9 @@ function populateWithBots (socketId) {
   for (let i = 0; i < MAXIMUM_GAME_SIZE - 1; i++) {
     const id = `AI-${nextAi}`
     store.dispatch(addName(id, `Bot No. ${nextAi}`))
+    store.dispatch(selectMode(id, 'join'))
     store.dispatch(joinGame(id, socketId))
+
     nextAi += 1
   }
 }

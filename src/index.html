@@ -57,29 +57,29 @@
         <div>
           <input
             type="radio"
-	    id="mode-new"
+            id="mode-new"
             name="mode"
             value="new"
             aria-describedby="description-mode-new"
             />
-	  <label for="mode-new">Open a new session</label>
+          <label for="mode-new">Open a new session</label>
 
           <input
-	    type="radio"
-	    id="mode-join"
-	    name="mode"
-	    value="join"
-	    aria-describedby="description-mode-join"
-	    />
+            type="radio"
+            id="mode-join"
+            name="mode"
+            value="join"
+            aria-describedby="description-mode-join"
+            />
           <label for="mode-join">Join a game</label>
 
           <input
-	    type="radio"
-	    id="mode-watch"
-	    name="mode"
-	    value="watch"
-	    aria-describedby="description-mode-watch"
-	    />
+            type="radio"
+            id="mode-watch"
+            name="mode"
+            value="watch"
+            aria-describedby="description-mode-watch"
+            />
           <label for="mode-watch">Watch a party</label>
 
           <p id="description-mode-new" class="description">
@@ -93,15 +93,15 @@
             Watching means, that you can observe an ongoing session.
           </p>
 
-	  <div id="matches-mode-join" class="matches">
-	    <ol></ol>
-	    <div class="nothing">Currently no matches running.</div>
-	  </div>
+          <div id="matches-mode-join" class="matches">
+            <ol></ol>
+            <div class="nothing">Currently no matches running.</div>
+          </div>
 
-	  <div id="matches-mode-watch" class="matches">
-	    <ol></ol>
-	    <div class="nothing">Currently no matches running.</div>
-	  </div>
+          <div id="matches-mode-watch" class="matches">
+            <ol></ol>
+            <div class="nothing">Currently no matches running.</div>
+          </div>
         </div>
         <div>
           <button type="submit">Continue the game</button>
@@ -128,7 +128,16 @@
         width="320"
         >
         <polyline id="host" />
-        <g id="edges"></g>
+        <g id="edges">
+          <circle r="1" cx="-2" cy="-2" />
+          <polygon points="" />
+
+          <circle r="1" cx="-2" cy="-2" />
+          <polygon points="" />
+
+          <circle r="1" cx="-2" cy="-2" />
+          <polygon points="" />
+        </g>
       </svg>
       <p>Current state: <span id="socketState">Loading</span></p>
       <p><a href="#scene-title">Back to start</a></p>

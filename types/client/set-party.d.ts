@@ -3,11 +3,11 @@
  *
  * @param {object} details
  * @param {string} details.role
- * @param {number} details.opponents
- * @param {number} details.spectators
+ * @param {Array<string>} details.opponents
+ * @param {Array<string>} details.spectators
  */
 export function setParty({ role, opponents, spectators }: {
     role: string;
-    opponents: number;
-    spectators: number;
+    opponents: Array<string>;
+    spectators: Array<string>;
 }): void;

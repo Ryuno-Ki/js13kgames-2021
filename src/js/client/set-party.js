@@ -1,3 +1,4 @@
+import { ERROR } from '../constants.js'
 import { dom } from './dom.js'
 
 /**
@@ -5,15 +6,15 @@ import { dom } from './dom.js'
  *
  * @param {object} details
  * @param {string} details.role
- * @param {number} details.opponents
- * @param {number} details.spectators
+ * @param {Array<string>} details.opponents
+ * @param {Array<string>} details.spectators
  */
 export function setParty ({ role, opponents, spectators }) {
   if (!dom.opponentsState || !dom.roleState || !dom.spectatorsState) {
-    throw new Error('Bogus HTML')
+    throw new Error(ERROR)
   }
 
   dom.roleState.textContent = role
-  dom.opponentsState.textContent = opponents + ''
-  dom.spectatorsState.textContent = spectators + ''
+  dom.opponentsState.textContent = opponents.join(', ')
+  dom.spectatorsState.textContent = spectators.join(', ')
 }

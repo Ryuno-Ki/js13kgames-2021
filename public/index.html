@@ -14,60 +14,101 @@
 </head>
 <body>
   <main>
-    <section id="scene-title" tabindex="0">
+    <section id="scene-title" tabindex="0" style="display: none;">
       <h1>Lido Space</h1>
       <p>What do you want to do?</p>
       <div>
-        <a href="#scene-form">Play a game</a>
+        <a href="#scene-user-form">Play a game</a>
         <a href="#scene-credits">See the credits</a>
       </div>
     </section>
-    <section id="scene-form" tabindex="0">
+    <section id="scene-user-form" tabindex="0" style="display: none;">
       <form id="user-form" method="POST" action="./">
+        <label>
+          <span>How shall others call you?</span>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            aria-describedby="privacy-name"
+            pattern="[a-zA-Z0-9-_]+"
+            required
+            />
+        </label>
+        <p id="privacy-name" class="description">
+          Allowed input are all Latin characters, digits, hypen and underscore.
+          This information will be stored on the server (hosted in USA) and
+          be visible to other players.
+        </p>
         <div>
-          <label>
-            <span>How shall others call you?</span>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              aria-describedby="privacy-name"
-              required
-              />
-          </label>
-          <p id="privacy-name" class="description">
-            This information will be stored on the server (hosted in USA) and
-            be visible to other players.
-          </p>
+          <button type="submit">Continue to select party</button>
         </div>
+      </form>
+    </section>
+
+    <section id="scene-match-form" tabindex="0" style="display: none;">
+      <form id="match-form" method="POST" action="./">
+<div>
+          <p>
+            Do you want to start a new game, join one or just watch?
+          <p>
+        </div>
+
         <div>
-          <label>
-            <span>Do you want to start a new game, join one or just watch?</span>
-            <select
-              id="mode"
-              name="mode"
-              aria-describedby="description-mode"
-              required
-              >
-              <option value="">Make a choice</option>
-              <option value="new">Open a new session</option>
-              <option value="join">Join a game</option>
-              <option value="watch">Watch a party</option>
-            </select>
-          </label>
-          <p id="description-mode" class="description">
+          <input
+            type="radio"
+            id="mode-new"
+            name="mode"
+            value="new"
+            aria-describedby="description-mode-new"
+            />
+          <label for="mode-new">Open a new session</label>
+
+          <input
+            type="radio"
+            id="mode-join"
+            name="mode"
+            value="join"
+            aria-describedby="description-mode-join"
+            />
+          <label for="mode-join">Join a game</label>
+
+          <input
+            type="radio"
+            id="mode-watch"
+            name="mode"
+            value="watch"
+            aria-describedby="description-mode-watch"
+            />
+          <label for="mode-watch">Watch a party</label>
+
+          <p id="description-mode-new" class="description">
             Opening a new session will imply, that you might have to wait for
-            other players to join that session. Joining a game will assign you
-            to a currently running one. Watching means, that you can observe
-            an ongoing session.
+            other players to join that session.
           </p>
+          <p id="description-mode-join" class="description">
+            Joining a game will assign you to a currently running one.
+          </p>
+          <p id="description-mode-watch" class="description">
+            Watching means, that you can observe an ongoing session.
+          </p>
+
+          <div id="matches-mode-join" class="matches">
+            <ol></ol>
+            <div class="nothing">Currently no matches running.</div>
+          </div>
+
+          <div id="matches-mode-watch" class="matches">
+            <ol></ol>
+            <div class="nothing">Currently no matches running.</div>
+          </div>
         </div>
         <div>
           <button type="submit">Continue the game</button>
         </div>
       </form>
     </section>
-    <section id="scene-game" tabindex="0">
+    <section id="scene-game" tabindex="0" style="display: none;">
       <p>
         You're
         <span id="role">unknown</span> against
@@ -87,17 +128,26 @@
         width="320"
         >
         <polyline id="host" />
-        <g id="edges"></g>
+        <g id="edges">
+          <circle r="1" cx="-2" cy="-2" />
+          <polygon points="" />
+
+          <circle r="1" cx="-2" cy="-2" />
+          <polygon points="" />
+
+          <circle r="1" cx="-2" cy="-2" />
+          <polygon points="" />
+        </g>
       </svg>
       <p>Current state: <span id="socketState">Loading</span></p>
       <p><a href="#scene-title">Back to start</a></p>
     </section>
-    <section id="scene-settings" tabindex="0">
+    <section id="scene-settings" tabindex="0" style="display: none;">
       <h2>Settings</h2>
       <p>This screen will show the parts to configure.</p>
       <p><a href="#scene-title">Back to start</a></p>
     </section>
-    <section id="scene-credits" tabindex="0">
+    <section id="scene-credits" tabindex="0" style="display: none;">
       <h2>Credits</h2>
       <p>This screen will show the sources I used.</p>
       <p><a href="#scene-title">Back to start</a></p>

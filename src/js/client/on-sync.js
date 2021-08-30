@@ -27,15 +27,17 @@ export function onSync ({ points, role }) {
     }
 
     const { edges } = dom
+
     points.forEach((opponentPoints, index) => {
       const avatar = edges.children[index * 2]
       const polygon = edges.children[index * 2 + 1]
+      const avatarPoints = opponentPoints[opponentPoints.length - 1]
 
       if (!avatar || !polygon) {
         throw new Error(ERROR)
       }
 
-      const [cx, cy] = opponentPoints
+      const [cx, cy] = avatarPoints
       avatar.setAttribute('cx', cx)
       avatar.setAttribute('cy', cy)
       state.opponentPoints.push([cx, cy])

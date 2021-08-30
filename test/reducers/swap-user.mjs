@@ -10,18 +10,18 @@ describe('swapUser', () => {
     const oldState = {
       games: [{
         opponents: [
-          id
+          replacedId
         ]
       }],
       modes: [{
-        id,
+        id: replacedId,
         mode: 'join'
       }, {
-        id: replacedId,
+        id: id,
         mode: 'join'
       }],
       points: [{
-        id,
+        id: replacedId,
         x: 0,
         y: 1
       }]
@@ -30,16 +30,16 @@ describe('swapUser', () => {
     const newState = swapUser(oldState, { id, replacedId })
 
     assert.equal(newState.games.length, oldState.games.length)
-    assert.equal(newState.games[0].opponents[0], replacedId)
+    assert.equal(newState.games[0].opponents[0], id)
 
     assert.equal(newState.modes.length, oldState.modes.length)
-    assert.equal(newState.modes[0].id, id)
+    assert.equal(newState.modes[0].id, replacedId)
     assert.equal(newState.modes[0].mode, null)
-    assert.equal(newState.modes[1].id, replacedId)
+    assert.equal(newState.modes[1].id, id)
     assert.equal(newState.modes[1].mode, oldState.modes[1].mode)
 
     assert.equal(newState.points.length, oldState.points.length)
-    assert.equal(newState.points[0].id, replacedId)
+    assert.equal(newState.points[0].id, id)
     assert.equal(newState.points[0].x, oldState.points[0].x)
     assert.equal(newState.points[0].y, oldState.points[0].y)
   })

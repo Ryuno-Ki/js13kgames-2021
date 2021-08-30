@@ -1,6 +1,10 @@
 import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
+  DIRECTION_BOTTOM,
+  DIRECTION_LEFT,
+  DIRECTION_RIGHT,
+  DIRECTION_TOP,
   MAXIMUM_GAME_SIZE,
   SOCKET_ADD_USER,
   SOCKET_KEY_UP,
@@ -95,6 +99,11 @@ export function io (socket) {
             )
           )
 
+          // TODO: This breaks setParty() on the client right now
+          socket.emit(
+            SOCKET_START,
+            { role: ROLE_OPPONENT, ...store.getPointsForOpponents(socket.id) }
+          )
           syncPoints(socket, socket.id)
         }
         break
@@ -117,7 +126,7 @@ export function io (socket) {
 
       socket.emit(
         SOCKET_SYNC,
-        { role: ROLE_OPPONENT, points: store.getPointsForOpponent(socket.id) }
+        { role: ROLE_OPPONENT, points: store.getPointsForOpponents(socket.id) }
       )
     }
   })
@@ -166,13 +175,40 @@ function mapDeltaToPoint (delta) {
  * @returns {*}
  */
 function mapDirectionToPoint (socketId, direction) {
+  let xDelta = 0
+  let yDelta = 0
+
   const points = store.getPointsForOpponent(socketId)
-  logger.debug('OPP', points, socketId, direction)
-  const [x, y] = points.slice(-1)
+  const [x, y] = points[points.length - 1]
+
+  switch (direction) {
+    case DIRECTION_BOTTOM:
+      if (y + CANVAS_HEIGHT / 10 <= CANVAS_HEIGHT) {
+        yDelta = CANVAS_HEIGHT / 10
+      }
+      break
+    case DIRECTION_LEFT:
+      if (x - CANVAS_WIDTH / 10 >= 0) {
+        xDelta = -1 * CANVAS_WIDTH / 10
+      }
+      break
+    case DIRECTION_RIGHT:
+      if (x + CANVAS_WIDTH / 10 <= CANVAS_WIDTH) {
+        xDelta = CANVAS_WIDTH / 10
+      }
+      break
+    case DIRECTION_TOP:
+      if (y - CANVAS_HEIGHT / 10 >= 0) {
+        yDelta = -1 * CANVAS_HEIGHT / 10
+      }
+      break
+    default:
+      // noop
+  }
 
   return {
-    x,
-    y
+    x: x + xDelta,
+    y: y + yDelta
   }
 }
 
@@ -210,7 +246,7 @@ function syncPoints (socket, socketId) {
         SOCKET_SYNC,
         {
           role: ROLE_OPPONENT,
-          points: store.getPointsForOpponent(opponentId)
+          points: store.getPointsForOpponents(opponentId)
         }
       )
     })

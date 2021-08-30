@@ -107,15 +107,41 @@ class Store {
    * @param {string} socketId
    * @returns {Array<Array<number>>}
    */
+  getPointsForOpponents (socketId) {
+    const game = this._findGameBySocketId(socketId)
+    if (!game) {
+      return []
+    }
+
+    const points = game.opponents
+      .map((/** @type {string} */opponent) => {
+        return this.state.points
+          .filter((/** @type {*} */point) => {
+            return point.id === opponent
+          })
+          .map((/** @type {*} */point) => [point.x, point.y])
+      })
+
+    return points
+  }
+
+  /**
+   * Filters the points for the opponent of a game socketId participates in.
+   *
+   * @param {string} socketId
+   * @returns {Array<Array<number>>}
+   */
   getPointsForOpponent (socketId) {
     const game = this._findGameBySocketId(socketId)
     if (!game) {
       return []
     }
 
-    return this.state.points
-      .filter((/** @type {*} */point) => game.opponents.includes(point.id))
+    const points = this.state.points
+      .filter((/** @type {*} */point) => point.id === socketId)
       .map((/** @type {*} */point) => [point.x, point.y])
+
+    return points
   }
 
   /**

@@ -24,15 +24,16 @@ import { state } from './state.js'
 export function onStart ({ role, opponents, spectators }) {
   // @ts-ignore
   state.role = role
-  setParty({ role, opponents, spectators })
 
   // @ts-ignore
   if (role === ROLE_HOST) {
+    setParty({ role, opponents, spectators })
     registerHostKeys()
   }
 
   // @ts-ignore
   if (role === ROLE_OPPONENT) {
+    // TODO: Define setParty for opponent
     registerOpponentKeys()
   }
 

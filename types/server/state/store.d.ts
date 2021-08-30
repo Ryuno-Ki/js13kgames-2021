@@ -45,6 +45,13 @@ declare class Store {
      * @param {string} socketId
      * @returns {Array<Array<number>>}
      */
+    getPointsForOpponents(socketId: string): Array<Array<number>>;
+    /**
+     * Filters the points for the opponent of a game socketId participates in.
+     *
+     * @param {string} socketId
+     * @returns {Array<Array<number>>}
+     */
     getPointsForOpponent(socketId: string): Array<Array<number>>;
     /**
      * Get the current state.

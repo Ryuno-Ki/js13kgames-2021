@@ -21,15 +21,15 @@ export function swapUser (state, payload) {
     return {
       ...g,
       opponents: g.opponents.map((/** @type {string} */o) => {
-        return o === payload.id ? payload.replacedId : payload.id
+        return o === payload.replacedId ? payload.id : o
       })
     }
   })
 
   const modes = state.modes.map((/** @type {mode} */m) => {
-    if (m.id === payload.id) {
+    if (m.id === payload.replacedId) {
       return {
-        id: payload.id, mode: null
+        id: m.id, mode: null
       }
     }
 
@@ -37,10 +37,10 @@ export function swapUser (state, payload) {
   })
 
   const points = state.points.map((/** @type {point} */p) => {
-    if (p.id === payload.id) {
+    if (p.id === payload.replacedId) {
       return {
         ...p,
-        id: payload.replacedId
+        id: payload.id
       }
     }
 

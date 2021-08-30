@@ -5,7 +5,7 @@
  * @param {Array<*>} details.points
  * @param {string} details.role
  */
-export function onSync(details: {
+export function onSync({ points, role }: {
     points: Array<any>;
     role: string;
 }): void;

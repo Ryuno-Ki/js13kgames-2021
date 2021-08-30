@@ -9,9 +9,7 @@ import { state } from './state.js'
  * @param {Array<*>} details.points
  * @param {string} details.role
  */
-export function onSync (details) {
-  const { points, role } = details
-
+export function onSync ({ points, role }) {
   // @ts-ignore
   if (role === ROLE_HOST) {
     if (dom.host === null) {
@@ -23,41 +21,28 @@ export function onSync (details) {
   }
 
   // @ts-ignore
-  if (role === ROLE_OPPONENT && dom.edges) {
-    let avatar
-
-    if (dom.edges.children.length === 0) {
-      const ns = 'http://www.w3.org/2000/svg'
-      avatar = document.createElementNS(ns, 'circle')
-      avatar.setAttribute('r', '1')
-      dom.edges.append(avatar)
-
-      const polygon = document.createElementNS(ns, 'polygon')
-      dom.edges.appendChild(polygon)
-    } else {
-      avatar = dom.edges.children[0]
+  if (role === ROLE_OPPONENT) {
+    if (!dom.edges) {
+      throw new Error(ERROR)
     }
 
-    // FIXME: Update with information about this opponent's avatar
-    const { cx, cy } = { cx: '0', cy: '0' }
-    avatar.setAttribute('cx', cx)
-    avatar.setAttribute('cy', cy)
-    state.opponentPoints.push([parseInt(cx, 10), parseInt(cy, 10)])
-    updateOpponent()
+    const { edges } = dom
+    points.forEach((opponentPoints, index) => {
+      const avatar = edges.children[index * 2]
+      const polygon = edges.children[index * 2 + 1]
+
+      if (!avatar || !polygon) {
+        throw new Error(ERROR)
+      }
+
+      const [cx, cy] = opponentPoints
+      avatar.setAttribute('cx', cx)
+      avatar.setAttribute('cy', cy)
+      state.opponentPoints.push([cx, cy])
+
+      // const value = opponentPoints.map((point) => point.join(',')).join(' ')
+      const value = opponentPoints.join(',')
+      polygon.setAttribute('points', value)
+    })
   }
-}
-
-function updateOpponent () {
-  if (!dom.edges) {
-    throw new Error(ERROR)
-  }
-
-  const polygon = dom.edges.children[1]
-
-  if (!polygon) {
-    throw new Error(ERROR)
-  }
-
-  const value = state.opponentPoints.map((point) => point.join(',')).join(' ')
-  polygon.setAttribute('points', value)
 }

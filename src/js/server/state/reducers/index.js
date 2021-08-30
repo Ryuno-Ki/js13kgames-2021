@@ -3,6 +3,7 @@ import {
   ADD_POINT,
   CONNECT,
   DISCONNECT,
+  JOIN_GAME,
   NAVIGATE,
   REMOVE_USER,
   SELECT_MODE,
@@ -12,6 +13,7 @@ import { addName } from './add-name.js'
 import { addPoint } from './add-point.js'
 import { connect } from './connect.js'
 import { disconnect } from './disconnect.js'
+import { joinGame } from './join-game.js'
 import { navigate } from './navigate.js'
 import { removeUser } from './remove-user.js'
 import { selectMode } from './select-mode.js'
@@ -94,6 +96,8 @@ export function reducer (state, action) {
       return connect(state, action.payload)
     case DISCONNECT:
       return disconnect(state, action.payload)
+    case JOIN_GAME:
+      return joinGame(state, action.payload)
     case NAVIGATE:
       return navigate(state, action.payload)
     case REMOVE_USER:

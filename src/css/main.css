@@ -122,6 +122,7 @@ svg {
   height: calc(60vmax / 16 * 10);
   border: 1px solid #ccc;
   width: 60vmax;
+  max-width: 100%;
 }
 
 @supports (aspect-ratio: 16 / 10) {

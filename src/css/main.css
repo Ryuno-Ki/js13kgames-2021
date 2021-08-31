@@ -222,15 +222,6 @@ input[type="text"] {
   display: block;
 }
 
-meter {
-  background-color: #eee;
-}
-
-meter::-moz-meter-bar,
-meter::-webkit-meter-bar {
-  background-color: #f49f0a;
-}
-
 circle,
 polygon {
   transition: fill 0.2s ease-out;

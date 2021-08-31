@@ -115,7 +115,9 @@
         <span id="opponents">?</span> in front of
         <span id="spectators">?</span> spectators.
       </p>
-      <p>Press arrow keys or <kbd>Space</kbd> to update the view.</p>
+      <p data-view="HOST">Press <kbd>Space</kbd> to update the view.</p>
+      <p data-view="OPPONENT">Press arrow keys to update the view.</p>
+      <p>Current state: <span id="socketState">Loading</span></p>
       <p>
         <meter value="30" min="0" max="100">
           Your progress will appear here
@@ -139,8 +141,6 @@
           <polygon points="" />
         </g>
       </svg>
-      <p>Current state: <span id="socketState">Loading</span></p>
-      <p><a href="#scene-title">Back to start</a></p>
     </section>
     <section id="scene-settings" tabindex="0" style="display: none;">
       <h2>Settings</h2>

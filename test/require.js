@@ -5,7 +5,8 @@ class URL {}
 
 global.document = {
   body: {
-    addEventListener: function () {}
+    addEventListener: function () {},
+    dataset: {}
   },
   createElement: function () {},
   createElementNS: function () {

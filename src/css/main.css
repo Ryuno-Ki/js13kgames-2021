@@ -210,6 +210,18 @@ input[type="text"] {
   display: block;
 }
 
+[data-view] {
+  display: none;
+}
+
+[data-role="HOST"] [data-view="HOST"] {
+  display: block;
+}
+
+[data-role="OPPONENT"] [data-view="OPPONENT"] {
+  display: block;
+}
+
 meter {
   background-color: #eee;
 }

@@ -24,6 +24,7 @@ import { state } from './state.js'
 export function onStart ({ role, opponents, spectators }) {
   // @ts-ignore
   state.role = role
+  document.body.dataset.role = role
 
   // @ts-ignore
   if (role === ROLE_HOST) {

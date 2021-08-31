@@ -109,13 +109,19 @@ html,
 body {
   background: #4d4d4d;
   color: #eee;
+  margin: 0;
   min-height: 90vh;
+  padding: 0;
 }
 
 main {
   display: grid;
   min-height: 90vh;
   place-items: center;
+}
+
+aside {
+  font-size: 0.7em;
 }
 
 svg {
@@ -216,11 +222,11 @@ input[type="text"] {
 }
 
 [data-role="HOST"] [data-view="HOST"] {
-  display: block;
+  display: initial;
 }
 
 [data-role="OPPONENT"] [data-view="OPPONENT"] {
-  display: block;
+  display: initial;
 }
 
 #users {

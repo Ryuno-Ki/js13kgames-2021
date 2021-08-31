@@ -79,7 +79,7 @@
             name="mode"
             value="watch"
             aria-describedby="description-mode-watch"
-	    disabled
+            disabled
             />
           <label for="mode-watch">Watch a party</label>
 
@@ -115,12 +115,9 @@
         <div id="opponent-list">?</div>
         <div id="spectators"></div>
       </div>
-      <p data-view="HOST">Press <kbd>Space</kbd> to update the view.</p>
-      <p data-view="OPPONENT">Press arrow keys to update the view.</p>
-      <p>Current state: <span id="socketState">Loading</span></p>
       <svg
         viewBox="0 0 320 200"
-	preserveAspectRatio="xMidYMid meet"
+        preserveAspectRatio="xMidYMid meet"
         xmlns="http://www.w3.org/2000/svg"
         height="200"
         width="320"
@@ -154,6 +151,13 @@
     </p>
     -->
   </main>
+  <aside>
+    <p>
+      Current state: <span id="socketState">Loading</span>.
+      <span data-view="HOST">Press <kbd>Space</kbd> to update the view.</span>
+      <span data-view="OPPONENT">Press arrow keys to update the view.</span>
+    </p>
+  </aside>
   <script src="/socket.io/socket.io.js"></script>
   <script src="./ZzFXMicro.min.js"></script>
   <script src="./shared.js"></script>

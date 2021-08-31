@@ -1,4 +1,5 @@
 /** @typedef {module:index.js:State} State */
+/** @typedef {module:index.js:color} color */
 /** @typedef {module:index.js:mode} mode */
 /** @typedef {module:index.js:user} user */
 /**
@@ -15,6 +16,7 @@
  */
 export function addName(state: any, payload: payload): any;
 export type State = any;
+export type color = any;
 export type mode = any;
 export type user = any;
 export type payload = {

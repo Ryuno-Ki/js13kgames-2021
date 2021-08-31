@@ -6,6 +6,7 @@ describe('disconnect', () => {
   it('should remove a connection from the state', () => {
     const id = 'socket.io hash'
     const oldState = {
+      colors: [{ id, value: 'magenta' }],
       connections: [id],
       games: [{ host: id, opponents: [], spectators: [] }],
       modes: [{ id, mode: 'new' }],
@@ -15,6 +16,11 @@ describe('disconnect', () => {
     }
 
     const newState = disconnect(oldState, { id })
+
+    assert.equal(
+      newState.colors.length,
+      oldState.colors.length - 1
+    )
 
     assert.equal(
       newState.connections.length,

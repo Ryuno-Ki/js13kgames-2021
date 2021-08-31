@@ -12,6 +12,7 @@ describe('onStart', () => {
   it('should set a message', () => {
     const details = {
       role: ROLE_HOST,
+      host: {},
       opponents: [],
       spectators: []
     }

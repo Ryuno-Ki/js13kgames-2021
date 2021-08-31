@@ -251,6 +251,16 @@ input[type="text"] {
   text-align: center;
 }
 
+#users .tile::before {
+  align-self: start;
+  content: " ";
+  display: inline-block;
+  height: 1em;
+  margin: 0 auto;
+  width: 1em;
+  background-color: var(--user-color, transparent);
+}
+
 #users #opponent-list {
   display: flex;
   gap: 1em;
@@ -284,7 +294,9 @@ polygon {
 #arrow-keys button[type="submit"] {
   background: transparent;
   font-size: 3rem;
+  line-height: 1;
   margin: 0;
+  max-height: 3rem;
   padding: 0;
 }
 

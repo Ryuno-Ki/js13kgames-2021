@@ -58,11 +58,25 @@ class Store {
       return null
     }
 
+    const color = this.state.colors.find((/** @type {*} */c) => {
+      return c.id === game.host
+    })
+
     return {
-      host: this._resolveNameForId(game.host),
+      host: {
+        color: color ? color.value : 'transparent',
+        name: this._resolveNameForId(game.host)
+      },
       opponents: game.opponents
         .map((/** @type {string} */opponent) => {
-          return this._resolveNameForId(opponent)
+          const opponentColor = this.state.colors.find((/** @type {*} */c) => {
+            return c.id === opponent
+          })
+
+          return {
+            color: opponentColor ? opponentColor.value : 'transparent',
+            name: this._resolveNameForId(opponent)
+          }
         }),
       spectators: game.spectators
     }

@@ -22,6 +22,12 @@ import { swapUser } from './swap-user.js'
 import { updateName } from './update-name.js'
 
 /**
+ * @typedef {object} color
+ * @property {string} color.id
+ * @property {string} color.value
+ */
+
+/**
  * @typedef {object} game
  * @property {string} game.host
  * @property {Array<string>} game.opponents
@@ -61,6 +67,7 @@ import { updateName } from './update-name.js'
 
 /**
  * @typedef {object} State
+ * @property {Array<color>} colors
  * @property {Array<string>} connections
  * @property {Array<game>} games
  * @property {Array<mode>} modes
@@ -69,6 +76,7 @@ import { updateName } from './update-name.js'
  */
 
 const initialState = {
+  colors: [],
   connections: [],
   games: [],
   modes: [],

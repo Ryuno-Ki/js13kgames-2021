@@ -1,4 +1,5 @@
 /** @typedef {module:index.js:State} State */
+/** @typedef {module:index.js:color} color */
 /** @typedef {module:index.js:mode} mode */
 /** @typedef {module:index.js:user} user */
 
@@ -16,6 +17,13 @@
  * @returns {State}
  */
 export function addName (state, payload) {
+  const hue = Math.floor(360 * Math.random())
+  const color = `hsl(${hue}, 80%, 50%)`
+
+  const colors = /** @type {Array<mode>} */([])
+    .concat(state.colors)
+    .concat({ id: payload.id, value: color })
+
   const modes = /** @type {Array<mode>} */([])
     .concat(state.modes)
     .concat({ id: payload.id, mode: null })
@@ -24,5 +32,5 @@ export function addName (state, payload) {
     .concat(state.users)
     .concat(payload)
 
-  return Object.assign({}, state, { modes, users })
+  return Object.assign({}, state, { colors, modes, users })
 }

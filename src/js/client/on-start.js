@@ -18,18 +18,37 @@ import { state } from './state.js'
  *
  * @param {object} details
  * @param {string} details.role
- * @param {Array<string>} details.opponents
+ * @param {*} details.host
+ * @param {Array<*>} details.opponents
  * @param {Array<string>} details.spectators
  */
-export function onStart ({ role, opponents, spectators }) {
+export function onStart ({ role, host, opponents, spectators }) {
   // @ts-ignore
   state.role = role
   document.body.dataset.role = role
 
   // @ts-ignore
   if (role === ROLE_HOST) {
-    setParty({ role, opponents, spectators })
+    setParty({ role, host, opponents, spectators })
     registerHostKeys()
+
+    if (!dom.host || !dom.opponents) {
+      throw new Error(ERROR)
+    }
+
+    // @ts-ignore
+    dom.host.style = `stroke: ${host.color}`
+    const el = dom.opponents
+
+    opponents.forEach((o, index) => {
+      const child = el.children[index * 2]
+
+      if (!child) {
+        throw new Error(ERROR)
+      }
+
+      /** @type {*} */(child).style = `fill: ${o.color}`
+    })
   }
 
   // @ts-ignore
@@ -72,10 +91,6 @@ function registerHostKeys () {
  * Registers key events for opponent player.
  */
 function registerOpponentKeys () {
-  if (!dom.opponents) {
-    throw new Error(ERROR)
-  }
-
   document.body.addEventListener(
     'keyup',
     (/** @type {KeyboardEvent} */e) => {

@@ -6,19 +6,24 @@ import { dom } from './dom.js'
  *
  * @param {object} details
  * @param {string} details.role
- * @param {Array<string>} details.opponents
+ * @param {*} details.host
+ * @param {Array<*>} details.opponents
  * @param {Array<string>} details.spectators
  */
-export function setParty ({ role, opponents, spectators }) {
+export function setParty ({ role, host, opponents, spectators }) {
   if (!dom.opponentsState || !dom.roleState || !dom.spectatorsState) {
     throw new Error(ERROR)
   }
 
-  dom.roleState.textContent = `You (${role})`
+  dom.roleState.innerHTML = `<span class="tile" style="--user-color: ${host.color};">
+    ${host.name} (${role})
+  </span>`
   dom.opponentsState.innerHTML = ''
 
-  opponents.forEach((/** @type {string} */opponent) => {
-    const tile = `<span class="tile">${opponent}</span>`
+  opponents.forEach((/** @type {*} */opponent) => {
+    const tile = `<span class="tile" style="--user-color: ${opponent.color};">
+      ${opponent.name}
+    </span>`
     // @ts-ignore
     dom.opponentsState.innerHTML += tile
   })

@@ -18,6 +18,10 @@
  * @returns {State}
  */
 export function disconnect (state, payload) {
+  const colors = state
+    .colors
+    .filter((/** @type {scene} */s) => s.id !== payload.id)
+
   const connections = state
     .connections
     .filter((/** @type {string} */connection) => connection !== payload.id)
@@ -61,6 +65,6 @@ export function disconnect (state, payload) {
   return Object.assign(
     {},
     state,
-    { connections, games, modes, points, scenes, users }
+    { colors, connections, games, modes, points, scenes, users }
   )
 }

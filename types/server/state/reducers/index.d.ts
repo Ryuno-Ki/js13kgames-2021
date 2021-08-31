@@ -6,6 +6,10 @@
  * @returns {State}
  */
 export function reducer(state: State, action: Action): State;
+export type color = {
+    id: string;
+    value: string;
+};
 export type game = {
     host: string;
     opponents: Array<string>;
@@ -33,6 +37,7 @@ export type Action = {
     payload: any;
 };
 export type State = {
+    colors: Array<color>;
     connections: Array<string>;
     games: Array<game>;
     modes: Array<mode>;

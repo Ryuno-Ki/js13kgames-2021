@@ -57,6 +57,41 @@ export function onStart ({ role, host, opponents, spectators }) {
     registerOpponentKeys()
   }
 
+  /** @type {Array<HTMLFormElement>} */
+  const forms = Array.from(document.querySelectorAll('#scene-game form'))
+  forms.forEach((/** @type {HTMLFormElement} */form) => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault()
+      const formData = new FormData(form)
+      const key = formData.get('key')
+
+      switch (key) {
+        case 'space':
+          // TODO: Think about some more meaningful way
+          onKeyDown()
+          onKeyUp()
+          break
+        case 'TOP':
+          moveUp()
+          playSound()
+          break
+        case 'LEFT':
+          moveLeft()
+          playSound()
+          break
+        case 'BOTTOM':
+          moveDown()
+          playSound()
+          break
+        case 'RIGHT':
+          moveRight()
+          playSound()
+          break
+        default:
+          // noop
+      }
+    })
+  })
   setMessage('Playing')
 }
 

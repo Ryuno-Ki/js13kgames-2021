@@ -52,6 +52,9 @@ import store from './state/store.js'
 
 const center = { x: CANVAS_WIDTH / 2, y: CANVAS_HEIGHT / 2 }
 const logger = getLogger('io')
+/** @type {Record<string, *>} */
+const sockets = {}
+
 let nextAi = 0
 
 /**
@@ -61,6 +64,7 @@ let nextAi = 0
  */
 export function io (socket) {
   store.dispatch(connect(socket.id))
+  sockets[socket.id] = socket
 
   socket.on('disconnect', () => onDisconnect(socket))
   socket.on(SOCKET_ADD_USER, (/** @type {AddUserDetails} */details) => {
@@ -84,7 +88,7 @@ export function io (socket) {
           { role: ROLE_HOST, ...store.getGameForHost(socket.id) }
         )
 
-        syncPoints(socket, socket.id)
+        syncPoints(socket.id)
         break
       case 'join':
         game = store.findGameAvailableForJoin()
@@ -104,7 +108,7 @@ export function io (socket) {
             SOCKET_START,
             { role: ROLE_OPPONENT, ...store.getPointsForOpponents(socket.id) }
           )
-          syncPoints(socket, socket.id)
+          syncPoints(socket.id)
         }
         break
       default:
@@ -117,7 +121,7 @@ export function io (socket) {
       // Host case
       store.dispatch(addPoint(socket.id, mapDeltaToPoint(details.delta)))
       store.dispatch(addPoint(socket.id, { ...center }))
-      syncPoints(socket, socket.id)
+      syncPoints(socket.id)
     } else if (details.direction) {
       // Opponents case
       store.dispatch(
@@ -231,23 +235,46 @@ function populateWithBots (socketId) {
 /**
  * Trigger an update on all client regarding the points.
  *
- * @param {*} socket
  * @param {string} socketId
  */
-function syncPoints (socket, socketId) {
-  socket.emit(
+function syncPoints (socketId) {
+  const opponents = store.getOpponentIdsOfHost(socketId)
+
+  // Sync current user
+  sockets[socketId].emit(
     SOCKET_SYNC,
-    { role: ROLE_HOST, points: store.getPointsForHost(socket.id) }
+    { role: ROLE_HOST, points: store.getPointsForHost(socketId) }
   )
 
-  store.getOpponentIdsOfHost(socket.id)
-    .forEach((/** @type {string} */opponentId) => {
-      socket.emit(
+  opponents.forEach((/** @type {string} */opponentId) => {
+    sockets[socketId].emit(
+      SOCKET_SYNC,
+      {
+        role: ROLE_OPPONENT,
+        points: store.getPointsForOpponents(opponentId)
+      }
+    )
+  })
+
+  // Sync other participants
+  opponents
+    .map((/** @type {string} */opponentId) => sockets[opponentId])
+    // TODO: Investigate, why the map can return undefined
+    .filter(Boolean)
+    .forEach((/** @type {*} */s) => {
+      s.emit(
         SOCKET_SYNC,
-        {
-          role: ROLE_OPPONENT,
-          points: store.getPointsForOpponents(opponentId)
-        }
+        { role: ROLE_HOST, points: store.getPointsForHost(socketId) }
       )
+
+      opponents.forEach((/** @type {string} */opponentId) => {
+        s.emit(
+          SOCKET_SYNC,
+          {
+            role: ROLE_OPPONENT,
+            points: store.getPointsForOpponents(opponentId)
+          }
+        )
+      })
     })
 }

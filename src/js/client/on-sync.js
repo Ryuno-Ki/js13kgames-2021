@@ -22,15 +22,15 @@ export function onSync ({ points, role }) {
 
   // @ts-ignore
   if (role === ROLE_OPPONENT) {
-    if (!dom.edges) {
+    if (!dom.opponents) {
       throw new Error(ERROR)
     }
 
-    const { edges } = dom
+    const { opponents } = dom
 
     points.forEach((opponentPoints, index) => {
-      const avatar = edges.children[index * 2]
-      const polygon = edges.children[index * 2 + 1]
+      const avatar = opponents.children[index * 2]
+      const polygon = opponents.children[index * 2 + 1]
       const avatarPoints = opponentPoints[opponentPoints.length - 1]
 
       if (!avatar || !polygon) {

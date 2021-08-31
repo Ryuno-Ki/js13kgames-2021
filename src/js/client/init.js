@@ -27,7 +27,7 @@ export function init () {
  */
 function assignDomElements (dom) {
   dom.host = getHostState()
-  dom.edges = getEdgesState()
+  dom.opponents = getEdgesState()
   dom.socketState = getSocketState()
   dom.roleState = getRoleState()
   dom.opponentsState = getOpponentsState()
@@ -50,12 +50,12 @@ function getHostState () {
 }
 
 /**
- * Searches the DOM for the edges group element.
+ * Searches the DOM for the opponents group element.
  *
  * @return {SVGGElement}
  */
 function getEdgesState () {
-  const el = document.getElementById('edges')
+  const el = document.getElementById('opponents')
 
   if (!el) {
     throw new Error(ERROR)
@@ -100,7 +100,7 @@ function getRoleState () {
  * @return {HTMLElement}
  */
 function getOpponentsState () {
-  const el = document.getElementById('opponents')
+  const el = document.getElementById('opponent-list')
 
   if (!el) {
     throw new Error(ERROR)

@@ -72,7 +72,7 @@ function registerHostKeys () {
  * Registers key events for opponent player.
  */
 function registerOpponentKeys () {
-  if (!dom.edges) {
+  if (!dom.opponents) {
     throw new Error(ERROR)
   }
 

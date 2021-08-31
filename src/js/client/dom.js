@@ -4,10 +4,10 @@
 export const dom = {
   /** @type {Array<SVGCircleElement>} */
   avatars: [],
-  /** @type {SVGGElement | null} */
-  edges: null,
   /** @type {SVGPolylineElement | null} */
   host: null,
+  /** @type {SVGGElement | null} */
+  opponents: null,
   /** @type {HTMLElement | null} */
   opponentsState: null,
   /** @type {HTMLElement | null} */

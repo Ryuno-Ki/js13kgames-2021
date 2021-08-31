@@ -37,7 +37,7 @@
         </label>
         <p id="privacy-name" class="description">
           Allowed input are all Latin characters, digits, hypen and underscore.
-          This information will be stored on the server (hosted in USA) and
+          This information will be stored on the server (hosted in Europe) and
           be visible to other players.
         </p>
         <div>
@@ -79,6 +79,7 @@
             name="mode"
             value="watch"
             aria-describedby="description-mode-watch"
+            disabled
             />
           <label for="mode-watch">Watch a party</label>
 
@@ -109,38 +110,56 @@
       </form>
     </section>
     <section id="scene-game" tabindex="0" style="display: none;">
-      <p>
-        You're
-        <span id="role">unknown</span> against
-        <span id="opponents">?</span> in front of
-        <span id="spectators">?</span> spectators.
-      </p>
-      <p>Press arrow keys or <kbd>Space</kbd> to update the view.</p>
-      <p>
-        <meter value="30" min="0" max="100">
-          Your progress will appear here
-        </meter>
-      </p>
+      <div id="users">
+        <div id="role">unknown</div>
+        <div id="opponent-list">?</div>
+        <div id="spectators"></div>
+      </div>
       <svg
         viewBox="0 0 320 200"
+        preserveAspectRatio="xMidYMid meet"
         xmlns="http://www.w3.org/2000/svg"
         height="200"
         width="320"
         >
         <polyline id="host" />
-        <g id="edges">
-          <circle r="1" cx="-2" cy="-2" />
+        <g id="opponents">
+          <circle r="4" cx="-2" cy="-2" />
           <polygon points="" />
 
-          <circle r="1" cx="-2" cy="-2" />
+          <circle r="4" cx="-2" cy="-2" />
           <polygon points="" />
 
-          <circle r="1" cx="-2" cy="-2" />
+          <circle r="4" cx="-2" cy="-2" />
           <polygon points="" />
         </g>
+
+        <div id="space-key" data-view="HOST">
+          <form method="POST" action="./">
+            <input type="hidden" name="key" value="SPACE" />
+            <button type="submit">SPACE</button>
+          </form>
+        </div>
+
+        <div id="arrow-keys" data-view="OPPONENT">
+          <form method="POST" action="./">
+            <input type="hidden" name="key" value="TOP" />
+            <button type="submit">⬆️</button>
+          </form>
+          <form method="POST" action="./">
+            <input type="hidden" name="key" value="LEFT" />
+            <button type="submit">⬅️</button>
+          </form>
+          <form method="POST" action="./">
+            <input type="hidden" name="key" value="BOTTOM" />
+            <button type="submit">⬇️</button>
+          </form>
+          <form method="POST" action="./">
+            <input type="hidden" name="key" value="RIGHT" />
+            <button type="submit">➡️</button>
+          </form>
+        </div>
       </svg>
-      <p>Current state: <span id="socketState">Loading</span></p>
-      <p><a href="#scene-title">Back to start</a></p>
     </section>
     <section id="scene-settings" tabindex="0" style="display: none;">
       <h2>Settings</h2>
@@ -158,6 +177,13 @@
     </p>
     -->
   </main>
+  <aside>
+    <p>
+      Current state: <span id="socketState">Loading</span>.
+      <span data-view="HOST">Press <kbd>Space</kbd> to update the view.</span>
+      <span data-view="OPPONENT">Press arrow keys to update the view.</span>
+    </p>
+  </aside>
   <script src="/socket.io/socket.io.js"></script>
   <script src="./ZzFXMicro.min.js"></script>
   <script src="./shared.js"></script>

@@ -14,7 +14,14 @@ export function setParty ({ role, opponents, spectators }) {
     throw new Error(ERROR)
   }
 
-  dom.roleState.textContent = role
-  dom.opponentsState.textContent = opponents.join(', ')
+  dom.roleState.textContent = `You (${role})`
+  dom.opponentsState.innerHTML = ''
+
+  opponents.forEach((/** @type {string} */opponent) => {
+    const tile = `<span class="tile">${opponent}</span>`
+    // @ts-ignore
+    dom.opponentsState.innerHTML += tile
+  })
+
   dom.spectatorsState.textContent = spectators.join(', ')
 }

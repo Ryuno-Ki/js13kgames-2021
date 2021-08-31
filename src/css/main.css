@@ -222,6 +222,31 @@ input[type="text"] {
   display: block;
 }
 
+#users {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+}
+
+#users .tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  text-align: center;
+}
+
+#users #opponent-list {
+  display: flex;
+  gap: 1em;
+}
+
+/* FIXME: Reenable once spectators are implemented. */
+#users #spectators {
+  display: none;
+}
+
 circle,
 polygon {
   transition: fill 0.2s ease-out;

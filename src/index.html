@@ -79,6 +79,7 @@
             name="mode"
             value="watch"
             aria-describedby="description-mode-watch"
+	    disabled
             />
           <label for="mode-watch">Watch a party</label>
 
@@ -109,12 +110,11 @@
       </form>
     </section>
     <section id="scene-game" tabindex="0" style="display: none;">
-      <p>
-        You're
-        <span id="role">unknown</span> against
-        <span id="opponent-list">?</span> in front of
-        <span id="spectators">?</span> spectators.
-      </p>
+      <div id="users">
+        <div><span id="role" class="tile">unknown</span></div>
+        <div id="opponent-list">?</div>
+        <div id="spectators"></div>
+      </div>
       <p data-view="HOST">Press <kbd>Space</kbd> to update the view.</p>
       <p data-view="OPPONENT">Press arrow keys to update the view.</p>
       <p>Current state: <span id="socketState">Loading</span></p>

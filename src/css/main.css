@@ -263,6 +263,38 @@ polygon {
   transition: stroke 0.2s ease-out;
 }
 
+#arrow-keys {
+  display: grid;
+  grid-template-areas:
+   '.    TOP    .'
+   'LEFT BOTTOM RIGHT';
+  justify-content: center;
+  column-gap: 0.5em;
+}
+
+#arrow-keys button[type="submit"] {
+  background: transparent;
+  font-size: 3rem;
+  margin: 0;
+  padding: 0;
+}
+
+#arrow-keys form:nth-of-type(1) {
+  grid-area: TOP;
+}
+
+#arrow-keys form:nth-of-type(2) {
+  grid-area: LEFT;
+}
+
+#arrow-keys form:nth-of-type(3) {
+  grid-area: BOTTOM;
+}
+
+#arrow-keys form:nth-of-type(4) {
+  grid-area: RIGHT;
+}
+
 @media (prefers-color-scheme: light) {
   html,
   body {

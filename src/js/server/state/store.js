@@ -22,7 +22,7 @@ class Store {
   /** @param {Action} action */
   dispatch (action) {
     this.state = this.reducer(this.state, action)
-    logger.debug('State', action, this.getState())
+    logger.debug(`Dispatched ${JSON.stringify(action)}.\nNew state: ${JSON.stringify(this.state)}`)
     // TODO: Persist state in storage here?
   }
 

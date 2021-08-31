@@ -280,7 +280,25 @@ polygon {
   transition: stroke 0.2s ease-out;
 }
 
+#space-key,
 #arrow-keys {
+  display: none;
+}
+
+[data-role="HOST"] #space-key {
+  display: flex;
+  flex-direction: column;
+  font-family: monospace;
+  justify-content: end;
+}
+
+[data-role="HOST"] #space-key button[type="submit"] {
+  display: block;
+  margin-block: 0;
+  width: 100%;
+}
+
+[data-role="OPPONENT"] #arrow-keys {
   display: grid;
   grid-template-areas:
    '.    TOP    .'

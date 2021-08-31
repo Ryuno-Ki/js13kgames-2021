@@ -133,24 +133,32 @@
           <circle r="4" cx="-2" cy="-2" />
           <polygon points="" />
         </g>
-	<div id="arrow-keys">
-	  <form method="POST" action="./">
-	    <input type="hidden" value="TOP" />
-	    <button type="submit">⬆️</button>
-	  </form>
-	  <form method="POST" action="./">
-	    <input type="hidden" value="LEFT" />
-	    <button type="submit">⬅️</button>
-	  </form>
-	  <form method="POST" action="./">
-	    <input type="hidden" value="BOTTOM" />
-	    <button type="submit">⬇️</button>
-	  </form>
-	  <form method="POST" action="./">
-	    <input type="hidden" value="RIGHT" />
-	    <button type="submit">➡️</button>
-	  </form>
-	</div>
+
+        <div id="space-key" data-view="HOST">
+          <form method="POST" action="./">
+            <input type="hidden" name="key" value="" />
+            <button type="submit">SPACE</button>
+          </form>
+        </div>
+
+        <div id="arrow-keys" data-view="OPPONENT">
+          <form method="POST" action="./">
+            <input type="hidden" name="key" value="TOP" />
+            <button type="submit">⬆️</button>
+          </form>
+          <form method="POST" action="./">
+            <input type="hidden" name="key" value="LEFT" />
+            <button type="submit">⬅️</button>
+          </form>
+          <form method="POST" action="./">
+            <input type="hidden" name="key" value="BOTTOM" />
+            <button type="submit">⬇️</button>
+          </form>
+          <form method="POST" action="./">
+            <input type="hidden" name="key" value="RIGHT" />
+            <button type="submit">➡️</button>
+          </form>
+        </div>
       </svg>
     </section>
     <section id="scene-settings" tabindex="0" style="display: none;">

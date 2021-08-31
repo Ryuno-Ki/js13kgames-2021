@@ -229,10 +229,17 @@ input[type="text"] {
   display: initial;
 }
 
+#scene-game {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: 100%;
+}
+
 #users {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  grid-column: 1 / -1;
   align-items: end;
   justify-content: space-between;
 }
@@ -268,8 +275,10 @@ polygon {
   grid-template-areas:
    '.    TOP    .'
    'LEFT BOTTOM RIGHT';
-  justify-content: center;
+  align-items: end;
   column-gap: 0.5em;
+  grid-template-rows: 1fr auto;
+  justify-content: center;
 }
 
 #arrow-keys button[type="submit"] {
@@ -293,6 +302,12 @@ polygon {
 
 #arrow-keys form:nth-of-type(4) {
   grid-area: RIGHT;
+}
+
+@media (orientation: landscape) {
+  #scene-game {
+    grid-template-columns: 3fr 1fr;
+  }
 }
 
 @media (prefers-color-scheme: light) {

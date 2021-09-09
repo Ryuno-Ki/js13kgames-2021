@@ -32,3 +32,4 @@ journal and update it daily as I go along.
 - [6th September 2021](./2021-09-06.md)
 - [7th September 2021](./2021-09-07.md)
 - [8th September 2021](./2021-09-08.md)
+- [9th September 2021](./2021-09-09.md)

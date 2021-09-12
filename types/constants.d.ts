@@ -9,6 +9,7 @@ export const DIRECTION_RIGHT: 1;
 export const DIRECTION_TOP: 0;
 export const DISCONNECT: "DISCONNECT";
 export const ERROR: "Game not properly initialised!";
+export const FINISH_GAME: "FINISH_GAME";
 export const JOIN_GAME: "JOIN_GAME";
 export const MAXIMUM_GAME_SIZE: 4;
 export const MAXIMUM_NUMBER_OF_VERTICES: 13;

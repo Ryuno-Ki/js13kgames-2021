@@ -50,7 +50,7 @@
       <form id="match-form" method="POST" action="./">
 <div>
           <p>
-            Do you want to start a new game, join one or just watch?
+            Do you want to start a new game or join one?
           <p>
         </div>
 
@@ -73,16 +73,6 @@
             />
           <label for="mode-join">Join a game</label>
 
-          <input
-            type="radio"
-            id="mode-watch"
-            name="mode"
-            value="watch"
-            aria-describedby="description-mode-watch"
-            disabled
-            />
-          <label for="mode-watch">Watch a party</label>
-
           <p id="description-mode-new" class="description">
             Opening a new session will imply, that you might have to wait for
             other players to join that session.
@@ -90,16 +80,8 @@
           <p id="description-mode-join" class="description">
             Joining a game will assign you to a currently running one.
           </p>
-          <p id="description-mode-watch" class="description">
-            Watching means, that you can observe an ongoing session.
-          </p>
 
           <div id="matches-mode-join" class="matches">
-            <ol></ol>
-            <div class="nothing">Currently no matches running.</div>
-          </div>
-
-          <div id="matches-mode-watch" class="matches">
             <ol></ol>
             <div class="nothing">Currently no matches running.</div>
           </div>
@@ -113,7 +95,6 @@
       <div id="users">
         <div id="role">unknown</div>
         <div id="opponent-list">?</div>
-        <div id="spectators"></div>
       </div>
       <svg
         viewBox="0 0 320 200"
@@ -161,11 +142,23 @@
         </div>
       </svg>
     </section>
+
+    <section id="scene-fin" tabindex="0" style="display: none;">
+      <h2>Game over</h2>
+      <p>Good game!</p>
+      <p>
+        <button type="button" onclick="location.reload()">
+          Back to start
+        </button>
+      </p>
+    </section>
+
     <section id="scene-settings" tabindex="0" style="display: none;">
       <h2>Settings</h2>
       <p>This screen will show the parts to configure.</p>
       <p><a href="#scene-title">Back to start</a></p>
     </section>
+
     <section id="scene-credits" tabindex="0" style="display: none;">
       <h2>Credits</h2>
       <p>This screen will show the sources I used.</p>

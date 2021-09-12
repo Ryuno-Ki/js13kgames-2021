@@ -26,3 +26,4 @@ export const SOCKET_START: "start";
 export const SOCKET_SYNC: "sync";
 export const SWAP_USER: "SWAP_USER";
 export const UPDATE_NAME: "UPDATE_NAME";
+export const UPDATE_TIMER: "UPDATE_TIMER";

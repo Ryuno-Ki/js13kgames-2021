@@ -160,12 +160,10 @@ async function onDisconnect (socket) {
 function mapDeltaToPoint (delta) {
   // Arbitrary
   const distanceFromCenter = 10 * 13
-  // Number of vertices of the imaginary polygon
-  const fullCircle = 13
 
   const { x, y } = polarToCartesian({
-    radius: distanceFromCenter * Math.random(),
-    angle: degToRad(360 * delta / fullCircle)
+    radius: delta * distanceFromCenter % center.y,
+    angle: degToRad(Math.floor((Date.now() / 100) % 360))
   })
 
   return {

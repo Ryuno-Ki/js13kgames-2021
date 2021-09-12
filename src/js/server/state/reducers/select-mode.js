@@ -1,8 +1,3 @@
-import {
-  CANVAS_HEIGHT,
-  CANVAS_WIDTH
-} from '../../../constants.js'
-
 /** @typedef {module:index.js:State} State */
 /** @typedef {module:index.js:game} game */
 /** @typedef {module:index.js:mode} mode */
@@ -12,6 +7,7 @@ import {
  * @typedef {object} payload
  * @property {string} payload.id
  * @property {string} payload.mode
+ * @property {Array<point>} payload.points
  */
 
 /**
@@ -28,10 +24,10 @@ export function selectMode (state, payload) {
   switch (payload.mode) {
     case 'new':
       games = newGame(state, payload)
-      points = initialPointsForHost(state, payload)
+      points = payload.points
       break
     case 'join':
-      points = initialPointsForOpponent(state, payload)
+      points = payload.points
       break
     default:
       // Noop
@@ -62,47 +58,4 @@ function newGame (state, payload) {
       host: payload.id,
       opponents: /** @type {Array<string>} */([])
     }))
-}
-
-/**
- * Populate the points with the center for the host.
- *
- * @param {State} state
- * @param {payload} payload
- * @returns {State}
- */
-function initialPointsForHost (state, payload) {
-  return /** @type {Array<point>} */([])
-    .concat(state.points)
-    .concat({ id: payload.id, x: CANVAS_WIDTH / 2, y: CANVAS_HEIGHT / 2 })
-}
-
-/**
- * Populate the points with the center for the host.
- *
- * @param {State} state
- * @param {payload} payload
- * @returns {State}
- */
-function initialPointsForOpponent (state, payload) {
-  let index = 0
-
-  if (payload.id.startsWith('AI-')) {
-    const id = /\d+/.exec(payload.id)
-    if (id) {
-      index = parseInt(id[0], 10) % 4
-    }
-  }
-
-  const points = [
-    { x: 0, y: CANVAS_HEIGHT / 2 },
-    { x: CANVAS_WIDTH, y: CANVAS_HEIGHT / 2 },
-    { x: CANVAS_WIDTH / 2, y: 0 },
-    { x: CANVAS_WIDTH / 2, y: CANVAS_HEIGHT }
-  ]
-  const point = points[index]
-
-  return /** @type {Array<point>} */([])
-    .concat(state.points)
-    .concat({ id: payload.id, ...point })
 }

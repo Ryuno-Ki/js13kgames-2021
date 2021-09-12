@@ -1,3 +1,4 @@
+/** @typedef {module:index.js:point} point */
 /**
  * Creates an action for SELECT_MODE
  *
@@ -9,5 +10,7 @@ export function selectMode(id: string, mode: string): {
     payload: {
         id: string;
         mode: string;
+        points: any[];
     };
 };
+export type point = any;

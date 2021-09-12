@@ -6,6 +6,7 @@
  * @typedef {object} payload
  * @property {string} payload.id
  * @property {string} payload.mode
+ * @property {Array<point>} payload.points
  */
 /**
  * Select mode for an user.
@@ -22,4 +23,5 @@ export type point = any;
 export type payload = {
     id: string;
     mode: string;
+    points: Array<point>;
 };

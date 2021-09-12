@@ -33,17 +33,21 @@ export function onStart ({ role, host, opponents }) {
     }
 
     // @ts-ignore
-    dom.host.style = `stroke: ${host.color}`
+    dom.host.style.stroke = host.color
     const el = dom.opponents
 
     opponents.forEach((o, index) => {
-      const child = el.children[index * 2]
+      const avatar = el.children[index * 2]
+      const polygon = el.children[index * 2 + 1]
 
-      if (!child) {
+      if (!avatar || !polygon) {
         throw new Error(ERROR)
       }
 
-      /** @type {*} */(child).style = `fill: ${o.color}`
+      // @ts-ignore
+      avatar.style.fill = o.color
+      // @ts-ignore
+      polygon.style.fill = o.color
     })
   }
 

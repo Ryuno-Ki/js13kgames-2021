@@ -25,7 +25,8 @@ global.document = {
       appendChild: function () {},
       children: [],
       id,
-      setAttribute: function () {}
+      setAttribute: function () {},
+      style: {}
     }
   },
   querySelector: function () {},

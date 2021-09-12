@@ -27,6 +27,10 @@ export type scene = {
     id: string;
     scene: string;
 };
+export type timer = {
+    id: string;
+    turns: string;
+};
 export type user = {
     id: string;
     name: string;
@@ -41,5 +45,6 @@ export type State = {
     games: Array<game>;
     modes: Array<mode>;
     points: Array<point>;
+    timers: Array<timer>;
     users: Array<user>;
 };

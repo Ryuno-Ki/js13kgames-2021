@@ -8,7 +8,8 @@ import {
   REMOVE_USER,
   SELECT_MODE,
   SWAP_USER,
-  UPDATE_NAME
+  UPDATE_NAME,
+  UPDATE_TIMER
 } from '../../../constants.js'
 import { addName } from './add-name.js'
 import { addPoint } from './add-point.js'
@@ -20,6 +21,7 @@ import { removeUser } from './remove-user.js'
 import { selectMode } from './select-mode.js'
 import { swapUser } from './swap-user.js'
 import { updateName } from './update-name.js'
+import { updateTimer } from './update-timer.js'
 
 /**
  * @typedef {object} color
@@ -53,6 +55,12 @@ import { updateName } from './update-name.js'
  */
 
 /**
+ * @typedef {object} timer
+ * @property {string} timer.id
+ * @property {string} timer.turns
+ */
+
+/**
  * @typedef {object} user
  * @property {string} user.id
  * @property {string} user.name
@@ -71,6 +79,7 @@ import { updateName } from './update-name.js'
  * @property {Array<game>} games
  * @property {Array<mode>} modes
  * @property {Array<point>} points
+ * @property {Array<timer>} timers
  * @property {Array<user>} users
  */
 
@@ -81,6 +90,7 @@ const initialState = {
   modes: [],
   points: [],
   scenes: [],
+  timers: [],
   users: []
 }
 
@@ -117,6 +127,8 @@ export function reducer (state, action) {
       return swapUser(state, action.payload)
     case UPDATE_NAME:
       return updateName(state, action.payload)
+    case UPDATE_TIMER:
+      return updateTimer(state, action.payload)
     default:
       return state
   }

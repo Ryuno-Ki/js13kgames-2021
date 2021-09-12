@@ -1,6 +1,5 @@
 import { ERROR } from '../constants.js'
 import { dom } from './dom.js'
-import { state } from './state.js'
 
 /**
  * Replay synced state.
@@ -40,7 +39,6 @@ export function onSync ({ points, role }) {
       const [cx, cy] = avatarPoints
       avatar.setAttribute('cx', cx)
       avatar.setAttribute('cy', cy)
-      state.opponentPoints.push([cx, cy])
 
       // const value = opponentPoints.map((point) => point.join(',')).join(' ')
       const value = opponentPoints.join(',')

@@ -9,5 +9,6 @@ export function onKeyDown () {
   }
 
   state.downTime = (new Date()).valueOf()
+  state.upTime = 0
   state.isPressed = true
 }

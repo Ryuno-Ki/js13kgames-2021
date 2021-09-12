@@ -2,18 +2,15 @@ import { bind } from './bind.js'
 import { ERROR, SOCKET_ADD_USER, SOCKET_SELECT_MODE } from '../constants.js'
 import { dom } from './dom.js'
 import { navigate } from './navigate.js'
-import { state } from './state.js'
 
 /**
  * Setup the client code.
  */
 export function init () {
-  state.hostPoints = []
   // @ts-ignore
   dom.socket = window.io({ upgrade: false, transports: ['websocket'] })
   assignDomElements(dom)
   bind()
-  state.startTime = (new Date()).valueOf()
   getUserData()
   makeMatch()
   patchLinks()
@@ -126,9 +123,7 @@ function getUserData () {
     const name = formData.get('name')
 
     if (name) {
-      state.name = String(name)
-      console.log('State', state)
-      dom.socket.emit(SOCKET_ADD_USER, { name: state.name })
+      dom.socket.emit(SOCKET_ADD_USER, { name })
       navigate('match-form')
     } else {
       console.error('Show validation error')
@@ -154,9 +149,7 @@ function makeMatch () {
     const mode = formData.get('mode')
 
     if (mode) {
-      state.mode = String(mode)
-      console.log('State', state)
-      dom.socket.emit(SOCKET_SELECT_MODE, { mode: state.mode })
+      dom.socket.emit(SOCKET_SELECT_MODE, { mode })
       navigate('game')
     } else {
       console.error('Show validation error')

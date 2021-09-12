@@ -14,4 +14,5 @@ export function onKeyUp () {
   }
 
   state.isPressed = false
+  state.downTime = 0
 }

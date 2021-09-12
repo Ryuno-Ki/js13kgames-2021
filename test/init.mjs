@@ -7,9 +7,8 @@ describe('init', () => {
   it('should initialise the game', () => {
     init()
 
-    assert(state.host !== null)
-    assert(state.hostPoints.length === 0)
-    assert(state.socket !== null)
-    assert(state.startTime > 0)
+    assert.equal(state.downTime, 0)
+    assert.equal(state.isPressed, false)
+    assert.equal(state.upTime, 0)
   })
 })

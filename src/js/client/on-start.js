@@ -11,7 +11,6 @@ import { onKeyDown } from './on-key-down.js'
 import { onKeyUp } from './on-key-up.js'
 import { setMessage } from './set-message.js'
 import { setParty } from './set-party.js'
-import { state } from './state.js'
 
 /**
  * Game is ready to play.
@@ -22,8 +21,6 @@ import { state } from './state.js'
  * @param {Array<*>} details.opponents
  */
 export function onStart ({ role, host, opponents }) {
-  // @ts-ignore
-  state.role = role
   document.body.dataset.role = role
 
   // @ts-ignore

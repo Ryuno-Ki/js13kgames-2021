@@ -29,7 +29,7 @@ class Store {
   /** @param {Action} action */
   async dispatch (action) {
     this.state = this.reducer(this.state, action)
-    logger.debug(`Dispatched ${JSON.stringify(action)}.\nNew state: ${JSON.stringify(this.state)}`)
+    logger.debug(`Dispatched ${JSON.stringify(action)}.`)
     if (action.type === ADD_NAME) {
       const { name } = action.payload
 

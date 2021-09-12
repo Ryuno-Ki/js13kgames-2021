@@ -51,6 +51,7 @@ import store from './state/store.js'
  */
 
 const center = { x: CANVAS_WIDTH / 2, y: CANVAS_HEIGHT / 2 }
+const delay = 1000
 const logger = getLogger('io')
 /** @type {Record<string, *>} */
 const sockets = {}
@@ -92,6 +93,7 @@ export async function io (socket) {
 
           syncPoints(socket.id)
           break
+
         case 'join':
           game = store.findGameAvailableForJoin()
 
@@ -137,6 +139,21 @@ export async function io (socket) {
       )
     }
   })
+
+  // TODO: Figure out how to not leak memory here
+  // It should be cleared if all bots were replaced ideally
+  setInterval(() => {
+    store
+      .getOpponentIdsOfHost(socket.id)
+      .filter((/** @type {string} */id) => id.startsWith('AI-'))
+      .forEach(async (/** @type {string} */opponentId) => {
+        await moveBot(opponentId)
+        socket.emit(
+          SOCKET_SYNC,
+          { role: ROLE_OPPONENT, points: store.getPointsForOpponents(opponentId) }
+        )
+      })
+  }, delay)
 
   logger.info(`Connected: ${socket.id}`)
 }
@@ -228,9 +245,35 @@ async function populateWithBots (socketId) {
     await store.dispatch(addName(id, `Bot No. ${nextAi}`))
     await store.dispatch(selectMode(id, 'join'))
     await store.dispatch(joinGame(id, socketId))
-
     nextAi += 1
   }
+}
+
+/**
+ * Move bot.
+ *
+ * @param {string} socketId
+ */
+async function moveBot (socketId) {
+  const direction = pick([
+    DIRECTION_BOTTOM,
+    DIRECTION_LEFT,
+    DIRECTION_RIGHT,
+    DIRECTION_TOP
+  ])
+
+  const point = mapDirectionToPoint(socketId, direction)
+  await store.dispatch(addPoint(socketId, point))
+}
+
+/**
+ * Selects a random element from a list.
+ *
+ * @param {Array<*>} list
+ * @return {*}
+ */
+function pick (list) {
+  return list[Math.floor(Math.random() * list.length)]
 }
 
 /**

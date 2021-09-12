@@ -24,10 +24,14 @@ export function selectMode (state, payload) {
   switch (payload.mode) {
     case 'new':
       games = newGame(state, payload)
-      points = payload.points
+      points = /** @type {Array<point>} */([])
+        .concat(state.points)
+        .concat(payload.points)
       break
     case 'join':
-      points = payload.points
+      points = /** @type {Array<point>} */([])
+        .concat(state.points)
+        .concat(payload.points)
       break
     default:
       // Noop
@@ -35,7 +39,7 @@ export function selectMode (state, payload) {
 
   const modes = state.modes.map((/** @type {mode} */mode) => {
     if (mode.id === payload.id) {
-      return { ...payload }
+      return { id: payload.id, mode: payload.mode }
     }
 
     return mode

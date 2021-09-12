@@ -1,10 +1,12 @@
 import {
   ADD_NAME,
+  FINISH_GAME,
   MAXIMUM_NUMBER_OF_VERTICES,
   NAMES,
   SELECT_MODE
 } from '../../constants.js'
 import { getLogger } from '../../logger.js'
+import { length, subtract } from '../vector.js'
 import { reducer } from './reducers/index.js'
 
 /** @typedef {module:actions/add-name:Action} AddNameAction */
@@ -41,6 +43,16 @@ class Store {
         await this._saveName(action.payload)
         break
 
+      case FINISH_GAME:
+        await this._saveHighscore({
+          id: action.payload.id,
+          score: this.calculateScore({
+            socketId: action.payload.id,
+            role: action.payload.role
+          })
+        })
+        break
+
       case SELECT_MODE:
         await this._saveRole({
           id: action.payload.id,
@@ -49,9 +61,45 @@ class Store {
         })
         break
 
-      // TODO: Save calculated highscore on gameover
       default:
         // Noop
+    }
+  }
+
+  /**
+   * Calculate the score based on role and points.
+   *
+   * @param {*} payload
+   * @returns {number}
+   */
+  calculateScore ({ socketId, role }) {
+    const points = this.state.points
+      .filter((/** @type {*} */p) => p.id === socketId)
+
+    switch (role) {
+      case ROLE_HOST:
+        return points.length > 0
+          ? points.reduce(
+            // @ts-ignore
+            (acc, curr, index, arr) => {
+              if (index === 0) {
+                return 0
+              }
+
+              // Length of the line segment of current point to previous
+              return Math.floor(acc + length(subtract(curr, arr[index - 1])))
+            },
+            0
+          )
+          : 0
+      case ROLE_OPPONENT:
+        return Array.from(
+          new Set(
+            points.map((/** @type {*} */p) => `${p.x}#${p.y}`)
+          )
+        ).length
+      default:
+        return 0
     }
   }
 
@@ -273,7 +321,38 @@ class Store {
     await storage.set(
       NAMES,
       // @ts-ignore
-      [].concat(names).concat({ name, role: ROLE_UNKNOWN })
+      [].concat(names).concat({ name, role: ROLE_UNKNOWN, score: 0 })
+    )
+  }
+
+  /**
+   * Updates record in database with highscore.
+   *
+   * @private
+   * @param {*} payload
+   */
+  async _saveHighscore ({ id, score }) {
+    const user = this.state.users.find((/** @type {*} */u) => {
+      return u.id === id
+    })
+
+    if (user.name.startsWith('Bot')) {
+      return
+    }
+
+    // @ts-ignore
+    const names = await storage.get(NAMES)
+
+    // @ts-ignore
+    await storage.set(
+      NAMES,
+      // Naively assume, that all names are unique
+      names.map((/** @type {*} */n) => {
+        if (n.name === user.name) {
+          n.score = score
+        }
+        return n
+      })
     )
   }
 

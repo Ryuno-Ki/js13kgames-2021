@@ -15,6 +15,13 @@ declare class Store {
     /** @param {Action} action */
     dispatch(action: Action): Promise<void>;
     /**
+     * Calculate the score based on role and points.
+     *
+     * @param {*} payload
+     * @returns {number}
+     */
+    calculateScore({ socketId, role }: any): number;
+    /**
      * Searches all games for one with bots as opponents.
      */
     findGameAvailableForJoin(): any;
@@ -89,6 +96,13 @@ declare class Store {
      * @param {*} payload
      */
     private _saveName;
+    /**
+     * Updates record in database with highscore.
+     *
+     * @private
+     * @param {*} payload
+     */
+    private _saveHighscore;
     /**
      * Updates record in database with role.
      *

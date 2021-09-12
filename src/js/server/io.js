@@ -70,6 +70,8 @@ let nextAi = 0
 export async function io (socket) {
   /** @type {* | null} */
   let handle = null
+  /** @type {string | null} */
+  let role = ROLE_UNKNOWN
 
   await store.dispatch(connect(socket.id))
   sockets[socket.id] = socket
@@ -91,17 +93,19 @@ export async function io (socket) {
 
       switch (details.mode) {
         case 'new':
+          role = ROLE_HOST
           await populateWithBots(socket.id)
 
           socket.emit(
             SOCKET_START,
-            { role: ROLE_HOST, ...store.getGameForHost(socket.id) }
+            { role, ...store.getGameForHost(socket.id) }
           )
 
           syncPoints(socket.id)
           break
 
         case 'join':
+          role = ROLE_OPPONENT
           game = store.findGameAvailableForJoin()
 
           if (game) {
@@ -117,7 +121,7 @@ export async function io (socket) {
             // TODO: This breaks setParty() on the client right now
             socket.emit(
               SOCKET_START,
-              { role: ROLE_OPPONENT, ...store.getPointsForOpponents(socket.id) }
+              { role, ...store.getPointsForOpponents(socket.id) }
             )
             syncPoints(socket.id)
           }
@@ -142,7 +146,7 @@ export async function io (socket) {
 
       socket.emit(
         SOCKET_SYNC,
-        { role: ROLE_OPPONENT, points: store.getPointsForOpponents(socket.id) }
+        { role, points: store.getPointsForOpponents(socket.id) }
       )
     }
   })
@@ -172,14 +176,19 @@ export async function io (socket) {
 
     if (gameOver) {
       clearInterval(handle)
-      store.dispatch(finishGame(socket.id))
+      logger.debug('GAME OVER', store.getState())
 
       sockets[socket.id].emit(SOCKET_GAME_OVER)
 
       const opponents = store.getOpponentIdsOfHost(socket.id)
       opponents.forEach((/** @type {string} */opponentId) => {
-        sockets[opponentId].emit(SOCKET_GAME_OVER)
+        // Bots aren't saved in memory
+        if (sockets[opponentId]) {
+          sockets[opponentId].emit(SOCKET_GAME_OVER)
+        }
       })
+
+      store.dispatch(finishGame(socket.id, role))
     }
   }, delay)
 

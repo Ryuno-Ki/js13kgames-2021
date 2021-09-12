@@ -11,6 +11,7 @@ describe('addName', () => {
     const action = addName(id, name)
 
     assert.equal(action.type, ADD_NAME)
+    assert(action.payload.hue >= 0)
     assert.equal(action.payload.id, id)
     assert.equal(action.payload.name, name)
   })

@@ -2,6 +2,7 @@
  * @typedef {object} Action
  * @property {string} type
  * @property {object} payload
+ * @property {number} payload.hue
  * @property {string} payload.id
  * @property {string} payload.name
  */
@@ -16,6 +17,7 @@ export function addName(id: string, name: string): Action;
 export type Action = {
     type: string;
     payload: {
+        hue: number;
         id: string;
         name: string;
     };

@@ -5,6 +5,7 @@
 
 /**
  * @typedef {object} payload
+ * @property {number} payload.hue
  * @property {string} payload.id
  * @property {string} payload.name
  */
@@ -17,8 +18,7 @@
  * @returns {State}
  */
 export function addName (state, payload) {
-  const hue = Math.floor(360 * Math.random())
-  const color = `hsl(${hue}, 80%, 50%)`
+  const color = `hsl(${payload.hue}, 80%, 50%)`
 
   const colors = /** @type {Array<mode>} */([])
     .concat(state.colors)
@@ -30,7 +30,7 @@ export function addName (state, payload) {
 
   const users = /** @type {Array<user>} */([])
     .concat(state.users)
-    .concat(payload)
+    .concat({ id: payload.id, name: payload.name })
 
   return Object.assign({}, state, { colors, modes, users })
 }

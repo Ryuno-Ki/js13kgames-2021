@@ -4,6 +4,7 @@
 /** @typedef {module:index.js:user} user */
 /**
  * @typedef {object} payload
+ * @property {number} payload.hue
  * @property {string} payload.id
  * @property {string} payload.name
  */
@@ -20,6 +21,7 @@ export type color = any;
 export type mode = any;
 export type user = any;
 export type payload = {
+    hue: number;
     id: string;
     name: string;
 };

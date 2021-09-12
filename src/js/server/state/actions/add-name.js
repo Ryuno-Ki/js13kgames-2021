@@ -4,6 +4,7 @@ import { ADD_NAME } from '../../../constants.js'
  * @typedef {object} Action
  * @property {string} type
  * @property {object} payload
+ * @property {number} payload.hue
  * @property {string} payload.id
  * @property {string} payload.name
  */
@@ -16,9 +17,12 @@ import { ADD_NAME } from '../../../constants.js'
  * @returns {Action}
  */
 export function addName (id, name) {
+  const hue = Math.floor(360 * Math.random())
+
   return {
     type: ADD_NAME,
     payload: {
+      hue,
       id,
       name
     }

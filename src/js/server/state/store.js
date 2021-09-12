@@ -1,7 +1,8 @@
 import {
   ADD_NAME,
   MAXIMUM_NUMBER_OF_VERTICES,
-  NAMES
+  NAMES,
+  SELECT_MODE
 } from '../../constants.js'
 import { getLogger } from '../../logger.js'
 import { reducer } from './reducers/index.js'
@@ -30,17 +31,27 @@ class Store {
   async dispatch (action) {
     this.state = this.reducer(this.state, action)
     logger.debug(`Dispatched ${JSON.stringify(action)}.`)
-    if (action.type === ADD_NAME) {
-      const { name } = action.payload
+    const modeToRoleMap = {
+      new: ROLE_HOST,
+      join: ROLE_OPPONENT
+    }
 
-      if (name.startsWith('Bot')) {
-        return
-      }
+    switch (action.type) {
+      case ADD_NAME:
+        await this._saveName(action.payload)
+        break
 
-      // @ts-ignore
-      const names = await storage.get(NAMES)
-      // @ts-ignore
-      await storage.set(NAMES, [].concat(names).concat(name))
+      case SELECT_MODE:
+        await this._saveRole({
+          id: action.payload.id,
+          // @ts-ignore
+          role: modeToRoleMap[action.payload.mode]
+        })
+        break
+
+      // TODO: Save calculated highscore on gameover
+      default:
+        // Noop
     }
   }
 
@@ -243,6 +254,58 @@ class Store {
     }
 
     return user.name
+  }
+
+  /**
+   * Adds a record in database for name.
+   *
+   * @private
+   * @param {*} payload
+   */
+  async _saveName ({ name }) {
+    if (name.startsWith('Bot')) {
+      return
+    }
+
+    // @ts-ignore
+    const names = await storage.get(NAMES)
+    // @ts-ignore
+    await storage.set(
+      NAMES,
+      // @ts-ignore
+      [].concat(names).concat({ name, role: ROLE_UNKNOWN })
+    )
+  }
+
+  /**
+   * Updates record in database with role.
+   *
+   * @private
+   * @param {*} payload
+   */
+  async _saveRole ({ id, role }) {
+    const user = this.state.users.find((/** @type {*} */u) => {
+      return u.id === id
+    })
+
+    if (user.name.startsWith('Bot')) {
+      return
+    }
+
+    // @ts-ignore
+    const names = await storage.get(NAMES)
+
+    // @ts-ignore
+    await storage.set(
+      NAMES,
+      // Naively assume, that all names are unique
+      names.map((/** @type {*} */n) => {
+        if (n.name === user.name) {
+          n.role = role
+        }
+        return n
+      })
+    )
   }
 }
 

@@ -82,4 +82,18 @@ declare class Store {
      * @returns {string | null}
      */
     private _resolveNameForId;
+    /**
+     * Adds a record in database for name.
+     *
+     * @private
+     * @param {*} payload
+     */
+    private _saveName;
+    /**
+     * Updates record in database with role.
+     *
+     * @private
+     * @param {*} payload
+     */
+    private _saveRole;
 }

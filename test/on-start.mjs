@@ -13,8 +13,7 @@ describe('onStart', () => {
     const details = {
       role: ROLE_HOST,
       host: {},
-      opponents: [],
-      spectators: []
+      opponents: []
     }
 
     onStart(details)

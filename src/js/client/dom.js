@@ -15,7 +15,5 @@ export const dom = {
   /** @type {* | null} */
   socket: null,
   /** @type {HTMLElement | null} */
-  socketState: null,
-  /** @type {HTMLElement | null} */
-  spectatorsState: null
+  socketState: null
 }

@@ -31,7 +31,6 @@ function assignDomElements (dom) {
   dom.socketState = getSocketState()
   dom.roleState = getRoleState()
   dom.opponentsState = getOpponentsState()
-  dom.spectatorsState = getSpectatorsState()
 }
 
 /**
@@ -101,21 +100,6 @@ function getRoleState () {
  */
 function getOpponentsState () {
   const el = document.getElementById('opponent-list')
-
-  if (!el) {
-    throw new Error(ERROR)
-  }
-
-  return el
-}
-
-/**
- * Searches the DOM for spectators placeholder element.
- *
- * @return {HTMLElement}
- */
-function getSpectatorsState () {
-  const el = document.getElementById('spectators')
 
   if (!el) {
     throw new Error(ERROR)

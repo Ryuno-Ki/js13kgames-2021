@@ -5,11 +5,9 @@
  * @param {string} details.role
  * @param {*} details.host
  * @param {Array<*>} details.opponents
- * @param {Array<string>} details.spectators
  */
-export function setParty({ role, host, opponents, spectators }: {
+export function setParty({ role, host, opponents }: {
     role: string;
     host: any;
     opponents: Array<any>;
-    spectators: Array<string>;
 }): void;

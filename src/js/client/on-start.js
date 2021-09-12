@@ -20,16 +20,15 @@ import { state } from './state.js'
  * @param {string} details.role
  * @param {*} details.host
  * @param {Array<*>} details.opponents
- * @param {Array<string>} details.spectators
  */
-export function onStart ({ role, host, opponents, spectators }) {
+export function onStart ({ role, host, opponents }) {
   // @ts-ignore
   state.role = role
   document.body.dataset.role = role
 
   // @ts-ignore
   if (role === ROLE_HOST) {
-    setParty({ role, host, opponents, spectators })
+    setParty({ role, host, opponents })
     registerHostKeys()
 
     if (!dom.host || !dom.opponents) {

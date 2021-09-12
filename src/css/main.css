@@ -211,12 +211,6 @@ input[type="text"] {
   display: block;
 }
 
-#match-form [value="watch"]:checked ~ #description-mode-watch,
-#match-form [value="watch"]:checked ~ #matches-mode-watch,
-#match-form [value="watch"]:checked ~ #matches-mode-watch ol:empty + .nothing {
-  display: block;
-}
-
 [data-view] {
   display: none;
 }
@@ -264,11 +258,6 @@ input[type="text"] {
 #users #opponent-list {
   display: flex;
   gap: 1em;
-}
-
-/* FIXME: Reenable once spectators are implemented. */
-#users #spectators {
-  display: none;
 }
 
 circle,

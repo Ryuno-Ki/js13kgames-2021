@@ -8,7 +8,7 @@ describe('disconnect', () => {
     const oldState = {
       colors: [{ id, value: 'magenta' }],
       connections: [id],
-      games: [{ host: id, opponents: [], spectators: [] }],
+      games: [{ host: id, opponents: [] }],
       modes: [{ id, mode: 'new' }],
       points: [{ id, x: 0, y: 1 }],
       scenes: [{ id, scene: 'fin' }],

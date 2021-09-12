@@ -2,7 +2,6 @@ import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH
 } from '../../../constants.js'
-import { pick } from '../../../pick.js'
 
 /** @typedef {module:index.js:State} State */
 /** @typedef {module:index.js:game} game */
@@ -34,9 +33,6 @@ export function selectMode (state, payload) {
     case 'join':
       points = initialPointsForOpponent(state, payload)
       break
-    case 'watch':
-      games = watchGame(state, payload)
-      break
     default:
       // Noop
   }
@@ -64,38 +60,8 @@ function newGame (state, payload) {
     .concat(state.games)
     .concat(/** @type {game} */({
       host: payload.id,
-      opponents: /** @type {Array<string>} */([]),
-      spectators: /** @type {Array<string>} */([])
+      opponents: /** @type {Array<string>} */([])
     }))
-}
-
-/**
- * Pick a random active game to watch.
- *
- * @param {State} state
- * @param {payload} payload
- * @returns {State}
- */
-function watchGame (state, payload) {
-  const gamesWithHostAndOpponents = state
-    .games
-    .filter((/** @type {game} */game) => Boolean(game.host))
-    .filter((/** @type {game} */game) => game.opponents.length > 0)
-
-  const gameToJoin = pick(gamesWithHostAndOpponents)
-
-  return state.games.map((/** @type {game} */g) => {
-    if (g.host === gameToJoin.host) {
-      return {
-        ...g,
-        spectators: /** @type {Array<string>} */([])
-          .concat(g.spectators)
-          .concat(payload.id)
-      }
-    }
-
-    return g
-  })
 }
 
 /**

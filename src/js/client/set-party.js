@@ -8,10 +8,9 @@ import { dom } from './dom.js'
  * @param {string} details.role
  * @param {*} details.host
  * @param {Array<*>} details.opponents
- * @param {Array<string>} details.spectators
  */
-export function setParty ({ role, host, opponents, spectators }) {
-  if (!dom.opponentsState || !dom.roleState || !dom.spectatorsState) {
+export function setParty ({ role, host, opponents }) {
+  if (!dom.opponentsState || !dom.roleState) {
     throw new Error(ERROR)
   }
 
@@ -27,6 +26,4 @@ export function setParty ({ role, host, opponents, spectators }) {
     // @ts-ignore
     dom.opponentsState.innerHTML += tile
   })
-
-  dom.spectatorsState.textContent = spectators.join(', ')
 }

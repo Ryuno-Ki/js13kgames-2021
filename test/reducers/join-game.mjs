@@ -11,7 +11,6 @@ describe('joinGame', () => {
       games: [{
         host: 'socket.io hash',
 	opponents: [],
-	spectators: []
       }]
     }
 

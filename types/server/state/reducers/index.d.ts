@@ -13,7 +13,6 @@ export type color = {
 export type game = {
     host: string;
     opponents: Array<string>;
-    spectators: Array<string>;
 };
 export type mode = {
     id: string;

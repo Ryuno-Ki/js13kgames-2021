@@ -31,7 +31,6 @@ import { updateName } from './update-name.js'
  * @typedef {object} game
  * @property {string} game.host
  * @property {Array<string>} game.opponents
- * @property {Array<string>} game.spectators
  */
 
 /**

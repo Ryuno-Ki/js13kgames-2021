@@ -77,8 +77,7 @@ class Store {
             color: opponentColor ? opponentColor.value : 'transparent',
             name: this._resolveNameForId(opponent)
           }
-        }),
-      spectators: game.spectators
+        })
     }
   }
 

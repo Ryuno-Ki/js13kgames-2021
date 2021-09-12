@@ -37,14 +37,6 @@ export function disconnect (state, payload) {
         })
       }
     })
-    .map((/** @type {game} */g) => {
-      return {
-        ...g,
-        spectators: g.spectators.filter((/** @type {string} */spectator) => {
-          return spectator !== payload.id
-        })
-      }
-    })
 
   const modes = state
     .modes

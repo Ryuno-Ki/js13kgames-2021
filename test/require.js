@@ -3,6 +3,11 @@ const { ROLE_UNKNOWN } = require('../public/shared')
 // This file is executed by mocha before the tests are run
 class URL {}
 
+const storage = {
+  get: () => Promise.resolve([]),
+  set: () => Promise.resolve(true)
+}
+
 global.document = {
   body: {
     addEventListener: function () {},
@@ -43,6 +48,7 @@ global.window = {
   }
 }
 
-global.URL = URL
 global.ROLE_UNKNOWN = ROLE_UNKNOWN
+global.storage = storage
+global.URL = URL
 global.zzfx = function () {}

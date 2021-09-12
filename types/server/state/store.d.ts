@@ -13,7 +13,7 @@ declare class Store {
     reducer: Function;
     state: any;
     /** @param {Action} action */
-    dispatch(action: Action): void;
+    dispatch(action: Action): Promise<void>;
     /**
      * Searches all games for one with bots as opponents.
      */

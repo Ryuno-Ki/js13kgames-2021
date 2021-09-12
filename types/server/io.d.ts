@@ -3,7 +3,7 @@
  *
  * @param {Socket} socket
  */
-export function io(socket: Socket): void;
+export function io(socket: Socket): Promise<void>;
 export type Socket = any;
 export type AddUserDetails = {
     name: string;

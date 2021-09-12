@@ -12,6 +12,7 @@ export const ERROR: "Game not properly initialised!";
 export const JOIN_GAME: "JOIN_GAME";
 export const MAXIMUM_GAME_SIZE: 4;
 export const MAXIMUM_NUMBER_OF_VERTICES: 13;
+export const NAMES: "NAMES";
 export const NAVIGATE: "NAVIGATE";
 export const REMOVE_USER: "REMOVE_USER";
 export const SELECT_MODE: "SELECT_MODE";

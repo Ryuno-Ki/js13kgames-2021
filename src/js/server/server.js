@@ -1,7 +1,7 @@
 import { io } from './io.js'
-import { stat } from './stat.js'
+import { highscore } from './highscore.js'
 
 export {
-  io,
-  stat
+  highscore,
+  io
 }

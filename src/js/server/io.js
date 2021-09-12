@@ -62,69 +62,72 @@ let nextAi = 0
  *
  * @param {Socket} socket
  */
-export function io (socket) {
-  store.dispatch(connect(socket.id))
+export async function io (socket) {
+  await store.dispatch(connect(socket.id))
   sockets[socket.id] = socket
 
-  socket.on('disconnect', () => onDisconnect(socket))
-  socket.on(SOCKET_ADD_USER, (/** @type {AddUserDetails} */details) => {
-    store.dispatch(addName(socket.id, details.name))
+  socket.on('disconnect', async () => await onDisconnect(socket))
+  socket.on(SOCKET_ADD_USER, async (/** @type {AddUserDetails} */details) => {
+    await store.dispatch(addName(socket.id, details.name))
   })
 
-  socket.on(SOCKET_NAVIGATE, (/** @type {NavigateDetails} */details) => {
-    store.dispatch(navigate(socket.id, details.scene))
+  socket.on(SOCKET_NAVIGATE, async (/** @type {NavigateDetails} */details) => {
+    await store.dispatch(navigate(socket.id, details.scene))
   })
 
-  socket.on(SOCKET_SELECT_MODE, (/** @type {SelectModeDetails} */details) => {
-    store.dispatch(selectMode(socket.id, details.mode))
-    let game
+  socket.on(
+    SOCKET_SELECT_MODE,
+    async (/** @type {SelectModeDetails} */details) => {
+      await store.dispatch(selectMode(socket.id, details.mode))
+      let game
 
-    switch (details.mode) {
-      case 'new':
-        populateWithBots(socket.id)
+      switch (details.mode) {
+        case 'new':
+          await populateWithBots(socket.id)
 
-        socket.emit(
-          SOCKET_START,
-          { role: ROLE_HOST, ...store.getGameForHost(socket.id) }
-        )
-
-        syncPoints(socket.id)
-        break
-      case 'join':
-        game = store.findGameAvailableForJoin()
-
-        if (game) {
-          store.dispatch(
-            swapUser(
-              socket.id,
-              game.opponents.find(
-                (/** @type {string} */o) => o.startsWith('AI-')
-              )
-            )
-          )
-
-          // TODO: This breaks setParty() on the client right now
           socket.emit(
             SOCKET_START,
-            { role: ROLE_OPPONENT, ...store.getPointsForOpponents(socket.id) }
+            { role: ROLE_HOST, ...store.getGameForHost(socket.id) }
           )
-          syncPoints(socket.id)
-        }
-        break
-      default:
-        // noop
-    }
-  })
 
-  socket.on(SOCKET_KEY_UP, (/** @type {OnKeyUpDetails} */details) => {
+          syncPoints(socket.id)
+          break
+        case 'join':
+          game = store.findGameAvailableForJoin()
+
+          if (game) {
+            await store.dispatch(
+              swapUser(
+                socket.id,
+                game.opponents.find(
+                  (/** @type {string} */o) => o.startsWith('AI-')
+                )
+              )
+            )
+
+            // TODO: This breaks setParty() on the client right now
+            socket.emit(
+              SOCKET_START,
+              { role: ROLE_OPPONENT, ...store.getPointsForOpponents(socket.id) }
+            )
+            syncPoints(socket.id)
+          }
+          break
+        default:
+          // noop
+      }
+    }
+  )
+
+  socket.on(SOCKET_KEY_UP, async (/** @type {OnKeyUpDetails} */details) => {
     if (details.delta) {
       // Host case
-      store.dispatch(addPoint(socket.id, mapDeltaToPoint(details.delta)))
-      store.dispatch(addPoint(socket.id, { ...center }))
+      await store.dispatch(addPoint(socket.id, mapDeltaToPoint(details.delta)))
+      await store.dispatch(addPoint(socket.id, { ...center }))
       syncPoints(socket.id)
     } else if (details.direction) {
       // Opponents case
-      store.dispatch(
+      await store.dispatch(
         addPoint(socket.id, mapDirectionToPoint(socket.id, details.direction))
       )
 
@@ -143,9 +146,9 @@ export function io (socket) {
  *
  * @param {*} socket
  */
-function onDisconnect (socket) {
+async function onDisconnect (socket) {
   logger.info(`Disconnected: ${socket.id}`)
-  store.dispatch(disconnect(socket.id))
+  await store.dispatch(disconnect(socket.id))
 }
 
 /**
@@ -221,12 +224,12 @@ function mapDirectionToPoint (socketId, direction) {
  *
  * @param {string} socketId
  */
-function populateWithBots (socketId) {
+async function populateWithBots (socketId) {
   for (let i = 0; i < MAXIMUM_GAME_SIZE - 1; i++) {
     const id = `AI-${nextAi}`
-    store.dispatch(addName(id, `Bot No. ${nextAi}`))
-    store.dispatch(selectMode(id, 'join'))
-    store.dispatch(joinGame(id, socketId))
+    await store.dispatch(addName(id, `Bot No. ${nextAi}`))
+    await store.dispatch(selectMode(id, 'join'))
+    await store.dispatch(joinGame(id, socketId))
 
     nextAi += 1
   }

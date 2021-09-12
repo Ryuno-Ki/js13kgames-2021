@@ -1,4 +1,8 @@
-import { MAXIMUM_NUMBER_OF_VERTICES } from '../../constants.js'
+import {
+  ADD_NAME,
+  MAXIMUM_NUMBER_OF_VERTICES,
+  NAMES
+} from '../../constants.js'
 import { getLogger } from '../../logger.js'
 import { reducer } from './reducers/index.js'
 
@@ -17,13 +21,27 @@ class Store {
   constructor (reducer) {
     this.reducer = reducer
     this.state = reducer(undefined, { type: '' })
+    // @ts-ignore
+    storage.set(NAMES, [])
+    logger.debug('Storage initialised.')
   }
 
   /** @param {Action} action */
-  dispatch (action) {
+  async dispatch (action) {
     this.state = this.reducer(this.state, action)
     logger.debug(`Dispatched ${JSON.stringify(action)}.\nNew state: ${JSON.stringify(this.state)}`)
-    // TODO: Persist state in storage here?
+    if (action.type === ADD_NAME) {
+      const { name } = action.payload
+
+      if (name.startsWith('Bot')) {
+        return
+      }
+
+      // @ts-ignore
+      const names = await storage.get(NAMES)
+      // @ts-ignore
+      await storage.set(NAMES, [].concat(names).concat(name))
+    }
   }
 
   /**

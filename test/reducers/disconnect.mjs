@@ -49,8 +49,8 @@ describe('disconnect', () => {
     )
 
     assert.equal(
-      newState.turns.length,
-      oldState.turns.length - 1
+      newState.timers.length,
+      oldState.timers.length - 1
     )
 
     assert.equal(

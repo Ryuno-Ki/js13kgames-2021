@@ -164,6 +164,7 @@ a {
   color: #f49f0a;
 }
 
+button[type="button"],
 button[type="submit"],
 a[href^="#"] {
   background-color: #f49f0a;

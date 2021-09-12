@@ -1,8 +1,8 @@
-import { setMessage } from './set-message.js'
+import { navigate } from './navigate.js'
 
 /**
- * @deprecated
+ * Navigates to game over scene.
  */
-export function onEnd () {
-  setMessage('Waiting for opponent…')
+export function onGameOver () {
+  navigate('fin')
 }

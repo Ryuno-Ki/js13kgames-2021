@@ -1,9 +1,9 @@
 import assert from 'assert'
 
-import { onEnd } from '../src/js/client/on-end.js'
+import { onGameOver } from '../src/js/client/on-game-over.js'
 
-describe('onEnd', () => {
-  it('should set a message', () => {
-    onEnd()
+describe('onGameOver', () => {
+  it('should navigate to game over scene.', () => {
+    onGameOver()
   })
 })

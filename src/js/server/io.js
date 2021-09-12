@@ -8,6 +8,7 @@ import {
   MAXIMUM_GAME_SIZE,
   MAXIMUM_TURNS,
   SOCKET_ADD_USER,
+  SOCKET_GAME_OVER,
   SOCKET_KEY_UP,
   SOCKET_NAVIGATE,
   SOCKET_SELECT_MODE,
@@ -22,6 +23,7 @@ import { addName } from './state/actions/add-name.js'
 import { addPoint } from './state/actions/add-point.js'
 import { connect } from './state/actions/connect.js'
 import { disconnect } from './state/actions/disconnect.js'
+import { finishGame } from './state/actions/finish-game.js'
 import { joinGame } from './state/actions/join-game.js'
 import { navigate } from './state/actions/navigate.js'
 import { selectMode } from './state/actions/select-mode.js'
@@ -170,6 +172,14 @@ export async function io (socket) {
 
     if (gameOver) {
       clearInterval(handle)
+      store.dispatch(finishGame(socket.id))
+
+      sockets[socket.id].emit(SOCKET_GAME_OVER)
+
+      const opponents = store.getOpponentIdsOfHost(socket.id)
+      opponents.forEach((/** @type {string} */opponentId) => {
+        sockets[opponentId].emit(SOCKET_GAME_OVER)
+      })
     }
   }, delay)
 

@@ -6,6 +6,7 @@ import {
   DIRECTION_RIGHT,
   DIRECTION_TOP,
   MAXIMUM_GAME_SIZE,
+  MAXIMUM_TURNS,
   SOCKET_ADD_USER,
   SOCKET_KEY_UP,
   SOCKET_NAVIGATE,
@@ -25,6 +26,7 @@ import { joinGame } from './state/actions/join-game.js'
 import { navigate } from './state/actions/navigate.js'
 import { selectMode } from './state/actions/select-mode.js'
 import { swapUser } from './state/actions/swap-user.js'
+import { updateTimer } from './state/actions/update-timer.js'
 import store from './state/store.js'
 
 /** @typedef {*} Socket */
@@ -64,6 +66,9 @@ let nextAi = 0
  * @param {Socket} socket
  */
 export async function io (socket) {
+  /** @type {* | null} */
+  let handle = null
+
   await store.dispatch(connect(socket.id))
   sockets[socket.id] = socket
 
@@ -142,7 +147,13 @@ export async function io (socket) {
 
   // TODO: Figure out how to not leak memory here
   // It should be cleared if all bots were replaced ideally
-  setInterval(() => {
+  handle = setInterval(async () => {
+    const game = store.getGameForHost(socket.id)
+
+    if (!game) {
+      return
+    }
+
     store
       .getOpponentIdsOfHost(socket.id)
       .filter((/** @type {string} */id) => id.startsWith('AI-'))
@@ -153,6 +164,13 @@ export async function io (socket) {
           { role: ROLE_OPPONENT, points: store.getPointsForOpponents(opponentId) }
         )
       })
+
+    await store.dispatch(updateTimer(socket.id))
+    const gameOver = await isGameOver(socket.id)
+
+    if (gameOver) {
+      clearInterval(handle)
+    }
   }, delay)
 
   logger.info(`Connected: ${socket.id}`)
@@ -321,4 +339,14 @@ function syncPoints (socketId) {
         )
       })
     })
+}
+
+/**
+ * Checks, whether the maximum number of turns was reached.
+ *
+ * @param {string} socketId
+ * @returns boolean
+ */
+function isGameOver (socketId) {
+  return store.getTurns(socketId) >= MAXIMUM_TURNS
 }

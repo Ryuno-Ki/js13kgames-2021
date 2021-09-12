@@ -2,6 +2,7 @@
 /** @typedef {module:index.js:game} game */
 /** @typedef {module:index.js:mode} mode */
 /** @typedef {module:index.js:point} point */
+/** @typedef {module:index.js:timer} timer */
 
 /**
  * @typedef {object} payload
@@ -20,6 +21,7 @@
 export function selectMode (state, payload) {
   let games = state.games
   let points = state.points
+  let timers = state.timers
 
   switch (payload.mode) {
     case 'new':
@@ -27,6 +29,9 @@ export function selectMode (state, payload) {
       points = /** @type {Array<point>} */([])
         .concat(state.points)
         .concat(payload.points)
+      timers = /** @type {Array<timer>} */([])
+        .concat(state.timers)
+        .concat({ id: payload.id, turns: 0 })
       break
     case 'join':
       points = /** @type {Array<point>} */([])
@@ -45,7 +50,7 @@ export function selectMode (state, payload) {
     return mode
   })
 
-  return Object.assign({}, state, { games, modes, points })
+  return Object.assign({}, state, { games, modes, points, timers })
 }
 
 /**

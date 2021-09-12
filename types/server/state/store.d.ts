@@ -55,9 +55,17 @@ declare class Store {
     getPointsForOpponent(socketId: string): Array<Array<number>>;
     /**
      * Get the current state.
+     *
      * @returns {*}
      */
     getState(): any;
+    /**
+     * Get the number of turns for this game.
+     *
+     * @param {string} socketId
+     * @returns {number}
+     */
+    getTurns(socketId: string): number;
     /**
      * Filter the games for the one socketId participates in.
      *

@@ -3,6 +3,7 @@
 /** @typedef {module:index.js:mode} mode */
 /** @typedef {module:index.js:point} point */
 /** @typedef {module:index.js:scene} scene */
+/** @typedef {module:index.js:timer} timer */
 /** @typedef {module:index.js:user} user */
 
 /**
@@ -50,6 +51,10 @@ export function disconnect (state, payload) {
     .scenes
     .filter((/** @type {scene} */s) => s.id !== payload.id)
 
+  const timers = state
+    .timers
+    .filter((/** @type {timer} */t) => t.id !== payload.id)
+
   const users = state
     .users
     .filter((/** @type {user} */u) => u.id !== payload.id)
@@ -57,6 +62,6 @@ export function disconnect (state, payload) {
   return Object.assign(
     {},
     state,
-    { colors, connections, games, modes, points, scenes, users }
+    { colors, connections, games, modes, points, scenes, timers, users }
   )
 }

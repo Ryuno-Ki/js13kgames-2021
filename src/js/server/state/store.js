@@ -177,10 +177,28 @@ class Store {
 
   /**
    * Get the current state.
+   *
    * @returns {*}
    */
   getState () {
     return this.state
+  }
+
+  /**
+   * Get the number of turns for this game.
+   *
+   * @param {string} socketId
+   * @returns {number}
+   */
+  getTurns (socketId) {
+    const timer = this.state.timers
+      .find((/** @type {*} */t) => t.id === socketId)
+
+    if (timer) {
+      return timer.turns
+    }
+
+    return 0
   }
 
   /**

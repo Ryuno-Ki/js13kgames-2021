@@ -12,6 +12,7 @@ describe('disconnect', () => {
       modes: [{ id, mode: 'new' }],
       points: [{ id, x: 0, y: 1 }],
       scenes: [{ id, scene: 'fin' }],
+      timers: [{ id, turns: 1 }],
       users: [{ id, name: 'Test' }]
     }
 
@@ -45,6 +46,11 @@ describe('disconnect', () => {
     assert.equal(
       newState.scenes.length,
       oldState.scenes.length - 1
+    )
+
+    assert.equal(
+      newState.turns.length,
+      oldState.turns.length - 1
     )
 
     assert.equal(

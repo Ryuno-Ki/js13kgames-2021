@@ -2,6 +2,7 @@
 /** @typedef {module:index.js:game} game */
 /** @typedef {module:index.js:mode} mode */
 /** @typedef {module:index.js:point} point */
+/** @typedef {module:index.js:timer} timer */
 /**
  * @typedef {object} payload
  * @property {string} payload.id
@@ -20,6 +21,7 @@ export type State = any;
 export type game = any;
 export type mode = any;
 export type point = any;
+export type timer = any;
 export type payload = {
     id: string;
     mode: string;

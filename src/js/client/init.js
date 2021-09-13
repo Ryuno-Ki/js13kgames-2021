@@ -211,15 +211,17 @@ function makeMatch () {
  * Chromium web browser.
  */
 function patchLinks () {
-  Array.from(document.querySelectorAll('a')).forEach((link) => {
-    link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href')
+  Array.from(document.querySelectorAll('a'))
+    .filter((link) => !link.target)
+    .forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href')
 
-      if (href) {
-        e.preventDefault()
-        const target = href.slice('#scene-'.length)
-        navigate(target)
-      }
-    }, false)
-  })
+        if (href) {
+          e.preventDefault()
+          const target = href.slice('#scene-'.length)
+          navigate(target)
+        }
+      }, false)
+    })
 }

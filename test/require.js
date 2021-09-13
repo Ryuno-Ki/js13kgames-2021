@@ -49,6 +49,9 @@ global.window = {
   }
 }
 
+global.fetch = () => Promise.resolve({
+  json: () => Promise.resolve([])
+})
 global.ROLE_UNKNOWN = ROLE_UNKNOWN
 global.storage = storage
 global.URL = URL

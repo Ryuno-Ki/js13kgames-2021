@@ -23,11 +23,43 @@ export function init () {
  * @param {dom} dom
  */
 function assignDomElements (dom) {
+  dom.highscore = getHighscoreState()
+  dom.highscoreName = getHighscoreNameState()
   dom.host = getHostState()
   dom.opponents = getEdgesState()
   dom.socketState = getSocketState()
   dom.roleState = getRoleState()
   dom.opponentsState = getOpponentsState()
+}
+
+/**
+ * Searches the DOM for highscore element.
+ *
+ * @return {HTMLTableElement}
+ */
+function getHighscoreState () {
+  const el = document.getElementById('highscore')
+
+  if (!el) {
+    throw new Error(ERROR)
+  }
+
+  return /** @type {*} */(el)
+}
+
+/**
+ * Searches the DOM for highscore name element.
+ *
+ * @return {HTMLElement}
+ */
+function getHighscoreNameState () {
+  const el = document.getElementById('highscore-name')
+
+  if (!el) {
+    throw new Error(ERROR)
+  }
+
+  return /** @type {*} */(el)
 }
 
 /**
@@ -115,7 +147,7 @@ function getUserData () {
   form.addEventListener('submit', (e) => {
     e.preventDefault()
 
-    if (!e.target) {
+    if (!e.target || !dom.highscoreName) {
       throw new Error(ERROR)
     }
 
@@ -123,6 +155,7 @@ function getUserData () {
     const name = formData.get('name')
 
     if (name) {
+      dom.highscoreName.textContent = String(name)
       dom.socket.emit(SOCKET_ADD_USER, { name })
       navigate('match-form')
     } else {

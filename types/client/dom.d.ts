@@ -1,5 +1,7 @@
 export namespace dom {
     const avatars: Array<SVGCircleElement>;
+    const highscore: HTMLTableElement | null;
+    const highscoreName: HTMLElement | null;
     const host: SVGPolylineElement | null;
     const opponents: SVGGElement | null;
     const opponentsState: HTMLElement | null;

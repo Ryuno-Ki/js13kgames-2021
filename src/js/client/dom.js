@@ -4,6 +4,10 @@
 export const dom = {
   /** @type {Array<SVGCircleElement>} */
   avatars: [],
+  /** @type {HTMLTableElement | null} */
+  highscore: null,
+  /** @type {HTMLElement | null} */
+  highscoreName: null,
   /** @type {SVGPolylineElement | null} */
   host: null,
   /** @type {SVGGElement | null} */

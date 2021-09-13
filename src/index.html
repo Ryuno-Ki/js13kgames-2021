@@ -20,7 +20,7 @@
       <div>
         <a href="#scene-user-form">Play a game</a>
         <a href="#scene-settings">Settings</a>
-        <a href="#scene-credits">See the credits</a>
+        <a href="#scene-credits">Credits</a>
       </div>
     </section>
     <section id="scene-user-form" tabindex="0" style="display: none;">
@@ -161,27 +161,35 @@
       <label>
         Volume
         <input
-	  type="range"
-	  min="0"
-	  max="1"
-	  step="0.1"
-	  value="0.3"
-	  onchange="(function(e){window.zzfxV=parseFloat(e.value)})(this)"
-	  />
+          type="range"
+          min="0"
+          max="1"
+          step="0.1"
+          value="0.3"
+          onchange="(function(e){window.zzfxV=parseFloat(e.value)})(this)"
+          />
       </label>
       <p><a href="#scene-title">Back to start</a></p>
     </section>
 
     <section id="scene-credits" tabindex="0" style="display: none;">
       <h2>Credits</h2>
-      <p>This screen will show the sources I used.</p>
+      <p>
+        This game was inspired by
+        <a href="https://en.wikipedia.org/wiki/Qix">Qix</a>.
+      </p>
+      <p>
+        <a href="https://killedbyapixel.github.io/ZzFX/">ZzFX</a>
+        is used for sound effects.
+      </p>
+      <p>
+        Resources are bundled using
+        <a href="https://rollupjs.org/">Rollup</a>
+        and
+        <a href="https://clean-css.github.io/">clean-css</a>.
+      </p>
       <p><a href="#scene-title">Back to start</a></p>
     </section>
-    <!--
-    <p>
-      <a href="/stat">Statistics</a>
-    </p>
-    -->
   </main>
   <aside>
     <p>

@@ -54,6 +54,7 @@ function registerHostKeys () {
       if (e.code === 'Space') {
         e.preventDefault()
         onKeyUp()
+        playSound('shoot')
       }
     },
     false
@@ -71,22 +72,22 @@ function registerOpponentKeys () {
         case 'ArrowUp':
           e.preventDefault()
           moveUp()
-          playSound()
+          playSound('hit')
           break
         case 'ArrowRight':
           e.preventDefault()
           moveRight()
-          playSound()
+          playSound('hit')
           break
         case 'ArrowDown':
           e.preventDefault()
           moveDown()
-          playSound()
+          playSound('hit')
           break
         case 'ArrowLeft':
           e.preventDefault()
           moveLeft()
-          playSound()
+          playSound('hit')
           break
       }
     },
@@ -107,26 +108,26 @@ function registerFormEventListeners () {
       const key = formData.get('key')
 
       switch (key) {
-        case 'space':
-          // TODO: Think about some more meaningful way
+        case 'SPACE':
           onKeyDown()
-          onKeyUp()
+          setTimeout(onKeyUp, 1300 * Math.random())
+          playSound('shoot')
           break
         case 'TOP':
           moveUp()
-          playSound()
+          playSound('hit')
           break
         case 'LEFT':
           moveLeft()
-          playSound()
+          playSound('hit')
           break
         case 'BOTTOM':
           moveDown()
-          playSound()
+          playSound('hit')
           break
         case 'RIGHT':
           moveRight()
-          playSound()
+          playSound('hit')
           break
         default:
           // noop
@@ -163,10 +164,25 @@ function moveLeft () {
   dom.socket.emit(SOCKET_KEY_UP, { direction: DIRECTION_LEFT })
 }
 
-function playSound () {
-  // @ts-ignore
-  window.zzfx(
-    /* eslint-disable-next-line */
-    ...[,,350,,,.09,4,1.13,,6.9,,,,.9,,.5,,.93,.01,.18]
-  ) // Hit 37
+/**
+ * Plays a sound effect.
+ *
+ * @param {string} kind
+ */
+function playSound (kind) {
+  if (kind === 'shoot') {
+    // @ts-ignore
+    window.zzfx(
+      /* eslint-disable-next-line */
+      ...[,,4,.02,.09,.06,4,.09,-4.6,-0.1,,,.08,.3,,,,.82,.04]
+    ) // Shoot 37
+  }
+
+  if (kind === 'hit') {
+    // @ts-ignore
+    window.zzfx(
+      /* eslint-disable-next-line */
+      ...[,,350,,,.09,4,1.13,,6.9,,,,.9,,.5,,.93,.01,.18]
+    ) // Hit 37
+  }
 }

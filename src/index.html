@@ -19,6 +19,7 @@
       <p>What do you want to do?</p>
       <div>
         <a href="#scene-user-form">Play a game</a>
+        <a href="#scene-settings">Settings</a>
         <a href="#scene-credits">See the credits</a>
       </div>
     </section>
@@ -148,7 +149,7 @@
       <p>Good game, <span id="highscore-name">stranger</span>!</p>
       <table id="highscore"></table>
       <p>
-	<a id="tweet"></a>
+        <a id="tweet"></a>
         <button type="button" onclick="location.reload()">
           Back to start
         </button>
@@ -157,7 +158,17 @@
 
     <section id="scene-settings" tabindex="0" style="display: none;">
       <h2>Settings</h2>
-      <p>This screen will show the parts to configure.</p>
+      <label>
+        Volume
+        <input
+	  type="range"
+	  min="0"
+	  max="1"
+	  step="0.1"
+	  value="0.3"
+	  onchange="(function(e){window.zzfxV=parseFloat(e.value)})(this)"
+	  />
+      </label>
       <p><a href="#scene-title">Back to start</a></p>
     </section>
 

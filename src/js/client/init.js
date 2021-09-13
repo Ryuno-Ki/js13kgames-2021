@@ -30,6 +30,7 @@ function assignDomElements (dom) {
   dom.socketState = getSocketState()
   dom.roleState = getRoleState()
   dom.opponentsState = getOpponentsState()
+  dom.tweet = getTweetState()
 }
 
 /**
@@ -135,6 +136,21 @@ function getOpponentsState () {
   }
 
   return el
+}
+
+/**
+ * Searches the DOM for tweet anchor element.
+ *
+ * @return {HTMLAnchorElement}
+ */
+function getTweetState () {
+  const el = document.getElementById('tweet')
+
+  if (!el) {
+    throw new Error(ERROR)
+  }
+
+  return /** @type {HTMLAnchorElement} */(el)
 }
 
 function getUserData () {

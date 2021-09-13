@@ -19,5 +19,7 @@ export const dom = {
   /** @type {* | null} */
   socket: null,
   /** @type {HTMLElement | null} */
-  socketState: null
+  socketState: null,
+  /** @type {HTMLAnchorElement | null} */
+  tweet: null
 }

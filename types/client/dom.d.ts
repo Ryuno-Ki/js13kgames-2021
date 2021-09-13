@@ -8,4 +8,5 @@ export namespace dom {
     const roleState: HTMLElement | null;
     const socket: any | null;
     const socketState: HTMLElement | null;
+    const tweet: HTMLAnchorElement | null;
 }

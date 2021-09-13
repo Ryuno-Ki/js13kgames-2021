@@ -159,6 +159,42 @@ class Store {
   }
 
   /**
+   * Queries the store for the game the given socketId participates in.
+   *
+   * @param {string} socketId
+   * @returns {* | null}
+   */
+  getGameForOpponent (socketId) {
+    const game = this._findGameBySocketId(socketId)
+
+    if (!game) {
+      return null
+    }
+
+    const color = this.state.colors.find((/** @type {*} */c) => {
+      return c.id === socketId
+    })
+
+    return {
+      host: {
+        color: color ? color.value : 'transparent',
+        name: this._resolveNameForId(game.host)
+      },
+      opponents: game.opponents
+        .map((/** @type {string} */opponent) => {
+          const opponentColor = this.state.colors.find((/** @type {*} */c) => {
+            return c.id === opponent
+          })
+
+          return {
+            color: opponentColor ? opponentColor.value : 'transparent',
+            name: this._resolveNameForId(opponent)
+          }
+        })
+    }
+  }
+
+  /**
    * Filters the points for the host of a game socketId participates in.
    *
    * @param {string} socketId

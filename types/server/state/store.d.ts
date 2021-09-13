@@ -33,6 +33,13 @@ declare class Store {
      */
     getGameForHost(socketId: string): any | null;
     /**
+     * Queries the store for the game the given socketId participates in.
+     *
+     * @param {string} socketId
+     * @returns {* | null}
+     */
+    getGameForOpponent(socketId: string): any | null;
+    /**
      * Filters the points for the host of a game socketId participates in.
      *
      * @param {string} socketId

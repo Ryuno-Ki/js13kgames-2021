@@ -118,10 +118,9 @@ export async function io (socket) {
               )
             )
 
-            // TODO: This breaks setParty() on the client right now
             socket.emit(
               SOCKET_START,
-              { role, ...store.getPointsForOpponents(socket.id) }
+              { role, ...store.getGameForOpponent(socket.id) }
             )
             syncPoints(socket.id)
           }

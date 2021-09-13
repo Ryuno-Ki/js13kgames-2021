@@ -22,76 +22,20 @@ import { setParty } from './set-party.js'
  */
 export function onStart ({ role, host, opponents }) {
   document.body.dataset.role = role
+  setParty({ role, host, opponents })
 
   // @ts-ignore
   if (role === ROLE_HOST) {
-    setParty({ role, host, opponents })
     registerHostKeys()
-
-    if (!dom.host || !dom.opponents) {
-      throw new Error(ERROR)
-    }
-
-    // @ts-ignore
-    dom.host.style.stroke = host.color
-    const el = dom.opponents
-
-    opponents.forEach((o, index) => {
-      const avatar = el.children[index * 2]
-      const polygon = el.children[index * 2 + 1]
-
-      if (!avatar || !polygon) {
-        throw new Error(ERROR)
-      }
-
-      // @ts-ignore
-      avatar.style.fill = o.color
-      // @ts-ignore
-      polygon.style.fill = o.color
-    })
   }
 
   // @ts-ignore
   if (role === ROLE_OPPONENT) {
-    // TODO: Define setParty for opponent
     registerOpponentKeys()
   }
 
-  /** @type {Array<HTMLFormElement>} */
-  const forms = Array.from(document.querySelectorAll('#scene-game form'))
-  forms.forEach((/** @type {HTMLFormElement} */form) => {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault()
-      const formData = new FormData(form)
-      const key = formData.get('key')
-
-      switch (key) {
-        case 'space':
-          // TODO: Think about some more meaningful way
-          onKeyDown()
-          onKeyUp()
-          break
-        case 'TOP':
-          moveUp()
-          playSound()
-          break
-        case 'LEFT':
-          moveLeft()
-          playSound()
-          break
-        case 'BOTTOM':
-          moveDown()
-          playSound()
-          break
-        case 'RIGHT':
-          moveRight()
-          playSound()
-          break
-        default:
-          // noop
-      }
-    })
-  })
+  paintElements({ host, opponents })
+  registerFormEventListeners()
   setMessage('Playing')
 }
 
@@ -154,6 +98,77 @@ function registerOpponentKeys () {
     },
     false
   )
+}
+
+/**
+ * Apply colour to SVG elements.
+ *
+ * @param {*} payload
+ */
+function paintElements ({ host, opponents }) {
+  if (!dom.host || !dom.opponents) {
+    throw new Error(ERROR)
+  }
+
+  // @ts-ignore
+  dom.host.style.stroke = host.color
+  const el = dom.opponents
+
+  // @ts-ignore
+  opponents.forEach((o, index) => {
+    const avatar = el.children[index * 2]
+    const polygon = el.children[index * 2 + 1]
+
+    if (!avatar || !polygon) {
+      throw new Error(ERROR)
+    }
+
+    // @ts-ignore
+    avatar.style.fill = o.color
+    // @ts-ignore
+    polygon.style.fill = o.color
+  })
+}
+
+/**
+ * Handle submit events on forms to allow play without keyboard.
+ */
+function registerFormEventListeners () {
+  /** @type {Array<HTMLFormElement>} */
+  const forms = Array.from(document.querySelectorAll('#scene-game form'))
+  forms.forEach((/** @type {HTMLFormElement} */form) => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault()
+      const formData = new FormData(form)
+      const key = formData.get('key')
+
+      switch (key) {
+        case 'space':
+          // TODO: Think about some more meaningful way
+          onKeyDown()
+          onKeyUp()
+          break
+        case 'TOP':
+          moveUp()
+          playSound()
+          break
+        case 'LEFT':
+          moveLeft()
+          playSound()
+          break
+        case 'BOTTOM':
+          moveDown()
+          playSound()
+          break
+        case 'RIGHT':
+          moveRight()
+          playSound()
+          break
+        default:
+          // noop
+      }
+    })
+  })
 }
 
 /**

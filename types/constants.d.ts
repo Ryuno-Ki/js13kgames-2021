@@ -24,6 +24,7 @@ export const SOCKET_CONNECT: "connect";
 export const SOCKET_GAME_OVER: "gameOver";
 export const SOCKET_KEY_UP: "keyUp";
 export const SOCKET_NAVIGATE: "navigate";
+export const SOCKET_PLAYER_JOINED: "joined";
 export const SOCKET_SELECT_MODE: "selectMode";
 export const SOCKET_START: "start";
 export const SOCKET_SYNC: "sync";

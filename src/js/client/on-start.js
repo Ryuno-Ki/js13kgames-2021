@@ -3,26 +3,21 @@ import {
   DIRECTION_LEFT,
   DIRECTION_RIGHT,
   DIRECTION_TOP,
-  ERROR,
   SOCKET_KEY_UP
 } from '../constants.js'
 import { dom } from './dom.js'
 import { onKeyDown } from './on-key-down.js'
 import { onKeyUp } from './on-key-up.js'
 import { setMessage } from './set-message.js'
-import { setParty } from './set-party.js'
 
 /**
  * Game is ready to play.
  *
  * @param {object} details
  * @param {string} details.role
- * @param {*} details.host
- * @param {Array<*>} details.opponents
  */
-export function onStart ({ role, host, opponents }) {
+export function onStart ({ role }) {
   document.body.dataset.role = role
-  setParty({ role, host, opponents })
 
   // @ts-ignore
   if (role === ROLE_HOST) {
@@ -34,7 +29,6 @@ export function onStart ({ role, host, opponents }) {
     registerOpponentKeys()
   }
 
-  paintElements({ host, opponents })
   registerFormEventListeners()
   setMessage('Playing')
 }
@@ -98,36 +92,6 @@ function registerOpponentKeys () {
     },
     false
   )
-}
-
-/**
- * Apply colour to SVG elements.
- *
- * @param {*} payload
- */
-function paintElements ({ host, opponents }) {
-  if (!dom.host || !dom.opponents) {
-    throw new Error(ERROR)
-  }
-
-  // @ts-ignore
-  dom.host.style.stroke = host.color
-  const el = dom.opponents
-
-  // @ts-ignore
-  opponents.forEach((o, index) => {
-    const avatar = el.children[index * 2]
-    const polygon = el.children[index * 2 + 1]
-
-    if (!avatar || !polygon) {
-      throw new Error(ERROR)
-    }
-
-    // @ts-ignore
-    avatar.style.fill = o.color
-    // @ts-ignore
-    polygon.style.fill = o.color
-  })
 }
 
 /**

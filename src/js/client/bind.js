@@ -2,13 +2,15 @@ import {
   ERROR,
   SOCKET_CONNECT,
   SOCKET_GAME_OVER,
+  SOCKET_PLAYER_JOINED,
   SOCKET_START,
   SOCKET_SYNC
 } from '../constants.js'
 import { onConnect } from './on-connect.js'
 import { onDisconnect } from './on-disconnect.js'
-import { onGameOver } from './on-game-over.js'
 import { onError } from './on-error.js'
+import { onGameOver } from './on-game-over.js'
+import { onPlayerJoined } from './on-player-joined.js'
 import { onStart } from './on-start.js'
 import { onSync } from './on-sync.js'
 import { dom } from './dom.js'
@@ -21,6 +23,7 @@ export function bind () {
     throw new Error(ERROR)
   }
 
+  dom.socket.on(SOCKET_PLAYER_JOINED, onPlayerJoined)
   dom.socket.on(SOCKET_START, onStart)
   dom.socket.on(SOCKET_SYNC, onSync)
   dom.socket.on(SOCKET_GAME_OVER, onGameOver)

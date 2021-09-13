@@ -3,11 +3,7 @@
  *
  * @param {object} details
  * @param {string} details.role
- * @param {*} details.host
- * @param {Array<*>} details.opponents
  */
-export function onStart({ role, host, opponents }: {
+export function onStart({ role }: {
     role: string;
-    host: any;
-    opponents: Array<any>;
 }): void;

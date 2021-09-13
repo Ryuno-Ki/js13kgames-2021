@@ -11,6 +11,7 @@ import {
   SOCKET_GAME_OVER,
   SOCKET_KEY_UP,
   SOCKET_NAVIGATE,
+  SOCKET_PLAYER_JOINED,
   SOCKET_SELECT_MODE,
   SOCKET_START,
   SOCKET_SYNC
@@ -97,9 +98,11 @@ export async function io (socket) {
           await populateWithBots(socket.id)
 
           socket.emit(
-            SOCKET_START,
-            { role, ...store.getGameForHost(socket.id) }
+            SOCKET_PLAYER_JOINED,
+            { ...store.getGameForHost(socket.id) }
           )
+
+          socket.emit(SOCKET_START, { role })
 
           syncPoints(socket.id)
           break
@@ -119,9 +122,15 @@ export async function io (socket) {
             )
 
             socket.emit(
-              SOCKET_START,
-              { role, ...store.getGameForOpponent(socket.id) }
+              SOCKET_PLAYER_JOINED,
+              { ...store.getGameForOpponent(socket.id) }
             )
+            sockets[game.host].emit(
+              SOCKET_PLAYER_JOINED,
+              { ...store.getGameForHost(game.host) }
+            )
+
+            socket.emit(SOCKET_START, { role })
             syncPoints(socket.id)
           }
           break
